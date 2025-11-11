@@ -1,0 +1,1 @@
+# Pjapp\n\nThis repository is now named Pjapp.\n\n## Description\n\nDetailed description of the Pjapp project.
