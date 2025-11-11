@@ -1,2 +1,0 @@
-# Pj
-App para pj
