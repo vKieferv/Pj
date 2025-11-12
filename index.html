@@ -578,14 +578,14 @@
 
                 function clearOutputs() {
                     [prepExpDateEl, prepExpTimeEl, prodExpDateEl, prodExpTimeEl, fvDateEl].forEach(el => { if (el) el.value=''; });
-                    notesEl.textContent='';
-                    warnEl.textContent='';
+                    if (notesEl) notesEl.textContent='';
+                    if (warnEl) warnEl.textContent='';
                 }
 
                 function computeAll() {
-                    warnEl.textContent = '';
-                    notesEl.textContent = '';
-                    const product = (productEl.value||'').trim();
+                    if (warnEl) warnEl.textContent = '';
+                    if (notesEl) notesEl.textContent = '';
+                    const product = (productEl && productEl.value) ? productEl.value.trim() : '';
                     if (!product || !productRules[product]) { clearOutputs(); return; }
 
                     const fr = frDateEl.value ? new Date(frDateEl.value) : null;
