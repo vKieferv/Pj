@@ -11,24 +11,24 @@
             font-family: 'Inter', sans-serif;
         }
         .header {
-            background-color: #006D56; 
+            background-color: #FF0017; /* Rojo vivo */
             color: white;
         }
         .btn-primary {
-            background-color: #FF0017; 
+            background-color: #006D56; /* Verde Bangladesh */
             color: white;
             transition: background-color 0.3s;
         }
         .btn-primary:hover {
-            background-color: #005A47; 
+            background-color: #005A47; /* Verde más oscuro para hover */
         }
         .btn-secondary {
-            background-color: #FF0017;
+            background-color: #FF0017; /* Rojo vivo */
             color: white;
             transition: background-color 0.3s;
         }
         .btn-secondary:hover {
-            background-color: #005A47; /* Rojo más oscuro para hover */
+            background-color: #D60014; /* Rojo más oscuro para hover */
         }
         .card {
             background-color: white;
@@ -64,17 +64,34 @@
             color: #1F2937;
             font-size: 1rem;
         }
+
+        /* Estilo para los botones de la barra de navegación */
+        .nav-link {
+            transition: all 0.3s;
+        }
     </style>
 </head>
 <body class="bg-gray-100">
 
     <header class="header p-6 shadow-md">
         <h1 class="text-3xl font-bold text-center">Herramientas de Ayuda</h1>
+        <p class="text-center text-lg text-gray-200">Optimizado para el trabajo diario</p>
     </header>
 
+    <div class="bg-white shadow-md sticky top-0 z-10">
+        <nav class="flex justify-center max-w-3xl mx-auto">
+            <button id="nav-link-descuentos" data-view="view-descuentos" class="nav-link flex-1 p-4 text-center font-bold text-lg" style="color: #006D56; border-bottom: 4px solid #006D56;">
+                💸 Descuentos
+            </button>
+            <button id="nav-link-rotulos" data-view="view-rotulos" class="nav-link flex-1 p-4 text-center font-bold text-lg" style="color: #6B7280; border-bottom: 4px solid transparent;">
+                🗓️ Rótulos
+            </button>
+        </nav>
+    </div>
     <main class="p-4 md:p-8">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
+        <div id="view-descuentos" class="view-content grid grid-cols-1 md:grid-cols-2 gap-6">
+            
             <div class="card">
                 <h2 class="text-xl font-bold mb-4 text-gray-800">1. Calculadora de Descuentos Fijos</h2>
                 <label for="basePrice" class="font-semibold text-gray-700">Precio Base (CLP):</label>
@@ -111,6 +128,8 @@
                 </div>
             </div>
 
+        </div> <div id="view-rotulos" class="view-content hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
             <div class="card">
                 <h2 class="text-xl font-bold mb-4 text-gray-800">3. Calculadora de Rótulos (Días)</h2>
                 <div class="text-center bg-blue-100 text-blue-800 p-3 rounded-lg mb-4">
@@ -135,7 +154,7 @@
                         <span id="customDateResult" class="font-bold text-lg">--/--/----</span>
                     </div>
                 </div>
-                </div>
+            </div>
 
             <div class="card">
                 <h2 class="text-xl font-bold mb-4 text-gray-800">4. Calculadora de Rótulos (Horas)</h2>
@@ -157,15 +176,68 @@
                 </div>
             </div>
 
-        </div>
-    </main>
+            <div class="card lg:col-span-2"> <h2 class="text-xl font-bold mb-4 text-gray-800">5. (Recomendado) Temporizadores Rápidos</h2>
+                <p class="text-gray-600 mb-4">
+                    Inicia un temporizador para items comunes. Se actualizará en tiempo real.
+                </p>
+                <div class="flex flex-wrap gap-4 mb-4">
+                    <button data-timer="10" data-name="Salsa BBQ" class="timer-btn btn-primary p-3 rounded-lg font-semibold flex-grow">Salsa BBQ (10h)</button>
+                    <button data-timer="2" data-name="Salsa Roja" class="timer-btn btn-primary p-3 rounded-lg font-semibold flex-grow">Salsa Roja (2h)</button>
+                    <button data-timer="72" data-name="Masa" class="timer-btn btn-primary p-3 rounded-lg font-semibold flex-grow">Masa (72h)</button>
+                    <button data-timer="48" data-name="Queso" class="timer-btn btn-primary p-3 rounded-lg font-semibold flex-grow">Queso (48h)</button>
+                </div>
+                
+                <h3 class="font-semibold text-lg text-gray-700">Temporizadores Activos:</h3>
+                <ul id="timerList" class="mt-2 space-y-2">
+                    <li id="no-timers" class="text-gray-500">No hay temporizadores activos.</li>
+                </ul>
+            </div>
+
+        </div> </main>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
 
+            // ****** NUEVO CÓDIGO JS PARA NAVEGACIÓN DE PESTAÑAS ******
+            const navLinks = document.querySelectorAll('.nav-link');
+            const views = document.querySelectorAll('.view-content');
+            
+            // Colores de la navbar
+            const activeColor = '#006D56'; // Verde
+            const inactiveColor = '#6B7280'; // Gris
+            const activeBorderStyle = '4px solid #006D56';
+            const inactiveBorderStyle = '4px solid transparent';
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    const viewIdToShow = link.dataset.view;
+
+                    // 1. Ocultar todas las vistas
+                    views.forEach(view => {
+                        view.classList.add('hidden');
+                    });
+
+                    // 2. Mostrar la vista seleccionada
+                    const viewToShow = document.getElementById(viewIdToShow);
+                    if (viewToShow) {
+                        viewToShow.classList.remove('hidden');
+                    }
+
+                    // 3. Actualizar estilos de los links
+                    navLinks.forEach(navLink => {
+                        navLink.style.color = inactiveColor;
+                        navLink.style.borderBottom = inactiveBorderStyle;
+                    });
+                    
+                    link.style.color = activeColor;
+                    link.style.borderBottom = activeBorderStyle;
+                });
+            });
+            // ****** FIN DEL CÓDIGO DE NAVEGACIÓN ******
+
+
             // --- Utilidades de Formato ---
             const formatCLP = (value) => {
-                // Formato de moneda para Peso Chileno (sin decimales)
                 return new Intl.NumberFormat('es-CL', {
                     style: 'currency',
                     currency: 'CLP',
@@ -199,14 +271,10 @@
 
             basePriceInput.addEventListener('input', () => {
                 const price = parseFloat(basePriceInput.value) || 0;
-
                 discountPercentages.forEach(p => {
-                    const discountAmount = price * (p / 100);
-                    const finalPrice = price - discountAmount;
+                    const finalPrice = price - (price * (p / 100));
                     const el = document.getElementById(`discount-${p}`);
-                    if (el) {
-                        el.textContent = formatCLP(finalPrice);
-                    }
+                    if (el) el.textContent = formatCLP(finalPrice);
                 });
             });
 
@@ -216,11 +284,9 @@
             const applyStackedBtn = document.getElementById('applyStacked');
             const stackedCountEl = document.getElementById('stackedCount');
             const stackedTotalEl = document.getElementById('stackedTotal');
-
             let currentStackedPrice = 0;
             let stackedCount = 0;
 
-            // Reiniciar si el precio base cambia
             stackedPriceInput.addEventListener('input', () => {
                 currentStackedPrice = parseFloat(stackedPriceInput.value) || 0;
                 stackedCount = 0;
@@ -228,19 +294,14 @@
                 stackedTotalEl.textContent = formatCLP(currentStackedPrice);
             });
 
-            // Aplicar el descuento apilado
             applyStackedBtn.addEventListener('click', () => {
                 if (currentStackedPrice === 0) {
                      currentStackedPrice = parseFloat(stackedPriceInput.value) || 0;
                 }
-                
                 const percent = parseFloat(stackedPercentInput.value) || 0;
-                if (percent === 0) return; // No hacer nada si no hay porcentaje
-
-                const discountAmount = currentStackedPrice * (percent / 100);
-                currentStackedPrice -= discountAmount;
+                if (percent === 0) return;
+                currentStackedPrice -= (currentStackedPrice * (percent / 100));
                 stackedCount++;
-
                 stackedCountEl.textContent = stackedCount;
                 stackedTotalEl.textContent = formatCLP(currentStackedPrice);
             });
@@ -248,64 +309,51 @@
             // --- 3. Calculadora de Rótulos (Días) ---
             const todayDateEl = document.getElementById('todayDate');
             const daysToCalculate = [3, 5, 10, 15, 30];
-            const today = new Date(); // Fecha de hoy
-
+            const today = new Date();
             todayDateEl.textContent = formatDate(today);
 
-            // Calcular fechas fijas
             daysToCalculate.forEach(days => {
                 const futureDate = new Date(today);
                 futureDate.setDate(today.getDate() + days);
                 const el = document.getElementById(`date-${days}`);
-                if (el) {
-                    el.textContent = formatDate(futureDate);
-                }
+                if (el) el.textContent = formatDate(futureDate);
             });
 
-            // ****** NUEVO CÓDIGO JS AÑADIDO ******
             const customDaysInput = document.getElementById('customDays');
             const customDateResultEl = document.getElementById('customDateResult');
 
             customDaysInput.addEventListener('input', () => {
                 const days = parseInt(customDaysInput.value) || 0;
-                
-                if (days <= 0) { // Si es 0 o negativo, reiniciar
+                if (days <= 0) {
                     customDateResultEl.textContent = '--/--/----';
                     return;
                 }
-
-                const futureDate = new Date(today); // Usamos la misma variable 'today'
+                const futureDate = new Date(today);
                 futureDate.setDate(today.getDate() + days);
-                
-                customDateResultEl.textContent = formatDate(futureDate); // Reutilizamos la función
+                customDateResultEl.textContent = formatDate(futureDate);
             });
-            // ****** FIN DEL CÓDIGO JS AÑADIDO ******
-
 
             // --- 4. Calculadora de Rótulos (Horas) ---
             const nowTimeEl = document.getElementById('nowTime');
             const hoursToAddInput = document.getElementById('hoursToAdd');
             const calculateExpiryBtn = document.getElementById('calculateExpiry');
             const expiryTimeEl = document.getElementById('expiryTime');
-            
             const now = new Date();
             nowTimeEl.textContent = formatTime(now);
 
             calculateExpiryBtn.addEventListener('click', () => {
                 const hours = parseInt(hoursToAddInput.value) || 0;
-                const expiryDate = new Date(); // Tomar la hora actual AL PRESIONAR
+                const expiryDate = new Date();
                 expiryDate.setHours(expiryDate.getHours() + hours);
                 expiryTimeEl.textContent = formatDateTime(expiryDate);
             });
-            
-            // Simular un clic al cargar la página para el valor por defecto (10h)
             calculateExpiryBtn.click();
 
             // --- 5. Temporizadores Rápidos ---
             const timerListEl = document.getElementById('timerList');
             const noTimersEl = document.getElementById('no-timers');
             const timerButtons = document.querySelectorAll('.timer-btn');
-            let activeTimers = []; // { id, name, expiryTime (timestamp) }
+            let activeTimers = []; 
 
             timerButtons.forEach(btn => {
                 btn.addEventListener('click', () => {
@@ -313,12 +361,40 @@
                     const name = btn.dataset.name;
                     const id = Date.now();
                     const expiryTime = id + (hours * 60 * 60 * 1000);
-
                     activeTimers.push({ id, name, expiryTime });
                     if(noTimersEl) noTimersEl.style.display = 'none';
                     renderTimers();
                 });
             });
+
+            function renderTimers() {
+                timerListEl.innerHTML = '';
+                const now = Date.now();
+                activeTimers = activeTimers.filter(timer => timer.expiryTime > now);
+
+                if (activeTimers.length === 0) {
+                    if(noTimersEl) timerListEl.appendChild(noTimersEl);
+                    if(noTimersEl) noTimersEl.style.display = 'block';
+                    return;
+                }
+
+                activeTimers.forEach(timer => {
+                    const remainingMs = timer.expiryTime - now;
+                    const hours = Math.floor(remainingMs / (1000 * 60 * 60));
+                    const minutes = Math.floor((remainingMs % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((remainingMs % (1000 * 60)) / 1000);
+                    const timeColor = hours < 1 ? '#FF0017' : '#006D56';
+                    const li = document.createElement('li');
+                    li.className = 'flex justify-between items-center bg-gray-100 p-3 rounded-lg';
+                    li.innerHTML = `
+                        <span class="font-semibold text-gray-800">${timer.name}</span>
+                        <span class="font-bold text-lg" style="color: ${timeColor};">
+                            ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}
+                        </span>
+                    `;
+                    timerListEl.appendChild(li);
+                });
+            }
             setInterval(renderTimers, 1000);
         });
     </script>
