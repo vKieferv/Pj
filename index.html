@@ -517,9 +517,11 @@
                     refreshProductList();
                     const names = Object.keys(productRules);
                     const count = names.length;
-                    statusEl.textContent = count ? `Productos cargados: ${names.join(', ')}` : 'No se encontraron productos.';
-                    // Ocultar status luego de breve tiempo si exitoso
-                    if (count) setTimeout(()=>{ statusEl.style.visibility='hidden'; }, 2000);
+                    if (statusEl) {
+                        statusEl.textContent = count ? `Productos cargados: ${names.join(', ')}` : 'No se encontraron productos.';
+                        // Ocultar status luego de breve tiempo si exitoso
+                        if (count) setTimeout(()=>{ if(statusEl) statusEl.style.visibility='hidden'; }, 2000);
+                    }
                 }
 
                 async function loadSheetAuto() {
