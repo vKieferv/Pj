@@ -13,6 +13,7 @@
         .header {
             background-color: #006D56; /* Rojo vivo */
             color: white;
+            padding: 0.5rem 0 !important; /* navbar/header más delgado */
         }
         .btn-primary {
             background-color: #006D56; /* Verde Bangladesh */
@@ -68,6 +69,28 @@
         /* Estilo para los botones de la barra de navegación */
         .nav-link {
             transition: all 0.3s;
+            padding: 0.5rem 0.5rem !important; /* antes p-4, ahora más compacto */
+            font-size: 0.95rem !important;
+        }
+
+        /* Tabla Rótulo Auto compacta en móvil (sin scroll horizontal, misma tabla) */
+    /* Fuente compacta en toda la tabla de rótulos (~50% más pequeña) */
+    .ra-table { font-size: 0.5em; }
+    .ra-table th { font-size: 0.55em; }
+    .ra-table th, .ra-table td { padding: 6px 6px; line-height: 1.1; }
+    /* Números/valores: 25% más grandes que el tamaño reducido actual (0.5em -> 0.625em) */
+    .ra-table td span { font-size: 0.625em; }
+
+        @media (max-width: 480px) {
+            .ra-table { table-layout: fixed; width: 100%; }
+            .ra-table th, .ra-table td { padding: 4px 3px; white-space: nowrap; }
+            .ra-table td span { font-size: 0.625em; }
+            /* Forzar que los anchos sean flexibles y no generen overflow */
+            .ra-table th, .ra-table td { width: auto !important; }
+            /* Títulos de fila un poco más marcados */
+            .ra-table .row-title { font-weight: 700; }
+            /* Acotar el nombre del item */
+            #ra-item-name { max-width: 110px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         }
     </style>
 </head>
@@ -86,7 +109,7 @@
                 🗓️ Rótulos
             </button>
             <button id="nav-link-rotulo-auto" data-view="view-rotulo-auto" class="nav-link flex-1 p-4 text-center font-bold text-lg" style="color: #6B7280; border-bottom: 4px solid transparent;">
-                🏷️ Rótulo Auto NO ESTÁ LISTO AÚN 
+                🏷️ Rótulo Auto
             </button>
         </nav>
     </div>
@@ -199,21 +222,21 @@
 
                 <!-- Tabla del rótulo - formato solicitado -->
                 <div class="overflow-auto">
-                    <table class="min-w-[760px] w-full border border-gray-300 text-sm">
+                    <table class="w-full border border-gray-300 text-sm ra-table">
                         <tbody>
                             <!-- 1) Fila de Item + FR y FV -->
                             <tr class="bg-gray-50">
-                                <td class="border border-gray-300 px-2 py-2 font-semibold w-40">Item
+                                <td class="border border-gray-300 px-2 py-2 font-semibold w-40 row-title">Item
                                     <div id="ra-item-name" class="text-[11px] text-gray-600 font-normal truncate"></div>
                                 </td>
-                                <td class="border border-gray-300 px-2 py-2 text-center w-28">—</td>
-                                <td class="border border-gray-300 px-2 py-2 text-center w-32">FR: <span id="ra-fr-date">—</span></td>
-                                <td class="border border-gray-300 px-2 py-2 text-center w-24">—</td>
-                                <td class="border border-gray-300 px-2 py-2 text-center w-32">FV: <span id="ra-fv-date">—</span></td>
-                                <td class="border border-gray-300 px-2 py-2 text-center w-24"><span id="ra-fv-time">—</span></td>
+                                <td class="border border-gray-300 px-2 py-2 text-center w-28" data-label="">—</td>
+                                <td class="border border-gray-300 px-2 py-2 text-center w-32" data-label="FR"><span id="ra-fr-date">—</span></td>
+                                <td class="border border-gray-300 px-2 py-2 text-center w-24" data-label="">—</td>
+                                <td class="border border-gray-300 px-2 py-2 text-center w-32" data-label="FV"><span id="ra-fv-date">—</span></td>
+                                <td class="border border-gray-300 px-2 py-2 text-center w-24" data-label="Hora FV"><span id="ra-fv-time">—</span></td>
                             </tr>
                             <!-- 2) Fila de indicadores -->
-                            <tr class="bg-gray-100 text-gray-700 font-semibold">
+                            <tr class="bg-gray-100 text-gray-700 font-semibold indicators">
                                 <td class="border border-gray-300 px-2 py-1"></td>
                                 <td class="border border-gray-300 px-2 py-1 text-center">Inic()</td>
                                 <td class="border border-gray-300 px-2 py-1 text-center">Fecha</td>
@@ -222,29 +245,28 @@
                                 <td class="border border-gray-300 px-2 py-1 text-center">Hora Venc</td>
                             </tr>
                             <!-- 3) Fila PREP -->
-                            <tr>
-                                <td class="border border-gray-300 px-2 py-2 font-semibold">Prep</td>
-                                <td class="border border-gray-300 px-2 py-2 text-center">--</td>
-                                <td class="border border-gray-300 px-2 py-2 text-center"><span id="ra-prep-date">—</span></td>
-                                <td class="border border-gray-300 px-2 py-2 text-center"><span id="ra-prep-time">—</span></td>
-                                <td class="border border-gray-300 px-2 py-2 text-center"><span id="ra-prep-exp-date">—</span></td>
-                                <td class="border border-gray-300 px-2 py-2 text-center"><span id="ra-prep-exp-time">—</span></td>
+                            <tr id="ra-prep-row">
+                                <td class="border border-gray-300 px-2 py-2 font-semibold row-title">Prep</td>
+                                <td class="border border-gray-300 px-2 py-2 text-center" data-label="Inic()">--</td>
+                                <td class="border border-gray-300 px-2 py-2 text-center" data-label="Fecha"><span id="ra-prep-date">—</span></td>
+                                <td class="border border-gray-300 px-2 py-2 text-center" data-label="Hora"><span id="ra-prep-time">—</span></td>
+                                <td class="border border-gray-300 px-2 py-2 text-center" data-label="F. Venc"><span id="ra-prep-exp-date">—</span></td>
+                                <td class="border border-gray-300 px-2 py-2 text-center" data-label="Hora Venc"><span id="ra-prep-exp-time">—</span></td>
                             </tr>
                             <!-- 4) Fila PROD -->
                             <tr>
-                                <td class="border border-gray-300 px-2 py-2 font-semibold">Prod</td>
-                                <td class="border border-gray-300 px-2 py-2 text-center">--</td>
-                                <td class="border border-gray-300 px-2 py-2 text-center"><span id="ra-prod-date">—</span></td>
-                                <td class="border border-gray-300 px-2 py-2 text-center"><span id="ra-prod-time">—</span></td>
-                                <td class="border border-gray-300 px-2 py-2 text-center"><span id="ra-prod-exp-date">—</span></td>
-                                <td class="border border-gray-300 px-2 py-2 text-center"><span id="ra-prod-exp-time">—</span></td>
+                                <td class="border border-gray-300 px-2 py-2 font-semibold row-title">Prod</td>
+                                <td class="border border-gray-300 px-2 py-2 text-center" data-label="Inic()">--</td>
+                                <td class="border border-gray-300 px-2 py-2 text-center" data-label="Fecha"><span id="ra-prod-date">—</span></td>
+                                <td class="border border-gray-300 px-2 py-2 text-center" data-label="Hora"><span id="ra-prod-time">—</span></td>
+                                <td class="border border-gray-300 px-2 py-2 text-center" data-label="F. Venc"><span id="ra-prod-exp-date">—</span></td>
+                                <td class="border border-gray-300 px-2 py-2 text-center" data-label="Hora Venc"><span id="ra-prod-exp-time">—</span></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
                 <div class="mt-4 text-sm">
-                    <p class="text-gray-700">FV (base): <span id="ra-fv-base">—</span></p>
                     <p id="ra-notes" class="text-xs text-gray-500 mt-1"></p>
                 </div>
             </div>
@@ -428,20 +450,21 @@
                             // Cambiamos la semántica de reglas: cada producto ahora tiene
                             // nombre, dias_venc (vida total/FV), dias_produccion (para PREP), dias_uso (para PROD)
                             const productRules = {
-                                'Salchicha Italiana': { dias_venc: 3, dias_produccion: 2, dias_uso: 1 },
-                                'Tocino': { dias_venc: 2, dias_produccion: 1, dias_uso: 1 },
-                                'Pollo':    { dias_venc: 5, dias_produccion: 3, dias_uso: 2 },
-                                'Champiñon':     { dias_venc: 4, dias_produccion: 2, dias_uso: 2 },
-                                'Pimenton': { dias_venc: 3, dias_produccion: 1, dias_uso: 1 },
-                                'Cebolla':     { dias_venc: 4, dias_produccion: 2, dias_uso: 2 },
-                                'Aceituna':     { dias_venc: 4, dias_produccion: 2, dias_uso: 2 },
-                                'Tomate':     { dias_venc: 4, dias_produccion: 2, dias_uso: 2 },
-                                'Jamon':     { dias_venc: 4, dias_produccion: 2, dias_uso: 2 },
-                                'Peperonni':     { dias_venc: 4, dias_produccion: 2, dias_uso: 2 },
-                                'Chicken Popper':     { dias_venc: 4, dias_produccion: 2, dias_uso: 2 },
-                                'Borde Queso':     { dias_venc: 4, dias_produccion: 2, dias_uso: 2 },
-                                'Galleta/Brownie':     { dias_venc: 4, dias_produccion: 2, dias_uso: 2 },
-
+                                'Salchicha Italiana': { dias_venc: 12, dias_produccion: 7, dias_uso: 1 },
+                                'Tocino': { dias_venc: 30, dias_produccion: 7, dias_uso: 2 },
+                                'Pollo':    { dias_venc: 7, dias_produccion: 7, dias_uso: 1 },
+                                'Champiñon':     { dias_venc: 6, dias_produccion: 2, dias_uso: 1 },
+                                'Pimenton': { dias_venc: 8, dias_produccion: 2, dias_uso: 1 },
+                                'Cebolla':     { dias_venc: 10, dias_produccion: 2, dias_uso: 1 },
+                                'Aceituna':     { dias_venc: 14, dias_produccion: 7, dias_uso: 2 },
+                                'Tomate':     { dias_venc: 8, dias_produccion: 2, dias_uso: 1 },
+                                'Jamon':     { dias_venc: 14, dias_produccion: 3, dias_uso: 2 },
+                                'Peperonni':     { dias_venc: 30, dias_produccion: 7, dias_uso: 1 },
+                                'Queso':     { dias_venc: 14, dias_produccion: 7, dias_uso: 1 },
+                                'Chicken Popper':     { dias_venc: 7, dias_produccion: 0, dias_uso: 2 },
+                                'Borde Queso':     { dias_venc: 14, dias_produccion: 7, dias_uso: 1 },
+                                'Galleta/Brownie':     { dias_venc: 14, dias_produccion: 0, dias_uso: 1 },
+                                'Garlic/Parmesan':     { dias_venc: 21, dias_produccion: 0, horas_uso: 10 },
                             };
 
                             const pad2 = n => String(n).padStart(2,'0');
@@ -449,6 +472,7 @@
                             const toHHMM = d => `${pad2(d.getHours())}-${pad2(d.getMinutes())}`;
                             const floorHour = d => { const x=new Date(d); x.setMinutes(0,0,0); return x; };
                             const addDays = (d, days) => new Date(d.getFullYear(), d.getMonth(), d.getDate()+days, d.getHours(), d.getMinutes(),0,0);
+                            const addHours = (d, hours) => new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours()+hours, d.getMinutes(), 0, 0);
                             const endOfDay2359 = d => new Date(d.getFullYear(), d.getMonth(), d.getDate(), 23,59,0,0);
 
                             // Elements
@@ -469,7 +493,7 @@
                             const prodExpTimeEl = document.getElementById('ra-prod-exp-time');
 
                             // Populate selector
-                            Object.keys(productRules).sort().forEach(name => { const opt=document.createElement('option'); opt.value=name; opt.textContent=name; productEl.appendChild(opt); });
+                            Object.keys(productRules).forEach(name => { const opt=document.createElement('option'); opt.value=name; opt.textContent=name; productEl.appendChild(opt); });
 
                             // Base start (hoy redondeado a la hora)
                             const baseStart = floorHour(new Date());
@@ -488,10 +512,13 @@
                             prodDateEl.textContent = baseDateStr;
                             prodTimeEl.textContent = baseTimeStr;
 
-                            function updateRuleSummary(rule){
-                                if(!rule){ ruleSummaryEl.textContent=''; return; }
-                                ruleSummaryEl.textContent = `Venc ${rule.dias_venc}d | Producción ${rule.dias_produccion}d | Uso ${rule.dias_uso}d`;
-                            }
+                                                        function updateRuleSummary(rule){
+                                                                if(!rule){ ruleSummaryEl.textContent=''; return; }
+                                                                const usoLabel = (rule.horas_uso != null && !isNaN(rule.horas_uso))
+                                                                    ? `${rule.horas_uso}h`
+                                                                    : `${rule.dias_uso}d`;
+                                                                ruleSummaryEl.textContent = `Venc ${rule.dias_venc}d | Producción ${rule.dias_produccion}d | Uso ${usoLabel}`;
+                                                        }
 
                             function recompute(){
                                 const key = productEl.value;
@@ -509,24 +536,39 @@
                                 const fvDateRaw = addDays(baseStart, rule.dias_venc);
                                 const fvClamp = endOfDay2359(fvDateRaw);
                                 fvDateEl.textContent = toDDMMYY(fvClamp);
-                                fvTimeEl.textContent = '23-59';
+                                // Ocultar la hora FV en la fila Item (no mostrar 23-59)
+                                fvTimeEl.textContent = '';
 
-                                // Expiry PREP = hoy + dias_produccion (capado por FV, manteniendo hora base) 
-                                let prepExp = addDays(baseStart, rule.dias_produccion);
-                                if (prepExp > fvClamp) prepExp = fvClamp;
-                                prepExpDateEl.textContent = toDDMMYY(prepExp);
-                                prepExpTimeEl.textContent = toHHMM(prepExp);
+                                // Flags de capado
+                                let prepCapped = false;
+                                let prodCapped = false;
 
-                                // Expiry PROD = hoy + dias_uso (capado por FV)
-                                let prodExp = addDays(baseStart, rule.dias_uso);
-                                if (prodExp > fvClamp) prodExp = fvClamp;
+                                // PREP: si dias_produccion = 0 (uso diario), dejar PREP vacío
+                                if (Number(rule.dias_produccion) === 0) {
+                                    document.getElementById('ra-prep-date').textContent = '—';
+                                    document.getElementById('ra-prep-time').textContent = '—';
+                                    prepExpDateEl.textContent = '—';
+                                    prepExpTimeEl.textContent = '—';
+                                } else {
+                                    // Expiry PREP = hoy + dias_produccion (capado por FV)
+                                    let prepExp = addDays(baseStart, rule.dias_produccion);
+                                    if (prepExp > fvClamp) { prepExp = fvClamp; prepCapped = true; }
+                                    prepExpDateEl.textContent = toDDMMYY(prepExp);
+                                    prepExpTimeEl.textContent = toHHMM(prepExp);
+                                }
+
+                                                                // Expiry PROD = hoy + (dias_uso o horas_uso) (capado por FV)
+                                                                let prodExp = (rule.horas_uso != null && !isNaN(rule.horas_uso))
+                                                                    ? addHours(baseStart, Number(rule.horas_uso))
+                                                                    : addDays(baseStart, Number(rule.dias_uso));
+                                if (prodExp > fvClamp) { prodExp = fvClamp; prodCapped = true; }
                                 prodExpDateEl.textContent = toDDMMYY(prodExp);
                                 prodExpTimeEl.textContent = toHHMM(prodExp);
 
                                 // Notas si capado
                                 const notes = [];
-                                if (prepExp.getTime() === fvClamp.getTime() && rule.dias_produccion > rule.dias_venc) notes.push('Prep capado por FV.');
-                                if (prodExp.getTime() === fvClamp.getTime() && rule.dias_uso > rule.dias_venc) notes.push('Prod capado por FV.');
+                                if (prepCapped) notes.push('Prep capado por FV.');
+                                if (prodCapped) notes.push('Prod capado por FV.');
                                 notesEl.textContent = notes.join(' ');
                             }
 
