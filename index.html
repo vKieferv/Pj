@@ -86,7 +86,7 @@
                 🗓️ Rótulos
             </button>
             <button id="nav-link-rotulo-auto" data-view="view-rotulo-auto" class="nav-link flex-1 p-4 text-center font-bold text-lg" style="color: #6B7280; border-bottom: 4px solid transparent;">
-                🏷️ Rótulo Auto
+                🏷️ Rótulo Auto NO ESTÁ LISTO AÚN 
             </button>
         </nav>
     </div>
@@ -192,84 +192,60 @@
                             <option value="">Seleccione un producto…</option>
                         </select>
                     </div>
-                    <div class="md:col-span-2 flex items-end">
-                        <span id="ra-load-status" class="text-xs text-gray-400">Cargando reglas…</span>
+                    <div class="md:col-span-2 flex items-end text-sm text-gray-600">
+                        <span id="ra-rule-summary"></span>
                     </div>
                 </div>
 
-                <!-- Tabla del rótulo -->
-                <div class="overflow-auto" id="ra-table-wrapper" style="display:none;">
-                    <table class="min-w-[750px] w-full border border-gray-300 text-sm">
-                        <tbody id="ra-table-body">
-                            <!-- Fila 1: Item / FR / FV -->
-                            <tr class="bg-gray-100">
-                                <td class="border border-gray-300 px-2 py-2 font-semibold w-28">Item
+                <!-- Tabla del rótulo - formato solicitado -->
+                <div class="overflow-auto">
+                    <table class="min-w-[760px] w-full border border-gray-300 text-sm">
+                        <tbody>
+                            <!-- 1) Fila de Item + FR y FV -->
+                            <tr class="bg-gray-50">
+                                <td class="border border-gray-300 px-2 py-2 font-semibold w-40">Item
                                     <div id="ra-item-name" class="text-[11px] text-gray-600 font-normal truncate"></div>
                                 </td>
-                                <td class="border border-gray-300 px-2 py-2 w-32">
-                                    <label class="block text-[10px] uppercase tracking-wide text-gray-500">FR (manual)</label>
-                                    <input id="ra-fr-date" type="date" class="w-full border rounded px-1 py-1 text-xs">
-                                </td>
-                                <td class="border border-gray-300 px-2 py-2 w-32">
-                                    <label class="block text-[10px] uppercase tracking-wide text-gray-500">FV (calc)</label>
-                                    <input id="ra-fv-date" type="date" class="w-full border rounded px-1 py-1 text-xs bg-gray-50" disabled>
-                                </td>
-                                <td class="border border-gray-300 px-2 py-2 w-24 text-center font-medium text-gray-500" colspan="3">
-                                    Vida útil base (FV) según reglas
-                                </td>
+                                <td class="border border-gray-300 px-2 py-2 text-center w-28">—</td>
+                                <td class="border border-gray-300 px-2 py-2 text-center w-32">FR: <span id="ra-fr-date">—</span></td>
+                                <td class="border border-gray-300 px-2 py-2 text-center w-24">—</td>
+                                <td class="border border-gray-300 px-2 py-2 text-center w-32">FV: <span id="ra-fv-date">—</span></td>
+                                <td class="border border-gray-300 px-2 py-2 text-center w-24"><span id="ra-fv-time">—</span></td>
                             </tr>
-                            <!-- Fila 2: Encabezados -->
-                            <tr class="bg-gray-50 text-gray-700 font-semibold">
+                            <!-- 2) Fila de indicadores -->
+                            <tr class="bg-gray-100 text-gray-700 font-semibold">
                                 <td class="border border-gray-300 px-2 py-1"></td>
-                                <td class="border border-gray-300 px-2 py-1 text-center">Inic</td>
+                                <td class="border border-gray-300 px-2 py-1 text-center">Inic()</td>
                                 <td class="border border-gray-300 px-2 py-1 text-center">Fecha</td>
                                 <td class="border border-gray-300 px-2 py-1 text-center">Hora</td>
                                 <td class="border border-gray-300 px-2 py-1 text-center">F. Venc</td>
                                 <td class="border border-gray-300 px-2 py-1 text-center">Hora Venc</td>
                             </tr>
-                            <!-- Fila 3: Prep -->
+                            <!-- 3) Fila PREP -->
                             <tr>
                                 <td class="border border-gray-300 px-2 py-2 font-semibold">Prep</td>
-                                <td class="border border-gray-300 px-1 py-1">
-                                    <input id="ra-prep-code" placeholder="xx" class="w-full border rounded px-1 py-1 text-xs">
-                                </td>
-                                <td class="border border-gray-300 px-1 py-1">
-                                    <input id="ra-prep-date" type="date" class="w-full border rounded px-1 py-1 text-xs">
-                                </td>
-                                <td class="border border-gray-300 px-1 py-1">
-                                    <input id="ra-prep-time" type="time" class="w-full border rounded px-1 py-1 text-xs">
-                                </td>
-                                <td class="border border-gray-300 px-1 py-1">
-                                    <input id="ra-prep-exp-date" type="date" class="w-full border rounded px-1 py-1 text-xs bg-gray-50" disabled>
-                                </td>
-                                <td class="border border-gray-300 px-1 py-1">
-                                    <input id="ra-prep-exp-time" type="time" class="w-full border rounded px-1 py-1 text-xs bg-gray-50" disabled>
-                                </td>
+                                <td class="border border-gray-300 px-2 py-2 text-center">--</td>
+                                <td class="border border-gray-300 px-2 py-2 text-center"><span id="ra-prep-date">—</span></td>
+                                <td class="border border-gray-300 px-2 py-2 text-center"><span id="ra-prep-time">—</span></td>
+                                <td class="border border-gray-300 px-2 py-2 text-center"><span id="ra-prep-exp-date">—</span></td>
+                                <td class="border border-gray-300 px-2 py-2 text-center"><span id="ra-prep-exp-time">—</span></td>
                             </tr>
-                            <!-- Fila 4: Prod -->
+                            <!-- 4) Fila PROD -->
                             <tr>
                                 <td class="border border-gray-300 px-2 py-2 font-semibold">Prod</td>
-                                <td class="border border-gray-300 px-1 py-1 text-center text-xs text-gray-400">—</td>
-                                <td class="border border-gray-300 px-1 py-1">
-                                    <input id="ra-prod-date" type="date" class="w-full border rounded px-1 py-1 text-xs">
-                                </td>
-                                <td class="border border-gray-300 px-1 py-1">
-                                    <input id="ra-prod-time" type="time" class="w-full border rounded px-1 py-1 text-xs">
-                                </td>
-                                <td class="border border-gray-300 px-1 py-1">
-                                    <input id="ra-prod-exp-date" type="date" class="w-full border rounded px-1 py-1 text-xs bg-gray-50" disabled>
-                                </td>
-                                <td class="border border-gray-300 px-1 py-1">
-                                    <input id="ra-prod-exp-time" type="time" class="w-full border rounded px-1 py-1 text-xs bg-gray-50" disabled>
-                                </td>
+                                <td class="border border-gray-300 px-2 py-2 text-center">--</td>
+                                <td class="border border-gray-300 px-2 py-2 text-center"><span id="ra-prod-date">—</span></td>
+                                <td class="border border-gray-300 px-2 py-2 text-center"><span id="ra-prod-time">—</span></td>
+                                <td class="border border-gray-300 px-2 py-2 text-center"><span id="ra-prod-exp-date">—</span></td>
+                                <td class="border border-gray-300 px-2 py-2 text-center"><span id="ra-prod-exp-time">—</span></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
-                <div class="mt-4 text-xs space-y-1">
-                    <p id="ra-notes" class="text-gray-600"></p>
-                    <p id="ra-warnings" class="text-red-600 font-semibold"></p>
+                <div class="mt-4 text-sm">
+                    <p class="text-gray-700">FV (base): <span id="ra-fv-base">—</span></p>
+                    <p id="ra-notes" class="text-xs text-gray-500 mt-1"></p>
                 </div>
             </div>
         </div>
@@ -447,220 +423,119 @@
             }
             setInterval(renderTimers, 1000);
 
-            /* === RÓTULO AUTOMÁTICO TABLA (AUTO-CARGA DESDE SHEET) === */
-            (function() {
-                const productRules = {}; // { nombre: { pre: n, pro: n, fr: n } }
-                const $ = id => document.getElementById(id);
-                const statusEl = $('#ra-load-status');
-                const productEl = $('#ra-product');
-                const tableWrapper = $('#ra-table-wrapper');
-                const itemNameEl = $('#ra-item-name');
+            // === Rótulo Automático (solo lectura, sin hojas ni CSV) ===
+                        (function(){
+                            // Cambiamos la semántica de reglas: cada producto ahora tiene
+                            // nombre, dias_venc (vida total/FV), dias_produccion (para PREP), dias_uso (para PROD)
+                            const productRules = {
+                                'Salchicha Italiana': { dias_venc: 3, dias_produccion: 2, dias_uso: 1 },
+                                'Tocino': { dias_venc: 2, dias_produccion: 1, dias_uso: 1 },
+                                'Pollo':    { dias_venc: 5, dias_produccion: 3, dias_uso: 2 },
+                                'Champiñon':     { dias_venc: 4, dias_produccion: 2, dias_uso: 2 },
+                                'Pimenton': { dias_venc: 3, dias_produccion: 1, dias_uso: 1 },
+                                'Cebolla':     { dias_venc: 4, dias_produccion: 2, dias_uso: 2 },
+                                'Aceituna':     { dias_venc: 4, dias_produccion: 2, dias_uso: 2 },
+                                'Tomate':     { dias_venc: 4, dias_produccion: 2, dias_uso: 2 },
+                                'Jamon':     { dias_venc: 4, dias_produccion: 2, dias_uso: 2 },
+                                'Peperonni':     { dias_venc: 4, dias_produccion: 2, dias_uso: 2 },
+                                'Chicken Popper':     { dias_venc: 4, dias_produccion: 2, dias_uso: 2 },
+                                'Borde Queso':     { dias_venc: 4, dias_produccion: 2, dias_uso: 2 },
+                                'Galleta/Brownie':     { dias_venc: 4, dias_produccion: 2, dias_uso: 2 },
 
-                // FR/FV row
-                const frDateEl = $('#ra-fr-date');
-                const fvDateEl = $('#ra-fv-date');
+                            };
 
-                // Prep row
-                const prepCodeEl = $('#ra-prep-code');
-                const prepDateEl = $('#ra-prep-date');
-                const prepTimeEl = $('#ra-prep-time');
-                const prepExpDateEl = $('#ra-prep-exp-date');
-                const prepExpTimeEl = $('#ra-prep-exp-time');
+                            const pad2 = n => String(n).padStart(2,'0');
+                            const toDDMMYY = d => `${pad2(d.getDate())}-${pad2(d.getMonth()+1)}-${String(d.getFullYear()).slice(-2)}`;
+                            const toHHMM = d => `${pad2(d.getHours())}-${pad2(d.getMinutes())}`;
+                            const floorHour = d => { const x=new Date(d); x.setMinutes(0,0,0); return x; };
+                            const addDays = (d, days) => new Date(d.getFullYear(), d.getMonth(), d.getDate()+days, d.getHours(), d.getMinutes(),0,0);
+                            const endOfDay2359 = d => new Date(d.getFullYear(), d.getMonth(), d.getDate(), 23,59,0,0);
 
-                // Prod row
-                const prodDateEl = $('#ra-prod-date');
-                const prodTimeEl = $('#ra-prod-time');
-                const prodExpDateEl = $('#ra-prod-exp-date');
-                const prodExpTimeEl = $('#ra-prod-exp-time');
+                            // Elements
+                            const productEl = document.getElementById('ra-product');
+                            const ruleSummaryEl = document.getElementById('ra-rule-summary');
+                            const notesEl = document.getElementById('ra-notes');
+                            const itemNameEl = document.getElementById('ra-item-name');
+                            const frDateEl = document.getElementById('ra-fr-date');
+                            const fvDateEl = document.getElementById('ra-fv-date');
+                            const fvTimeEl = document.getElementById('ra-fv-time');
+                            const prepDateEl = document.getElementById('ra-prep-date');
+                            const prepTimeEl = document.getElementById('ra-prep-time');
+                            const prepExpDateEl = document.getElementById('ra-prep-exp-date');
+                            const prepExpTimeEl = document.getElementById('ra-prep-exp-time');
+                            const prodDateEl = document.getElementById('ra-prod-date');
+                            const prodTimeEl = document.getElementById('ra-prod-time');
+                            const prodExpDateEl = document.getElementById('ra-prod-exp-date');
+                            const prodExpTimeEl = document.getElementById('ra-prod-exp-time');
 
-                const notesEl = $('#ra-notes');
-                const warnEl = $('#ra-warnings');
+                            // Populate selector
+                            Object.keys(productRules).sort().forEach(name => { const opt=document.createElement('option'); opt.value=name; opt.textContent=name; productEl.appendChild(opt); });
 
-                const pad = n => String(n).padStart(2,'0');
-                const toDateInput = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
-                const toTimeInput = d => `${pad(d.getHours())}:${pad(d.getMinutes())}`;
-                const endOfDay = d => new Date(d.getFullYear(), d.getMonth(), d.getDate(), 23,59,0,0);
-                const parseNum = (s) => {
-                    const m = String(s||'').match(/-?\d+(?:[\.,]\d+)?/);
-                    return m ? Number(m[0].replace(',', '.')) : NaN;
-                };
+                            // Base start (hoy redondeado a la hora)
+                            const baseStart = floorHour(new Date());
+                            const baseDateStr = toDDMMYY(baseStart);
+                            const baseTimeStr = toHHMM(baseStart);
 
-                const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQa8hIhpn6I2Q-tciQQBP1n-KKYC_ZgcSK5PNIPf-QzNCOMpfXupgAtO3x5fwhaMt_tEybqF4jggLbj/pub?output=csv';
+                            // FR fija hoy (solo fecha en primera fila con etiqueta FR)
+                            frDateEl.textContent = baseDateStr;
+                            // FV se calculará al elegir producto
+                            fvDateEl.textContent = '—';
+                            fvTimeEl.textContent = '—';
 
-                function parseCSV(text) {
-                    const lines = text.split(/\r?\n/).filter(l => l.trim());
-                    if (!lines.length) return;
-                    // Detectar separador ; , o tab
-                    let sep = ',';
-                    const first = lines[0];
-                    if (first.includes('\t')) sep='\t'; else if (first.includes(';') && !first.includes(',')) sep=';';
-                    const headerRaw = lines[0].split(sep).map(h => h.replace(/^"|"$/g,'').trim());
-                    const header = headerRaw.map(h => h.toLowerCase());
-                    const idxNombre = header.findIndex(h => /^(nombre|producto)$/i.test(h));
-                    const idxPre    = header.findIndex(h => /(duracion\s*pre|pre$)/i.test(h));
-                    const idxPro    = header.findIndex(h => /(duracion\s*prod|duracion\s*pro|prod$|pro$)/i.test(h));
-                    const idxFr     = header.findIndex(h => /(duracion\s*fr|^fr$)/i.test(h));
-                    lines.slice(1).forEach(line => {
-                        const parts = line.split(sep).map(p => p.replace(/^\"|\"$/g,'').trim());
-                        const nombre = idxNombre >= 0 ? parts[idxNombre] : '';
-                        if (!nombre) return;
-                        const preVal = idxPre >= 0 ? parts[idxPre] : '';
-                        const proVal = idxPro >= 0 ? parts[idxPro] : '';
-                        const frVal  = idxFr >= 0 ? parts[idxFr] : '';
-                        const preNum = parseNum(preVal);
-                        const proNum = parseNum(proVal);
-                        const frNum  = parseNum(frVal);
-                        if (Number.isFinite(preNum) && Number.isFinite(proNum)) {
-                            productRules[nombre] = { pre: preNum, pro: proNum, fr: Number.isFinite(frNum) ? frNum : null };
-                        }
-                    });
-                    refreshProductList();
-                    const names = Object.keys(productRules);
-                    const count = names.length;
-                    if (statusEl) {
-                        statusEl.textContent = count ? `Productos cargados: ${names.join(', ')}` : 'No se encontraron productos.';
-                        // Ocultar status luego de breve tiempo si exitoso
-                        if (count) setTimeout(()=>{ if(statusEl) statusEl.style.visibility='hidden'; }, 2000);
-                    }
-                }
+                            // PREP y PROD fechas/horas base (hoy + hora)
+                            prepDateEl.textContent = baseDateStr;
+                            prepTimeEl.textContent = baseTimeStr;
+                            prodDateEl.textContent = baseDateStr;
+                            prodTimeEl.textContent = baseTimeStr;
 
-                async function loadSheetAuto() {
-                    const csvUrl = SHEET_CSV_URL;
-                    if (statusEl) statusEl.textContent = 'Cargando...';
-                    try {
-                        const r = await fetch(csvUrl);
-                        if (!r.ok) throw new Error('HTTP '+r.status);
-                        const text = await r.text();
-                        if (!text || text.length < 5) throw new Error('CSV vacío');
-                        parseCSV(text);
-                        handleProductVisibility();
-                    } catch (e) {
-                        if (statusEl) statusEl.textContent = 'Error: ' + e.message;
-                        console.error('Error cargando CSV:', e);
-                    }
-                }
+                            function updateRuleSummary(rule){
+                                if(!rule){ ruleSummaryEl.textContent=''; return; }
+                                ruleSummaryEl.textContent = `Venc ${rule.dias_venc}d | Producción ${rule.dias_produccion}d | Uso ${rule.dias_uso}d`;
+                            }
 
-                function refreshProductList() {
-                    if (!productEl) return;
-                    const prev = productEl.value;
-                    productEl.innerHTML = '<option value="">Seleccione un producto…</option>';
-                    Object.keys(productRules).sort().forEach(p => {
-                        const opt = document.createElement('option');
-                        opt.value = p;
-                        opt.textContent = p;
-                        productEl.appendChild(opt);
-                    });
-                    if (prev && productRules[prev]) productEl.value = prev;
-                }
+                            function recompute(){
+                                const key = productEl.value;
+                                const rule = productRules[key];
+                                notesEl.textContent = key ? '' : 'Seleccione un producto para calcular.';
+                                updateRuleSummary(rule);
+                                itemNameEl.textContent = key || '';
+                                // limpiar expiries
+                                prepExpDateEl.textContent = prepExpTimeEl.textContent = '—';
+                                prodExpDateEl.textContent = prodExpTimeEl.textContent = '—';
+                                fvDateEl.textContent = fvTimeEl.textContent = '—';
+                                if(!rule) return;
 
-                function getDateTime(dateEl, timeEl) {
-                    if (!dateEl.value) return null;
-                    const time = timeEl && timeEl.value ? timeEl.value : '00:00';
-                    const [hh, mm] = time.split(':').map(Number);
-                    const d = new Date(dateEl.value);
-                    d.setHours(hh||0, mm||0, 0, 0);
-                    return d;
-                }
+                                // FV = hoy + dias_venc (fecha) con hora 23:59
+                                const fvDateRaw = addDays(baseStart, rule.dias_venc);
+                                const fvClamp = endOfDay2359(fvDateRaw);
+                                fvDateEl.textContent = toDDMMYY(fvClamp);
+                                fvTimeEl.textContent = '23-59';
 
-                function addDaysClamp(start, days, fvClampDate) {
-                    const target = new Date(start.getTime() + days*24*60*60*1000);
-                    if (fvClampDate && target > fvClampDate) return fvClampDate;
-                    return target;
-                }
+                                // Expiry PREP = hoy + dias_produccion (capado por FV, manteniendo hora base) 
+                                let prepExp = addDays(baseStart, rule.dias_produccion);
+                                if (prepExp > fvClamp) prepExp = fvClamp;
+                                prepExpDateEl.textContent = toDDMMYY(prepExp);
+                                prepExpTimeEl.textContent = toHHMM(prepExp);
 
-                function computeFVBase(product, frDate) {
-                    if (!productRules[product] || !frDate) return null;
-                    const rule = productRules[product];
-                    const baseDays = (rule.fr !== null && rule.fr !== undefined) ? rule.fr : Math.max(rule.pre||0, rule.pro||0);
-                    const fv = new Date(frDate.getTime() + baseDays*24*60*60*1000);
-                    return endOfDay(fv); // se fija a 23:59
-                }
+                                // Expiry PROD = hoy + dias_uso (capado por FV)
+                                let prodExp = addDays(baseStart, rule.dias_uso);
+                                if (prodExp > fvClamp) prodExp = fvClamp;
+                                prodExpDateEl.textContent = toDDMMYY(prodExp);
+                                prodExpTimeEl.textContent = toHHMM(prodExp);
 
-                function clearOutputs() {
-                    [prepExpDateEl, prepExpTimeEl, prodExpDateEl, prodExpTimeEl, fvDateEl].forEach(el => { if (el) el.value=''; });
-                    if (notesEl) notesEl.textContent='';
-                    if (warnEl) warnEl.textContent='';
-                }
+                                // Notas si capado
+                                const notes = [];
+                                if (prepExp.getTime() === fvClamp.getTime() && rule.dias_produccion > rule.dias_venc) notes.push('Prep capado por FV.');
+                                if (prodExp.getTime() === fvClamp.getTime() && rule.dias_uso > rule.dias_venc) notes.push('Prod capado por FV.');
+                                notesEl.textContent = notes.join(' ');
+                            }
 
-                function computeAll() {
-                    if (warnEl) warnEl.textContent = '';
-                    if (notesEl) notesEl.textContent = '';
-                    const product = (productEl && productEl.value) ? productEl.value.trim() : '';
-                    if (!product || !productRules[product]) { clearOutputs(); return; }
-
-                    const fr = frDateEl.value ? new Date(frDateEl.value) : null;
-                    if (fr) fr.setHours(0,0,0,0);
-                    const fvBase = fr ? computeFVBase(product, fr) : null;
-                    if (fvBase) fvDateEl.value = toDateInput(fvBase);
-
-                    // Prep
-                    const prepStart = getDateTime(prepDateEl, prepTimeEl);
-                    if (prepStart && fr && prepStart < fr) warnEl.textContent = 'Preparación antes de FR.';
-                    if (prepStart) {
-                        const prepExpiry = addDaysClamp(prepStart, productRules[product].pre, fvBase);
-                        prepExpDateEl.value = toDateInput(prepExpiry);
-                        prepExpTimeEl.value = toTimeInput(prepExpiry);
-                        if (fvBase && prepExpiry.getTime() === fvBase.getTime()) {
-                            notesEl.textContent = 'Prep capado por FV.';
-                        }
-                    } else {
-                        prepExpDateEl.value=''; prepExpTimeEl.value='';
-                    }
-
-                    // Prod
-                    const prodStart = getDateTime(prodDateEl, prodTimeEl);
-                    if (prodStart) {
-                        const prodExpiry = addDaysClamp(prodStart, productRules[product].pro, fvBase);
-                        prodExpDateEl.value = toDateInput(prodExpiry);
-                        prodExpTimeEl.value = toTimeInput(prodExpiry);
-                        if (fvBase && prodExpiry.getTime() === fvBase.getTime()) {
-                            notesEl.textContent = (notesEl.textContent? notesEl.textContent+' ': '') + 'Prod capado por FV.';
-                        }
-                    } else {
-                        prodExpDateEl.value=''; prodExpTimeEl.value='';
-                    }
-                }
-
-                function initDefaults() {
-                    const now = new Date();
-                    const todayStr = toDateInput(now);
-                    const timeStr = toTimeInput(now);
-                    if (frDateEl && !frDateEl.value) frDateEl.value = todayStr;
-                    if (prepDateEl && !prepDateEl.value) prepDateEl.value = todayStr;
-                    if (prepTimeEl && !prepTimeEl.value) prepTimeEl.value = timeStr;
-                    if (prodDateEl && !prodDateEl.value) prodDateEl.value = todayStr;
-                    if (prodTimeEl && !prodTimeEl.value) prodTimeEl.value = timeStr;
-                }
-
-                function handleProductVisibility() {
-                    const product = productEl.value.trim();
-                    if (!product || !productRules[product]) {
-                        if (tableWrapper) tableWrapper.style.display='none';
-                        clearOutputs();
-                        return;
-                    }
-                    if (tableWrapper) tableWrapper.style.display='block';
-                    computeAll();
-                }
-
-                ['input','change'].forEach(ev => {
-                    [productEl, frDateEl, prepDateEl, prepTimeEl, prodDateEl, prodTimeEl].forEach(el => el && el.addEventListener(ev, () => {
-                        if (el === productEl) {
-                            if (itemNameEl) itemNameEl.textContent = productEl.value || '';
-                            handleProductVisibility();
-                        } else {
-                            computeAll();
-                        }
-                    }));
-                });
-
-                // Auto-carga al iniciar (sin mostrar controles de carga)
-                loadSheetAuto();
-                initDefaults();
-            })();
-            /* === FIN RÓTULO AUTOMÁTICO TABLA === */
+                            productEl.addEventListener('change', recompute);
+                            recompute();
+                        })();
         });
     </script>
 </body>
 </html>
+
 
