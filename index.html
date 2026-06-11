@@ -11,17 +11,17 @@
             font-family: 'Inter', sans-serif;
         }
         .header {
-            background-color: #006D56; /* Rojo vivo */
+            background-color: #006D56; /* Verde institucional */
             color: white;
-            padding: 0.5rem 0 !important; /* navbar/header más delgado */
+            padding: 0.5rem 0 !important;
         }
         .btn-primary {
-            background-color: #006D56; /* Verde Bangladesh */
+            background-color: #006D56;
             color: white;
             transition: background-color 0.3s;
         }
         .btn-primary:hover {
-            background-color: #005A47; /* Verde más oscuro para hover */
+            background-color: #005A47;
         }
         .btn-secondary {
             background-color: #FF0017; /* Rojo vivo */
@@ -29,14 +29,14 @@
             transition: background-color 0.3s;
         }
         .btn-secondary:hover {
-            background-color: #D60014; /* Rojo más oscuro para hover */
+            background-color: #D60014;
         }
         .card {
             background-color: white;
             border-radius: 0.75rem;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             padding: 1.5rem;
-            height: 100%; /* Para que las tarjetas tengan la misma altura */
+            height: 100%;
         }
         .input-field {
             width: 100%;
@@ -44,7 +44,7 @@
             border: 1px solid #D1D5DB;
             border-radius: 0.5rem;
             margin-top: 0.5rem;
-            box-sizing: border-box; /* Asegura que el padding no afecte el ancho */
+            box-sizing: border-box;
         }
         .output-list li {
             display: flex;
@@ -66,31 +66,24 @@
             font-size: 1rem;
         }
 
-        /* Estilo para los botones de la barra de navegación */
         .nav-link {
             transition: all 0.3s;
-            padding: 0.5rem 0.5rem !important; /* antes p-4, ahora más compacto */
+            padding: 0.5rem 0.5rem !important;
             font-size: 0.95rem !important;
         }
 
-        /* Tabla Rótulo Auto compacta en móvil (sin scroll horizontal, misma tabla) */
-    /* Fuente compacta en toda la tabla de rótulos (~50% más pequeña) */
-    .ra-table { font-size: 0.5em; }
-    .ra-table th { font-size: 0.55em; }
-    .ra-table th, .ra-table td { padding: 6px 6px; line-height: 1.1; }
-    /* Números/valores: 25% más grandes que el tamaño reducido actual (0.5em -> 0.625em) */
-    .ra-table td span { font-size: 0.625em; }
+        /* Tabla Rótulo Auto compacta en móvil */
+        .ra-table { font-size: 0.75em; }
+        .ra-table th, .ra-table td { padding: 6px 6px; line-height: 1.2; }
+        .ra-table td span { font-size: 0.9em; font-weight: 700; }
 
         @media (max-width: 480px) {
-            .ra-table { table-layout: fixed; width: 100%; }
-            .ra-table th, .ra-table td { padding: 4px 3px; white-space: nowrap; }
-            .ra-table td span { font-size: 0.625em; }
-            /* Forzar que los anchos sean flexibles y no generen overflow */
+            .ra-table { table-layout: fixed; width: 100%; font-size: 0.65em; }
+            .ra-table th, .ra-table td { padding: 4px 2px; white-space: nowrap; overflow: hidden; }
+            .ra-table td span { font-size: 0.85em; }
             .ra-table th, .ra-table td { width: auto !important; }
-            /* Títulos de fila un poco más marcados */
             .ra-table .row-title { font-weight: 700; }
-            /* Acotar el nombre del item */
-            #ra-item-name { max-width: 110px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+            #ra-item-name { max-width: 90px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         }
     </style>
 </head>
@@ -113,10 +106,10 @@
             </button>
         </nav>
     </div>
+
     <main class="p-4 md:p-8">
 
         <div id="view-descuentos" class="view-content grid grid-cols-1 md:grid-cols-2 gap-6">
-            
             <div class="card">
                 <h2 class="text-xl font-bold mb-4 text-gray-800">1. Calculadora de Descuentos Fijos</h2>
                 <label for="basePrice" class="font-semibold text-gray-700">Precio Base (CLP):</label>
@@ -152,9 +145,9 @@
                     <p id="stackedTotal" class="font-bold text-4xl text-gray-900">$0</p>
                 </div>
             </div>
+        </div>
 
-        </div> <div id="view-rotulos" class="view-content hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            
+        <div id="view-rotulos" class="view-content hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div class="card">
                 <h2 class="text-xl font-bold mb-4 text-gray-800">3. Calculadora de Rótulos (Días)</h2>
                 <div class="text-center bg-blue-100 text-blue-800 p-3 rounded-lg mb-4">
@@ -200,152 +193,111 @@
                     <p id="expiryTime" class="font-bold text-2xl text-gray-900">--/--/---- --:--</p>
                 </div>
             </div>
-
         </div>
 
-        <!-- NUEVA VISTA: RÓTULO AUTOMÁTICO -->
-        <div id="view-rotulo-auto" class="view-content hidden p-2 md:p-4">
+        <div id="view-rotulo-auto" class="view-content hidden p-1 md:p-4">
             <div class="card overflow-x-auto">
                 <h2 class="text-xl font-bold mb-4 text-gray-800">Rótulo Automático</h2>
 
-                <div class="grid md:grid-cols-3 gap-4 mb-4">
-                    <div class="md:col-span-1">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div>
                         <label class="text-sm font-semibold text-gray-600">Producto</label>
                         <select id="ra-product" class="input-field">
                             <option value="">Seleccione un producto…</option>
                         </select>
                     </div>
-                    <div class="md:col-span-2 flex items-end text-sm text-gray-600">
-                        <span id="ra-rule-summary"></span>
+                    <div>
+                        <label class="text-sm font-semibold text-gray-600">Fecha Vencimiento Caja (FV)</label>
+                        <input type="date" id="ra-fv-input" class="input-field">
+                    </div>
+                    <div class="flex items-end text-sm text-gray-600 pb-2">
+                        <span id="ra-rule-summary" class="font-medium text-emerald-800 bg-emerald-50 p-2 rounded border border-emerald-200 w-full hidden"></span>
                     </div>
                 </div>
 
-                <!-- Tabla del rótulo - formato solicitado -->
-                <div class="overflow-auto">
-                    <table class="w-full border border-gray-300 text-sm ra-table">
+                <div class="overflow-auto border border-gray-300 rounded-lg">
+                    <table class="w-full border-collapse text-sm ra-table">
                         <tbody>
-                            <!-- 1) Fila de Item + FR y FV -->
-                            <tr class="bg-gray-50">
-                                <td class="border border-gray-300 px-2 py-2 font-semibold w-40 row-title">Item
-                                    <div id="ra-item-name" class="text-[11px] text-gray-600 font-normal truncate"></div>
+                            <tr class="bg-gray-50 border-b border-gray-300">
+                                <td class="border-r border-gray-300 px-3 py-3 font-bold text-gray-700 bg-gray-100 row-title">Item:
+                                    <div id="ra-item-name" class="text-xs text-emerald-700 font-bold truncate"></div>
                                 </td>
-                                <td class="border border-gray-300 px-2 py-2 text-center w-28" data-label="">fr:</td>
-                                <td class="border border-gray-300 px-2 py-2 text-center w-32" data-label="FR"><span id="ra-fr-date">—</span></td>
-                                <td class="border border-gray-300 px-2 py-2 text-center w-24" data-label="">fv:</td>
-                                <td class="border border-gray-300 px-2 py-2 text-center w-32" data-label="FV"><span id="ra-fv-date">—</span></td>
-                                <td class="border border-gray-300 px-2 py-2 text-center w-24" data-label="Hora FV"><span id="ra-fv-time">—</span></td>
+                                <td class="border-r border-gray-300 px-2 py-3 text-center text-gray-500 font-semibold bg-gray-100">fr:</td>
+                                <td class="border-r border-gray-300 px-2 py-3 text-center"><span id="ra-fr-date">—</span></td>
+                                <td class="border-r border-gray-300 px-2 py-3 text-center text-gray-500 font-semibold bg-gray-100">fv:</td>
+                                <td class="border-r border-gray-300 px-2 py-3 text-center"><span id="ra-fv-date">—</span></td>
+                                <td class="px-2 py-3 text-center bg-gray-50"><span id="ra-fv-time">—</span></td>
                             </tr>
-                            <!-- 2) Fila de indicadores -->
-                            <tr class="bg-gray-100 text-gray-700 font-semibold indicators">
-                                <td class="border border-gray-300 px-2 py-1"></td>
-                                <td class="border border-gray-300 px-2 py-1 text-center">Inic()</td>
-                                <td class="border border-gray-300 px-2 py-1 text-center">Fecha</td>
-                                <td class="border border-gray-300 px-2 py-1 text-center">Hora</td>
-                                <td class="border border-gray-300 px-2 py-1 text-center">F.Ven</td>
-                                <td class="border border-gray-300 px-2 py-1 text-center">H.Ven</td>
+                            <tr class="bg-gray-200 text-gray-700 font-bold border-b border-gray-300 text-[11px] uppercase tracking-wider">
+                                <td class="border-r border-gray-300 px-3 py-1.5">Proceso</td>
+                                <td class="border-r border-gray-300 px-2 py-1.5 text-center">Inic</td>
+                                <td class="border-r border-gray-300 px-2 py-1.5 text-center">Fecha</td>
+                                <td class="border-r border-gray-300 px-2 py-1.5 text-center">Hora</td>
+                                <td class="border-r border-gray-300 px-2 py-1.5 text-center">F.Ven</td>
+                                <td class="px-2 py-1.5 text-center">H.Ven</td>
                             </tr>
-                            <!-- 3) Fila PREP -->
-                            <tr id="ra-prep-row">
-                                <td class="border border-gray-300 px-2 py-2 font-semibold row-title">Prep</td>
-                                <td class="border border-gray-300 px-2 py-2 text-center" data-label="Inic()">--</td>
-                                <td class="border border-gray-300 px-2 py-2 text-center" data-label="Fecha"><span id="ra-prep-date">—</span></td>
-                                <td class="border border-gray-300 px-2 py-2 text-center" data-label="Hora"><span id="ra-prep-time">—</span></td>
-                                <td class="border border-gray-300 px-2 py-2 text-center" data-label="F.Ven"><span id="ra-prep-exp-date">—</span></td>
-                                <td class="border border-gray-300 px-2 py-2 text-center" data-label="H.Ven"><span id="ra-prep-exp-time">—</span></td>
+                            <tr id="ra-prep-row" class="border-b border-gray-300">
+                                <td class="border-r border-gray-300 px-3 py-2.5 font-bold text-gray-700 bg-gray-50 row-title">Prep</td>
+                                <td class="border-r border-gray-300 px-2 py-2.5 text-center text-gray-400">--</td>
+                                <td class="border-r border-gray-300 px-2 py-2.5 text-center"><span id="ra-prep-date">—</span></td>
+                                <td class="border-r border-gray-300 px-2 py-2.5 text-center"><span id="ra-prep-time">—</span></td>
+                                <td class="border-r border-gray-300 px-2 py-2.5 text-center"><span id="ra-prep-exp-date">—</span></td>
+                                <td class="px-2 py-2.5 text-center"><span id="ra-prep-exp-time">—</span></td>
                             </tr>
-                            <!-- 4) Fila PROD -->
-                            <tr>
-                                <td class="border border-gray-300 px-2 py-2 font-semibold row-title">Prod</td>
-                                <td class="border border-gray-300 px-2 py-2 text-center" data-label="Inic()">--</td>
-                                <td class="border border-gray-300 px-2 py-2 text-center" data-label="Fecha"><span id="ra-prod-date">—</span></td>
-                                <td class="border border-gray-300 px-2 py-2 text-center" data-label="Hora"><span id="ra-prod-time">—</span></td>
-                                <td class="border border-gray-300 px-2 py-2 text-center" data-label="F.Ven"><span id="ra-prod-exp-date">—</span></td>
-                                <td class="border border-gray-300 px-2 py-2 text-center" data-label="H.Ven"><span id="ra-prod-exp-time">—</span></td>
+                            <tr id="ra-prod-row">
+                                <td class="border-r border-gray-300 px-3 py-2.5 font-bold text-gray-700 bg-gray-50 row-title">Prod</td>
+                                <td class="border-r border-gray-300 px-2 py-2.5 text-center text-gray-400">--</td>
+                                <td class="border-r border-gray-300 px-2 py-2.5 text-center"><span id="ra-prod-date">—</span></td>
+                                <td class="border-r border-gray-300 px-2 py-2.5 text-center"><span id="ra-prod-time">—</span></td>
+                                <td class="border-r border-gray-300 px-2 py-2.5 text-center"><span id="ra-prod-exp-date">—</span></td>
+                                <td class="px-2 py-2.5 text-center"><span id="ra-prod-exp-time">—</span></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
-                <div class="mt-4 text-sm">
-                    <p id="ra-notes" class="text-xs text-gray-500 mt-1"></p>
+                <div class="mt-4">
+                    <p id="ra-notes" class="text-xs font-bold text-red-600 bg-red-50 p-2 rounded border border-red-200 inline-block hidden"></p>
                 </div>
             </div>
         </div>
-        </main>
+    </main>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
 
-            // ****** NUEVO CÓDIGO JS PARA NAVEGACIÓN DE PESTAÑAS ******
+            // ====== NAVEGACIÓN DE PESTAÑAS ======
             const navLinks = document.querySelectorAll('.nav-link');
             const views = document.querySelectorAll('.view-content');
             
-            // Colores de la navbar
-            const activeColor = '#006D56'; // Verde
-            const inactiveColor = '#6B7280'; // Gris
+            const activeColor = '#006D56';
+            const inactiveColor = '#6B7280';
             const activeBorderStyle = '4px solid #006D56';
             const inactiveBorderStyle = '4px solid transparent';
 
             navLinks.forEach(link => {
                 link.addEventListener('click', () => {
                     const viewIdToShow = link.dataset.view;
-
-                    // 1. Ocultar todas las vistas
-                    views.forEach(view => {
-                        view.classList.add('hidden');
-                    });
-
-                    // 2. Mostrar la vista seleccionada
+                    views.forEach(view => view.classList.add('hidden'));
                     const viewToShow = document.getElementById(viewIdToShow);
-                    if (viewToShow) {
-                        viewToShow.classList.remove('hidden');
-                    }
+                    if (viewToShow) viewToShow.classList.remove('hidden');
 
-                    // 3. Actualizar estilos de los links
                     navLinks.forEach(navLink => {
                         navLink.style.color = inactiveColor;
                         navLink.style.borderBottom = inactiveBorderStyle;
                     });
-                    
                     link.style.color = activeColor;
                     link.style.borderBottom = activeBorderStyle;
                 });
             });
-            // ****** FIN DEL CÓDIGO DE NAVEGACIÓN ******
 
-
-            // --- Utilidades de Formato ---
-            const formatCLP = (value) => {
-                return new Intl.NumberFormat('es-CL', {
-                    style: 'currency',
-                    currency: 'CLP',
-                    maximumFractionDigits: 0,
-                    minimumFractionDigits: 0
-                }).format(value);
-            };
-
-            const formatDate = (date) => {
-                return date.toLocaleDateString('es-CL', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric'
-                });
-            };
-
-            const formatTime = (date) => {
-                return date.toLocaleTimeString('es-CL', {
-                    hour: '2-digit',
-                    minute: '2-digit'
-                });
-            };
-
-            const formatDateTime = (date) => {
-                return `${formatDate(date)} ${formatTime(date)}`;
-            };
-
-            // --- 1. Calculadora de Descuentos Fijos ---
+            // ====== CALCULADORA DE DESCUENTOS FIJOS ======
             const basePriceInput = document.getElementById('basePrice');
             const discountPercentages = [10, 20, 25, 30, 40, 50];
+
+            const formatCLP = (val) => new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', maximumFractionDigits: 0 }).format(val);
+            const formatDate = (d) => `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`;
+            const formatTime = (d) => `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
 
             basePriceInput.addEventListener('input', () => {
                 const price = parseFloat(basePriceInput.value) || 0;
@@ -356,7 +308,7 @@
                 });
             });
 
-            // --- 2. Descuento sobre Descuento (Apilado) ---
+            // ====== DESCUENTO SOBRE DESCUENTO ======
             const stackedPriceInput = document.getElementById('stackedPrice');
             const stackedPercentInput = document.getElementById('stackedPercent');
             const applyStackedBtn = document.getElementById('applyStacked');
@@ -373,9 +325,7 @@
             });
 
             applyStackedBtn.addEventListener('click', () => {
-                if (currentStackedPrice === 0) {
-                     currentStackedPrice = parseFloat(stackedPriceInput.value) || 0;
-                }
+                if (currentStackedPrice === 0) currentStackedPrice = parseFloat(stackedPriceInput.value) || 0;
                 const percent = parseFloat(stackedPercentInput.value) || 0;
                 if (percent === 0) return;
                 currentStackedPrice -= (currentStackedPrice * (percent / 100));
@@ -384,11 +334,11 @@
                 stackedTotalEl.textContent = formatCLP(currentStackedPrice);
             });
 
-            // --- 3. Calculadora de Rótulos (Días) ---
+            // ====== CALCULADORA DE RÓTULOS (DÍAS MANUAL) ======
             const todayDateEl = document.getElementById('todayDate');
             const daysToCalculate = [3, 5, 10, 15, 30];
             const today = new Date();
-            todayDateEl.textContent = formatDate(today);
+            if (todayDateEl) todayDateEl.textContent = formatDate(today);
 
             daysToCalculate.forEach(days => {
                 const futureDate = new Date(today);
@@ -402,184 +352,270 @@
 
             customDaysInput.addEventListener('input', () => {
                 const days = parseInt(customDaysInput.value) || 0;
-                if (days <= 0) {
-                    customDateResultEl.textContent = '--/--/----';
-                    return;
-                }
+                if (days <= 0) { customDateResultEl.textContent = '--/--/----'; return; }
                 const futureDate = new Date(today);
                 futureDate.setDate(today.getDate() + days);
                 customDateResultEl.textContent = formatDate(futureDate);
             });
 
-            // --- 4. Calculadora de Rótulos (Horas) ---
+            // ====== CALCULADORA DE RÓTULOS (HORAS MANUAL) ======
             const nowTimeEl = document.getElementById('nowTime');
             const hoursToAddInput = document.getElementById('hoursToAdd');
             const calculateExpiryBtn = document.getElementById('calculateExpiry');
             const expiryTimeEl = document.getElementById('expiryTime');
 
-            // Calcula la fecha de vencimiento basada en la hora actual + horas indicadas
-            function computeExpiryDateFromNow() {
+            function updateExpiryDisplay() {
                 const hours = parseInt(hoursToAddInput.value, 10) || 0;
                 const d = new Date();
                 d.setHours(d.getHours() + hours);
-                return d;
+                if (expiryTimeEl) expiryTimeEl.textContent = `${formatDate(d)} ${formatTime(d)}`;
             }
 
-            // Actualiza el texto del vencimiento en la UI
-            function updateExpiryDisplay() {
-                const expiryDate = computeExpiryDateFromNow();
-                expiryTimeEl.textContent = formatDateTime(expiryDate);
-            }
-
-            // Actualizar automáticamente al cambiar el input y cuando se pulse el botón
-            hoursToAddInput.addEventListener('input', updateExpiryDisplay);
-            calculateExpiryBtn.addEventListener('click', updateExpiryDisplay);
-
-            // Inicializar la visualización al cargar
+            if (hoursToAddInput) hoursToAddInput.addEventListener('input', updateExpiryDisplay);
+            if (calculateExpiryBtn) calculateExpiryBtn.addEventListener('click', updateExpiryDisplay);
             updateExpiryDisplay();
-            nowTimeEl.textContent = formatTime(new Date());
+            
+            setInterval(() => {
+                const n = new Date();
+                if (nowTimeEl) nowTimeEl.textContent = formatTime(n);
+            }, 1000);
 
-            function renderTimers() {
-                // actualizar la hora actual cada segundo (si el elemento existe)
-                if (nowTimeEl) nowTimeEl.textContent = formatTime(new Date());
-            }
-            setInterval(renderTimers, 1000);
 
-            // === Rótulo Automático (solo lectura, sin hojas ni CSV) ===
-                        (function(){
-                            // Cambiamos la semántica de reglas: cada producto ahora tiene
-                            // nombre, dias_venc (vida total/FV), dias_produccion (para PREP), dias_uso (para PROD)
-                            const productRules = {
-                                'Salchicha Italiana': { dias_venc: 12, dias_produccion: 7, dias_uso: 1 },
-                                'Tocino': { dias_venc: 30, dias_produccion: 7, dias_uso: 2 },
-                                'Pollo':    { dias_venc: 7, dias_produccion: 7, dias_uso: 1 },
-                                'Champiñon':     { dias_venc: 6, dias_produccion: 2, dias_uso: 1 },
-                                'Pimenton': { dias_venc: 8, dias_produccion: 2, dias_uso: 1 },
-                                'Cebolla':     { dias_venc: 10, dias_produccion: 2, dias_uso: 1 },
-                                'Aceituna':     { dias_venc: 14, dias_produccion: 7, dias_uso: 2 },
-                                'Tomate':     { dias_venc: 8, dias_produccion: 2, dias_uso: 1 },
-                                'Jamon':     { dias_venc: 14, dias_produccion: 3, dias_uso: 2 },
-                                'Peperonni':     { dias_venc: 30, dias_produccion: 7, dias_uso: 1 },
-                                'Queso':     { dias_venc: 14, dias_produccion: 7, dias_uso: 1 },
-                                'Chicken Popper':     { dias_venc: 7, dias_produccion: 0, dias_uso: 2 },
-                                'Borde Queso':     { dias_venc: 14, dias_produccion: 7, dias_uso: 1 },
-                                'Galleta/Brownie':     { dias_venc: 14, dias_produccion: 0, dias_uso: 1 },
-                                'Garlic/Parmesan':     { dias_venc: 21, dias_produccion: 0, horas_uso: 10 },
-                            };
+            // ========================================================
+            // ====== MOTOR DE RÓTULO AUTOMÁTICO PROFESIONAL ======
+            // ========================================================
+            (function(){
+                // Matriz de especificaciones completa y normalizada
+                const productCategories = {
+                    "Misceláneos y Masas": {
+                        'Azúcar Glaseada': { cerrado: 'uso_por_fecha', prep: { valor: 120, unidad: 'dias' }, prod: { valor: 48, unidad: 'horas' } },
+                        'Canela': { cerrado: 'uso_por_fecha', prep: { valor: 30, unidad: 'dias' }, prod: { valor: 48, unidad: 'horas' } },
+                        'Crocante': { cerrado: 'uso_por_fecha', prep: { valor: 60, unidad: 'dias' }, prod: { valor: 48, unidad: 'horas' } },
+                        'Dustinator': { cerrado: 90, prep: { valor: 14, unidad: 'dias' }, prod: { valor: 48, unidad: 'horas' } },
+                        'Orégano': { cerrado: 'uso_por_fecha', prep: 'uso_por_fecha', prod: 'uso_por_fecha' },
+                        'Sazonador': { cerrado: 'uso_por_fecha', prep: 'uso_por_fecha', prod: 'uso_por_fecha' },
+                        'Galleta': { cerrado: 14, prep: { valor: 14, unidad: 'dias' }, prod: { valor: 24, unidad: 'horas' } },
+                        'Brownie': { cerrado: 14, prep: { valor: 14, unidad: 'dias' }, prod: { valor: 24, unidad: 'horas' } },
+                        'Masa Delgada': { cerrado: 14, prep: { valor: 14, unidad: 'dias' }, prod: { valor: 24, unidad: 'horas' } },
+                        'Masa Tradicional': { cerrado: 7, prep: { valor: 7, unidad: 'dias' }, prod: 'no_aplica' }
+                    },
+                    "Carnes": {
+                        'Alitas de Pollo': { cerrado: 7, prep: { valor: 7, unidad: 'dias' }, prod: { valor: 24, unidad: 'horas' } },
+                        'Carne': { cerrado: 12, prep: { valor: 7, unidad: 'dias' }, prod: { valor: 24, unidad: 'horas' } },
+                        'Chicken Poppers': { cerrado: 7, prep: { valor: 7, unidad: 'dias' }, prod: { valor: 24, unidad: 'horas' } },
+                        'Pollo Asado': { cerrado: 7, prep: { valor: 7, unidad: 'dias' }, prod: { valor: 24, unidad: 'horas' } },
+                        'Jamón PF': { cerrado: 'uso_por_fecha', prep: { valor: 3, unidad: 'dias' }, prod: { valor: 48, unidad: 'horas' } },
+                        'Lomito Canadiense': { cerrado: 12, prep: { valor: 7, unidad: 'dias' }, prod: { valor: 48, unidad: 'horas' } },
+                        'Pepperoni': { cerrado: 30, prep: { valor: 7, unidad: 'dias' }, prod: { valor: 24, unidad: 'horas' } },
+                        'Salchicha Italiana': { cerrado: 12, prep: { valor: 7, unidad: 'dias' }, prod: { valor: 24, unidad: 'horas' } },
+                        'Tocino': { cerrado: 30, prep: { valor: 7, unidad: 'dias' }, prod: { valor: 48, unidad: 'horas' } },
+                        'Chorizo': { cerrado: 10, prep: { valor: 4, unidad: 'dias' }, prod: { valor: 24, unidad: 'horas' } }
+                    },
+                    "Quesos": {
+                        'Mezcla de Dos Quesos': { cerrado: 7, prep: { valor: 7, unidad: 'dias' }, prod: { valor: 24, unidad: 'horas' } },
+                        'Queso en Tiras': { cerrado: 14, prep: { valor: 7, unidad: 'dias' }, prod: { valor: 24, unidad: 'horas' } },
+                        'Queso Mozzarella': { cerrado: 14, prep: { valor: 7, unidad: 'dias' }, prod: { valor: 24, unidad: 'horas' } }
+                    },
+                    "Salsas": {
+                        'Cup de Ajo': { cerrado: 'uso_por_fecha', prep: 'no_aplica', prod: { valor: 10, unidad: 'horas' } },
+                        'Salsa de Ajo (Bidón)': { cerrado: 'uso_por_fecha', prep: { valor: 21, unidad: 'dias' }, prod: { valor: 10, unidad: 'horas' } },
+                        'Salsa Ajo Parmesano': { cerrado: 'uso_por_fecha', prep: { valor: 21, unidad: 'dias' }, prod: { valor: 10, unidad: 'horas' } },
+                        'Cup de Barbecue': { cerrado: 'uso_por_fecha', prep: 'uso_por_fecha', prod: 'uso_por_fecha' },
+                        'Salsa Barbecue (Bolsa)': { cerrado: 'uso_por_fecha', prep: { valor: 4, unidad: 'dias' }, prod: { valor: 48, unidad: 'horas' } },
+                        'Salsa Espinaca Alfredo': { cerrado: 21, prep: { valor: 5, unidad: 'dias' }, prod: { valor: 24, unidad: 'horas' } },
+                        'Salsa de Pizza': { cerrado: 'uso_por_fecha', prep: { valor: 2, unidad: 'dias' }, prod: { valor: 10, unidad: 'horas' } },
+                        'Pesto': { cerrado: 6, prep: { valor: 6, unidad: 'dias' }, prod: { valor: 24, unidad: 'horas' } }
+                    },
+                    "Vegetales": {
+                        'Aceitunas': { cerrado: 'uso_por_fecha', prep: { valor: 7, unidad: 'dias' }, prod: { valor: 48, unidad: 'horas' } },
+                        'Cebolla': { cerrado: 10, prep: { valor: 2, unidad: 'dias' }, prod: { valor: 24, unidad: 'horas' } },
+                        'Champiñón': { cerrado: 6, prep: { valor: 2, unidad: 'dias' }, prod: { valor: 24, unidad: 'horas' } },
+                        'Choclo': { cerrado: 4, prep: { valor: 2, unidad: 'dias' }, prod: { valor: 48, unidad: 'horas' } },
+                        'Peperoncini': { cerrado: 'uso_por_fecha', prep: { valor: 15, unidad: 'dias' }, prod: { valor: 12, unidad: 'horas' } },
+                        'Pimiento Verde': { cerrado: 8, prep: { valor: 2, unidad: 'dias' }, prod: { valor: 24, unidad: 'horas' } },
+                        'Piña': { cerrado: 'uso_por_fecha', prep: { valor: 15, unidad: 'dias' }, prod: { valor: 48, unidad: 'horas' } },
+                        'Tomate Cherry': { cerrado: 'uso_por_fecha', prep: { valor: 2, unidad: 'dias' }, prod: { valor: 24, unidad: 'horas' } },
+                        'Tomate Normal': { cerrado: 8, prep: { valor: 2, unidad: 'dias' }, prod: { valor: 24, unidad: 'horas' } }
+                    }
+                };
 
-                            const pad2 = n => String(n).padStart(2,'0');
-                            const toDDMMYY = d => `${pad2(d.getDate())}-${pad2(d.getMonth()+1)}-${String(d.getFullYear()).slice(-2)}`;
-                            const toHHMM = d => `${pad2(d.getHours())}-${pad2(d.getMinutes())}`;
-                            const floorHour = d => { const x=new Date(d); x.setMinutes(0,0,0); return x; };
-                            const addDays = (d, days) => new Date(d.getFullYear(), d.getMonth(), d.getDate()+days, d.getHours(), d.getMinutes(),0,0);
-                            const addHours = (d, hours) => new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours()+hours, d.getMinutes(), 0, 0);
-                            const endOfDay2359 = d => new Date(d.getFullYear(), d.getMonth(), d.getDate(), 23,59,0,0);
+                // Crear un mapa plano para búsquedas rápidas
+                const flatRules = {};
+                Object.keys(productCategories).forEach(cat => {
+                    Object.keys(productCategories[cat]).forEach(name => {
+                        flatRules[name] = productCategories[cat][name];
+                    });
+                });
 
-                            // Elements
-                            const productEl = document.getElementById('ra-product');
-                            const ruleSummaryEl = document.getElementById('ra-rule-summary');
-                            const notesEl = document.getElementById('ra-notes');
-                            const itemNameEl = document.getElementById('ra-item-name');
-                            const frDateEl = document.getElementById('ra-fr-date');
-                            const fvDateEl = document.getElementById('ra-fv-date');
-                            const fvTimeEl = document.getElementById('ra-fv-time');
-                            const prepDateEl = document.getElementById('ra-prep-date');
-                            const prepTimeEl = document.getElementById('ra-prep-time');
-                            const prepExpDateEl = document.getElementById('ra-prep-exp-date');
-                            const prepExpTimeEl = document.getElementById('ra-prep-exp-time');
-                            const prodDateEl = document.getElementById('ra-prod-date');
-                            const prodTimeEl = document.getElementById('ra-prod-time');
-                            const prodExpDateEl = document.getElementById('ra-prod-exp-date');
-                            const prodExpTimeEl = document.getElementById('ra-prod-exp-time');
+                // Helpers matemáticos de fechas
+                const pad2 = n => String(n).padStart(2,'0');
+                const toDDMMYY = d => `${pad2(d.getDate())}-${pad2(d.getMonth()+1)}-${String(d.getFullYear()).slice(-2)}`;
+                const toHHMM = d => `${pad2(d.getHours())}:${pad2(d.getMinutes())}`;
+                const addDays = (d, days) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + days, d.getHours(), d.getMinutes(), 0, 0);
+                const addHours = (d, hours) => new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours() + hours, d.getMinutes(), 0, 0);
 
-                            // Populate selector
-                            Object.keys(productRules).forEach(name => { const opt=document.createElement('option'); opt.value=name; opt.textContent=name; productEl.appendChild(opt); });
+                // Algoritmo para buscar el último camión (Martes o Jueves disponible hacia atrás)
+                function getLatestTruckDate(baseDate) {
+                    let d = new Date(baseDate);
+                    for (let i = 0; i < 7; i++) {
+                        let day = d.getDay();
+                        if (day === 2 || day === 4) return d; // 2=Martes, 4=Jueves
+                        d.setDate(d.getDate() - 1);
+                    }
+                    return baseDate;
+                }
 
-                            // Base start (hoy redondeado a la hora)
-                            const baseStart = floorHour(new Date());
-                            const baseDateStr = toDDMMYY(baseStart);
-                            const baseTimeStr = toHHMM(baseStart);
+                // Elementos de la interfaz
+                const productEl = document.getElementById('ra-product');
+                const fvInputEl = document.getElementById('ra-fv-input');
+                const ruleSummaryEl = document.getElementById('ra-rule-summary');
+                const notesEl = document.getElementById('ra-notes');
+                const itemNameEl = document.getElementById('ra-item-name');
+                
+                const frDateEl = document.getElementById('ra-fr-date');
+                const fvDateEl = document.getElementById('ra-fv-date');
+                const fvTimeEl = document.getElementById('ra-fv-time');
+                
+                const prepDateEl = document.getElementById('ra-prep-date');
+                const prepTimeEl = document.getElementById('ra-prep-time');
+                const prepExpDateEl = document.getElementById('ra-prep-exp-date');
+                const prepExpTimeEl = document.getElementById('ra-prep-exp-time');
+                
+                const prodDateEl = document.getElementById('ra-prod-date');
+                const prodTimeEl = document.getElementById('ra-prod-time');
+                const prodExpDateEl = document.getElementById('ra-prod-exp-date');
+                const prodExpTimeEl = document.getElementById('ra-prod-exp-time');
 
-                            // FR fija hoy (solo fecha en primera fila con etiqueta FR)
-                            frDateEl.textContent = baseDateStr;
-                            // FV se calculará al elegir producto
-                            fvDateEl.textContent = '—';
-                            fvTimeEl.textContent = '—';
+                // Inicializar calendario selector con la fecha de hoy
+                const todayISO = new Date().toISOString().split('T')[0];
+                fvInputEl.value = todayISO;
 
-                            // PREP y PROD fechas/horas base (hoy + hora)
-                            prepDateEl.textContent = baseDateStr;
-                            prepTimeEl.textContent = baseTimeStr;
-                            prodDateEl.textContent = baseDateStr;
-                            prodTimeEl.textContent = baseTimeStr;
+                // Cargar productos agrupados ópticamente por categoría
+                Object.keys(productCategories).forEach(cat => {
+                    const group = document.createElement('optgroup');
+                    group.label = cat;
+                    Object.keys(productCategories[cat]).forEach(name => {
+                        const opt = document.createElement('option');
+                        opt.value = name;
+                        opt.textContent = name;
+                        group.appendChild(opt);
+                    });
+                    productEl.appendChild(group);
+                });
 
-                                                        function updateRuleSummary(rule){
-                                                                if(!rule){ ruleSummaryEl.textContent=''; return; }
-                                                                const usoLabel = (rule.horas_uso != null && !isNaN(rule.horas_uso))
-                                                                    ? `${rule.horas_uso}h`
-                                                                    : `${rule.dias_uso}d`;
-                                                                ruleSummaryEl.textContent = `Venc ${rule.dias_venc}d | Producción ${rule.dias_produccion}d | Uso ${usoLabel}`;
-                                                        }
+                function updateRuleSummary(rule) {
+                    if (!rule) { ruleSummaryEl.textContent = ''; ruleSummaryEl.classList.add('hidden'); return; }
+                    
+                    const cerradoText = rule.cerrado === 'uso_por_fecha' ? 'Uso por Fecha' : `${rule.cerrado}d`;
+                    let prepText = (rule.prep === 'no_aplica') ? 'N/A' : (rule.prep === 'uso_por_fecha' ? 'Uso por Fecha' : `${rule.prep.valor}d`);
+                    let prodText = (rule.prod === 'no_aplica') ? 'N/A' : (rule.prod === 'uso_por_fecha' ? 'Uso por Fecha' : (rule.prod.unidad === 'horas' ? `${rule.prod.valor}h` : `${rule.prod.valor}d`));
 
-                            function recompute(){
-                                const key = productEl.value;
-                                const rule = productRules[key];
-                                notesEl.textContent = key ? '' : 'Seleccione un producto para calcular.';
-                                updateRuleSummary(rule);
-                                itemNameEl.textContent = key || '';
-                                // limpiar expiries
-                                prepExpDateEl.textContent = prepExpTimeEl.textContent = '—';
-                                prodExpDateEl.textContent = prodExpTimeEl.textContent = '—';
-                                fvDateEl.textContent = fvTimeEl.textContent = '—';
-                                if(!rule) return;
+                    ruleSummaryEl.textContent = `Fábrica: ${cerradoText} | Prep: ${prepText} | Prod: ${prodText}`;
+                    ruleSummaryEl.classList.remove('hidden');
+                }
 
-                                // FV = hoy + dias_venc (fecha) con hora 23:59
-                                const fvDateRaw = addDays(baseStart, rule.dias_venc);
-                                const fvClamp = endOfDay2359(fvDateRaw);
-                                fvDateEl.textContent = toDDMMYY(fvClamp);
-                                // Ocultar la hora FV en la fila Item (no mostrar 23-59)
-                                fvTimeEl.textContent = '';
+                function recompute() {
+                    const key = productEl.value;
+                    const rule = flatRules[key];
 
-                                // Flags de capado
-                                let prepCapped = false;
-                                let prodCapped = false;
+                    // Resetear vista si no hay selección
+                    if (!key || !rule) {
+                        itemNameEl.textContent = '';
+                        frDateEl.textContent = '—'; fvDateEl.textContent = '—'; fvTimeEl.textContent = '—';
+                        prepDateEl.textContent = '—'; prepTimeEl.textContent = '—'; prepExpDateEl.textContent = '—'; prepExpTimeEl.textContent = '—';
+                        prodDateEl.textContent = '—'; prodTimeEl.textContent = '—'; prodExpDateEl.textContent = '—'; prodExpTimeEl.textContent = '—';
+                        notesEl.textContent = ''; notesEl.classList.add('hidden');
+                        updateRuleSummary(null);
+                        return;
+                    }
 
-                                // PREP: si dias_produccion = 0 (uso diario), dejar PREP vacío
-                                if (Number(rule.dias_produccion) === 0) {
-                                    document.getElementById('ra-prep-date').textContent = '—';
-                                    document.getElementById('ra-prep-time').textContent = '—';
-                                    prepExpDateEl.textContent = '—';
-                                    prepExpTimeEl.textContent = '—';
-                                } else {
-                                    // Expiry PREP = hoy + dias_produccion (capado por FV)
-                                    let prepExp = addDays(baseStart, rule.dias_produccion);
-                                    if (prepExp > fvClamp) { prepExp = fvClamp; prepCapped = true; }
-                                    prepExpDateEl.textContent = toDDMMYY(prepExp);
-                                    prepExpTimeEl.textContent = toHHMM(prepExp);
-                                }
+                    updateRuleSummary(rule);
+                    itemNameEl.textContent = key;
 
-                                                                // Expiry PROD = hoy + (dias_uso o horas_uso) (capado por FV)
-                                                                let prodExp = (rule.horas_uso != null && !isNaN(rule.horas_uso))
-                                                                    ? addHours(baseStart, Number(rule.horas_uso))
-                                                                    : addDays(baseStart, Number(rule.dias_uso));
-                                if (prodExp > fvClamp) { prodExp = fvClamp; prodCapped = true; }
-                                prodExpDateEl.textContent = toDDMMYY(prodExp);
-                                prodExpTimeEl.textContent = toHHMM(prodExp);
+                    // El origen del tiempo es "ahora"
+                    const baseStart = new Date();
+                    const nowStrDate = toDDMMYY(baseStart);
+                    const nowStrTime = toHHMM(baseStart);
 
-                                // Notas si capado
-                                const notes = [];
-                                if (prepCapped) notes.push('Prep capado por FV.');
-                                if (prodCapped) notes.push('Prod capado por FV.');
-                                notesEl.textContent = notes.join(' ');
+                    // 1) Calcular FR (Último Martes o Jueves disponible)
+                    const truckDate = getLatestTruckDate(baseStart);
+                    frDateEl.textContent = toDDMMYY(truckDate);
+
+                    // 2) Procesar FV elegida manualmente por el usuario en el calendario
+                    let selectedFvValue = fvInputEl.value || todayISO;
+                    // Generamos el techo absoluto a las 23:59 del día de vencimiento de fábrica
+                    const fvClamp = new Date(selectedFvValue + 'T23:59:00');
+                    fvDateEl.textContent = toDDMMYY(fvClamp);
+                    fvTimeEl.textContent = '23:59';
+
+                    // Variables para alertar sobre capados
+                    let prepCapped = false;
+                    let prodCapped = false;
+
+                    // 3) FILA PREP
+                    if (rule.prep === 'no_aplica') {
+                        prepDateEl.textContent = '—'; prepTimeEl.textContent = '—';
+                        prepExpDateEl.textContent = '—'; prepExpTimeEl.textContent = '—';
+                    } else {
+                        prepDateEl.textContent = nowStrDate;
+                        prepTimeEl.textContent = nowStrTime;
+
+                        let prepExp;
+                        if (rule.prep === 'uso_por_fecha') {
+                            prepExp = new Date(fvClamp);
+                        } else {
+                            prepExp = addDays(baseStart, rule.prep.valor);
+                            if (prepExp > fvClamp) { prepExp = new Date(fvClamp); prepCapped = true; }
+                        }
+                        prepExpDateEl.textContent = toDDMMYY(prepExp);
+                        prepExpTimeEl.textContent = toHHMM(prepExp);
+                    }
+
+                    // 4) FILA PROD
+                    if (rule.prod === 'no_aplica') {
+                        prodDateEl.textContent = '—'; prodTimeEl.textContent = '—';
+                        prodExpDateEl.textContent = '—'; prodExpTimeEl.textContent = '—';
+                    } else {
+                        prodDateEl.textContent = nowStrDate;
+                        prodTimeEl.textContent = nowStrTime;
+
+                        let prodExp;
+                        if (rule.prod === 'uso_por_fecha') {
+                            prodExp = new Date(fvClamp);
+                        } else {
+                            if (rule.prod.unidad === 'horas') {
+                                prodExp = addHours(baseStart, rule.prod.valor);
+                            } else {
+                                prodExp = addDays(baseStart, rule.prod.valor);
                             }
+                            if (prodExp > fvClamp) { prodExp = new Date(fvClamp); prodCapped = true; }
+                        }
+                        prodExpDateEl.textContent = toDDMMYY(prodExp);
+                        prodExpTimeEl.textContent = toHHMM(prodExp);
+                    }
 
-                            productEl.addEventListener('change', recompute);
-                            recompute();
-                        })();
+                    // Renderizar notas de alerta si hubo capado por FV
+                    const alertNotes = [];
+                    if (prepCapped) alertNotes.push('Prep recortado por FV de Caja.');
+                    if (prodCapped) alertNotes.push('Prod recortado por FV de Caja.');
+                    
+                    if (alertNotes.length > 0) {
+                        notesEl.textContent = `⚠️ Alerta: ${alertNotes.join(' ')}`;
+                        notesEl.classList.remove('hidden');
+                    } else {
+                        notesEl.textContent = '';
+                        notesEl.classList.add('hidden');
+                    }
+                }
+
+                // Listeners operativos
+                productEl.addEventListener('change', recompute);
+                fvInputEl.addEventListener('change', recompute);
+                
+                // Recalcular el origen del tiempo cada minuto en caso de que la app se quede abierta
+                setInterval(() => { if(productEl.value) recompute(); }, 60000);
+            })();
         });
     </script>
 </body>
 </html>
-
-
-
-
