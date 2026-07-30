@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Herramientas de Trabajo</title>
+    <title>Rótulo Automático | Herramientas Papa John's</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Estilo personalizado con los colores oficiales de Papa John's */
@@ -13,74 +13,115 @@
         .header {
             background-color: #006D56; /* Verde institucional */
             color: white;
-            padding: 0.5rem 0 !important;
+            padding: 1.1rem 0;
         }
         .btn-primary {
             background-color: #006D56;
             color: white;
-            transition: background-color 0.3s;
+            transition: background-color 0.2s;
         }
         .btn-primary:hover {
             background-color: #005A47;
         }
-        .btn-secondary {
-            background-color: #FF0017; /* Rojo vivo */
-            color: white;
-            transition: background-color 0.3s;
-        }
-        .btn-secondary:hover {
-            background-color: #D60014;
-        }
         .card {
             background-color: white;
-            border-radius: 0.75rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-radius: 0.9rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
             padding: 1.5rem;
             height: 100%;
         }
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #1F2937;
+            margin-bottom: 1.1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #F3F4F6;
+        }
         .input-field {
             width: 100%;
-            padding: 0.75rem;
+            padding: 0.7rem 0.85rem;
             border: 1px solid #D1D5DB;
             border-radius: 0.5rem;
-            margin-top: 0.5rem;
+            margin-top: 0.4rem;
             box-sizing: border-box;
+            font-size: 0.95rem;
         }
-        .output-list li {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.75rem 0.5rem;
-            border-bottom: 1px solid #E5E7EB;
-            font-size: 0.9rem;
+        .input-field:focus {
+            outline: none;
+            border-color: #006D56;
+            box-shadow: 0 0 0 3px rgba(0,109,86,0.15);
         }
-        .output-list li:last-child {
-            border-bottom: none;
+        .info-pill {
+            text-align: center;
+            background-color: #ECFDF5;
+            color: #065F46;
+            padding: 0.65rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #A7F3D0;
         }
-        .output-list li span:first-child {
-            font-weight: 600;
-            color: #4B5563;
+
+        /* Grilla compacta de resultados (reemplaza las listas largas) */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.6rem;
         }
-        .output-list li span:last-child {
+        .stat-chip {
+            background-color: #F9FAFB;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.6rem;
+            padding: 0.6rem 0.4rem;
+            text-align: center;
+            transition: border-color 0.2s, background-color 0.2s;
+        }
+        .stat-chip:hover { border-color: #A7F3D0; background-color: #F0FDF9; }
+        .stat-chip .stat-label {
+            font-size: 0.68rem;
             font-weight: 700;
-            color: #1F2937;
+            color: #6B7280;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+        .stat-chip .stat-value {
             font-size: 1rem;
+            font-weight: 800;
+            color: #111827;
+            margin-top: 0.15rem;
         }
 
+        /* Navegación */
         .nav-link {
-            transition: all 0.3s;
-            padding: 0.5rem 0.5rem !important;
-            font-size: 0.95rem !important;
+            transition: all 0.2s;
+            padding: 0.85rem 0.4rem !important;
+            font-size: 0.85rem !important;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.15rem;
+        }
+        .nav-link .nav-emoji { font-size: 1.3rem; }
+        @media (min-width: 640px) {
+            .nav-link { flex-direction: row; font-size: 0.95rem !important; }
         }
 
-        /* Tabla Rótulo Auto compacta en móvil */
-        .ra-table { font-size: 0.75em; }
-        .ra-table th, .ra-table td { padding: 6px 6px; line-height: 1.2; }
-        .ra-table td span { font-size: 0.9em; font-weight: 700; }
+        /* Tabla Rótulo Auto */
+        .ra-table { font-size: 0.8em; }
+        .ra-table th, .ra-table td { padding: 8px 8px; line-height: 1.25; }
+        .ra-table td span { font-size: 0.95em; font-weight: 700; }
+        .ra-table thead tr { background-color: #ECFDF5; }
+        .ra-table tbody tr:nth-child(odd) { background-color: #FAFAFA; }
+        .ra-table td.capped-cell { background-color: #FEE2E2 !important; }
+        .ra-table td.capped-cell span { color: #B91C1C; }
 
         @media (max-width: 480px) {
-            .ra-table { table-layout: fixed; width: 100%; font-size: 0.65em; }
-            .ra-table th, .ra-table td { padding: 4px 2px; white-space: nowrap; overflow: hidden; }
-            .ra-table td span { font-size: 0.85em; }
+            .ra-table { table-layout: fixed; width: 100%; font-size: 0.72em; }
+            .ra-table th, .ra-table td { padding: 6px 3px; white-space: nowrap; overflow: hidden; }
+            .ra-table td span { font-size: 0.9em; }
             .ra-table th, .ra-table td { width: auto !important; }
             .ra-table .row-title { font-weight: 700; }
             #ra-item-name { max-width: 90px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -89,115 +130,29 @@
 </head>
 <body class="bg-gray-100">
 
-    <header class="header p-6 shadow-md">
-        <h1 class="text-3xl font-bold text-center">Herramientas de Ayuda</h1>
+    <header class="header shadow-md">
+        <h1 class="text-2xl md:text-3xl font-bold text-center">🍕 Herramientas de Ayuda</h1>
     </header>
 
     <div class="bg-white shadow-md sticky top-0 z-10">
         <nav class="flex justify-center max-w-3xl mx-auto">
-            <button id="nav-link-descuentos" data-view="view-descuentos" class="nav-link flex-1 p-4 text-center font-bold text-lg" style="color: #006D56; border-bottom: 4px solid #006D56;">
-                💸 Descuentos
+            <button id="nav-link-rotulo-auto" data-view="view-rotulo-auto" class="nav-link flex-1 font-bold" style="color: #006D56; border-bottom: 4px solid #006D56;">
+                <span class="nav-emoji">🏷️</span> Rótulo Automático
             </button>
-            <button id="nav-link-rotulos" data-view="view-rotulos" class="nav-link flex-1 p-4 text-center font-bold text-lg" style="color: #6B7280; border-bottom: 4px solid transparent;">
-                🗓️ Rótulos
+            <button id="nav-link-descuentos" data-view="view-descuentos" class="nav-link flex-1 font-bold" style="color: #6B7280; border-bottom: 4px solid transparent;">
+                <span class="nav-emoji">💸</span> Descuentos
             </button>
-            <button id="nav-link-rotulo-auto" data-view="view-rotulo-auto" class="nav-link flex-1 p-4 text-center font-bold text-lg" style="color: #6B7280; border-bottom: 4px solid transparent;">
-                🏷️ Rótulo Auto
+            <button id="nav-link-fechas" data-view="view-fechas" class="nav-link flex-1 font-bold" style="color: #6B7280; border-bottom: 4px solid transparent;">
+                <span class="nav-emoji">🗓️</span> Fechas
             </button>
         </nav>
     </div>
 
     <main class="p-4 md:p-8">
 
-        <div id="view-descuentos" class="view-content grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="card">
-                <h2 class="text-xl font-bold mb-4 text-gray-800">1. Calculadora de Descuentos Fijos</h2>
-                <label for="basePrice" class="font-semibold text-gray-700">Precio Base (CLP):</label>
-                <input type="number" id="basePrice" placeholder="Ej: 10000" class="input-field mb-4">
-                
-                <ul id="discountList" class="output-list bg-gray-50 rounded-lg">
-                    <li><span>10% DCTO:</span> <span id="discount-10">$0</span></li>
-                    <li><span>20% DCTO:</span> <span id="discount-20">$0</span></li>
-                    <li><span>25% DCTO:</span> <span id="discount-25">$0</span></li>
-                    <li><span>30% DCTO:</span> <span id="discount-30">$0</span></li>
-                    <li><span>40% DCTO:</span> <span id="discount-40">$0</span></li>
-                    <li><span>50% DCTO:</span> <span id="discount-50">$0</span></li>
-                </ul>
-            </div>
-
-            <div class="card">
-                <h2 class="text-xl font-bold mb-4 text-gray-800">2. Descuento sobre Descuento</h2>
-                <label for="stackedPrice" class="font-semibold text-gray-700">Precio Actual (CLP):</label>
-                <input type="number" id="stackedPrice" placeholder="Ej: 10000" class="input-field">
-                
-                <label for="stackedPercent" class="font-semibold text-gray-700 mt-4 block">Porcentaje a Aplicar (%):</label>
-                <input type="number" id="stackedPercent" placeholder="Ej: 10" class="input-field mb-4">
-                
-                <button id="applyStacked" class="btn-secondary w-full py-3 rounded-lg font-bold text-lg">
-                    Aplicar Descuento
-                </button>
-                
-                <div class="mt-4 text-center">
-                    <p class="text-gray-600 text-lg">Veces aplicado: 
-                        <span id="stackedCount" class="font-bold text-2xl" style="color: #FF0017;">0</span>
-                    </p>
-                    <p class="text-gray-800 text-xl mt-2">Nuevo Total:</p>
-                    <p id="stackedTotal" class="font-bold text-4xl text-gray-900">$0</p>
-                </div>
-            </div>
-        </div>
-
-        <div id="view-rotulos" class="view-content hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="card">
-                <h2 class="text-xl font-bold mb-4 text-gray-800">3. Calculadora de Rótulos (Días)</h2>
-                <div class="text-center bg-blue-100 text-blue-800 p-3 rounded-lg mb-4">
-                    <span class="font-semibold">Hoy es:</span>
-                    <span id="todayDate" class="font-bold text-lg">--/--/----</span>
-                </div>
-                
-                <ul id="dateList" class="output-list bg-gray-50 rounded-lg">
-                    <li><span>+ 3 Días:</span> <span id="date-3">--/--/----</span></li>
-                    <li><span>+ 5 Días:</span> <span id="date-5">--/--/----</span></li>
-                    <li><span>+ 10 Días:</span> <span id="date-10">--/--/----</span></li>
-                    <li><span>+ 15 Días:</span> <span id="date-15">--/--/----</span></li>
-                    <li><span>+ 30 Días:</span> <span id="date-30">--/--/----</span></li>
-                </ul>
-
-                <div class="mt-4 pt-4 border-t border-gray-200">
-                    <h3 class="font-semibold text-gray-700 mb-2">Calcular Días Personalizados</h3>
-                    <label for="customDays" class="text-sm text-gray-600">Días a añadir:</label>
-                    <input type="number" id="customDays" placeholder="Ej: 7" class="input-field my-2">
-                    <div class="text-center bg-blue-100 text-blue-800 p-3 rounded-lg mt-2">
-                        <span class="font-semibold">Fecha resultante:</span>
-                        <span id="customDateResult" class="font-bold text-lg">--/--/----</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <h2 class="text-xl font-bold mb-4 text-gray-800">4. Calculadora de Rótulos (Horas)</h2>
-                <div class="text-center bg-blue-100 text-blue-800 p-3 rounded-lg mb-4">
-                    <span class="font-semibold">Ahora es:</span>
-                    <span id="nowTime" class="font-bold text-lg">--:--</span>
-                </div>
-
-                <label for="hoursToAdd" class="font-semibold text-gray-700">Horas a Añadir:</label>
-                <input type="number" id="hoursToAdd" value="10" class="input-field mb-4">
-                
-                <button id="calculateExpiry" class="btn-primary w-full py-3 rounded-lg font-bold text-lg">
-                    Calcular Vccto.
-                </button>
-                
-                <div class="mt-4 text-center">
-                    <p class="text-gray-800 text-xl">Vence el:</p>
-                    <p id="expiryTime" class="font-bold text-2xl text-gray-900">--/--/---- --:--</p>
-                </div>
-            </div>
-        </div>
-
-        <div id="view-rotulo-auto" class="view-content hidden p-1 md:p-4">
+        <div id="view-rotulo-auto" class="view-content p-1 md:p-4">
             <div class="card overflow-x-auto">
-                <h2 class="text-xl font-bold mb-4 text-gray-800">Rótulo Automático</h2>
+                <div class="card-title">🏷️ Rótulo Automático</div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                     <div>
@@ -218,7 +173,7 @@
                 <div class="overflow-auto border border-gray-300 rounded-lg">
                     <table class="w-full border-collapse text-sm ra-table">
                         <tbody>
-                            <tr class="bg-gray-50 border-b border-gray-300">
+                            <tr class="border-b border-gray-300">
                                 <td class="border-r border-gray-300 px-3 py-3 font-bold text-gray-700 bg-gray-100 row-title">Item:
                                     <div id="ra-item-name" class="text-xs text-emerald-700 font-bold truncate"></div>
                                 </td>
@@ -261,6 +216,66 @@
                 </div>
             </div>
         </div>
+
+        <div id="view-descuentos" class="view-content hidden">
+            <div class="card max-w-xl mx-auto">
+                <div class="card-title">💸 Calculadora de Descuentos</div>
+                <label for="basePrice" class="font-semibold text-gray-700">Precio Base (CLP):</label>
+                <input type="number" id="basePrice" placeholder="Ej: 10000" class="input-field mb-5">
+
+                <div id="discountList" class="stat-grid">
+                    <div class="stat-chip"><div class="stat-label">10% dcto</div><div class="stat-value" id="discount-10">$0</div></div>
+                    <div class="stat-chip"><div class="stat-label">20% dcto</div><div class="stat-value" id="discount-20">$0</div></div>
+                    <div class="stat-chip"><div class="stat-label">25% dcto</div><div class="stat-value" id="discount-25">$0</div></div>
+                    <div class="stat-chip"><div class="stat-label">30% dcto</div><div class="stat-value" id="discount-30">$0</div></div>
+                    <div class="stat-chip"><div class="stat-label">40% dcto</div><div class="stat-value" id="discount-40">$0</div></div>
+                    <div class="stat-chip"><div class="stat-label">50% dcto</div><div class="stat-value" id="discount-50">$0</div></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-fechas" class="view-content hidden grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            <div class="card">
+                <div class="card-title">🗓️ Fechas (Días)</div>
+                <div class="info-pill">
+                    <span class="font-semibold">Hoy es:</span>
+                    <span id="todayDate" class="font-bold text-lg">--/--/----</span>
+                </div>
+
+                <div id="dateList" class="stat-grid">
+                    <div class="stat-chip"><div class="stat-label">+ 3 días</div><div class="stat-value" id="date-3">--/--/----</div></div>
+                    <div class="stat-chip"><div class="stat-label">+ 5 días</div><div class="stat-value" id="date-5">--/--/----</div></div>
+                    <div class="stat-chip"><div class="stat-label">+ 7 días</div><div class="stat-value" id="date-7">--/--/----</div></div>
+                    <div class="stat-chip"><div class="stat-label">+ 8 días</div><div class="stat-value" id="date-8">--/--/----</div></div>
+                    <div class="stat-chip"><div class="stat-label">+ 10 días</div><div class="stat-value" id="date-10">--/--/----</div></div>
+                    <div class="stat-chip"><div class="stat-label">+ 14 días</div><div class="stat-value" id="date-14">--/--/----</div></div>
+                    <div class="stat-chip"><div class="stat-label">+ 30 días</div><div class="stat-value" id="date-30">--/--/----</div></div>
+                </div>
+
+                <div class="mt-5 pt-4 border-t border-gray-200">
+                    <h3 class="font-semibold text-gray-700 mb-2 text-sm">Calcular días personalizados</h3>
+                    <label for="customDays" class="text-sm text-gray-600">Días a añadir:</label>
+                    <input type="number" id="customDays" placeholder="Ej: 12" class="input-field my-2">
+                    <div class="info-pill mt-2 mb-0">
+                        <span class="font-semibold">Fecha resultante:</span>
+                        <span id="customDateResult" class="font-bold text-lg">--/--/----</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">⏱️ Fechas (Horas)</div>
+                <div class="info-pill">
+                    <span class="font-semibold">Ahora es:</span>
+                    <span id="nowTime" class="font-bold text-lg">--:--</span>
+                </div>
+
+                <div id="hourList" class="stat-grid" style="grid-template-columns: repeat(2, 1fr);">
+                    <div class="stat-chip"><div class="stat-label">+ 10 horas</div><div class="stat-value" id="hour-10">--/--/---- --:--</div></div>
+                    <div class="stat-chip"><div class="stat-label">+ 12 horas</div><div class="stat-value" id="hour-12">--/--/---- --:--</div></div>
+                </div>
+            </div>
+        </div>
     </main>
 
     <script>
@@ -269,7 +284,7 @@
             // ====== NAVEGACIÓN DE PESTAÑAS ======
             const navLinks = document.querySelectorAll('.nav-link');
             const views = document.querySelectorAll('.view-content');
-            
+
             const activeColor = '#006D56';
             const inactiveColor = '#6B7280';
             const activeBorderStyle = '4px solid #006D56';
@@ -291,13 +306,14 @@
                 });
             });
 
-            // ====== CALCULADORA DE DESCUENTOS FIJOS ======
-            const basePriceInput = document.getElementById('basePrice');
-            const discountPercentages = [10, 20, 25, 30, 40, 50];
-
+            // ====== HELPERS DE FORMATO ======
             const formatCLP = (val) => new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', maximumFractionDigits: 0 }).format(val);
             const formatDate = (d) => `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`;
             const formatTime = (d) => `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+
+            // ====== CALCULADORA DE DESCUENTOS ======
+            const basePriceInput = document.getElementById('basePrice');
+            const discountPercentages = [10, 20, 25, 30, 40, 50];
 
             basePriceInput.addEventListener('input', () => {
                 const price = parseFloat(basePriceInput.value) || 0;
@@ -308,35 +324,9 @@
                 });
             });
 
-            // ====== DESCUENTO SOBRE DESCUENTO ======
-            const stackedPriceInput = document.getElementById('stackedPrice');
-            const stackedPercentInput = document.getElementById('stackedPercent');
-            const applyStackedBtn = document.getElementById('applyStacked');
-            const stackedCountEl = document.getElementById('stackedCount');
-            const stackedTotalEl = document.getElementById('stackedTotal');
-            let currentStackedPrice = 0;
-            let stackedCount = 0;
-
-            stackedPriceInput.addEventListener('input', () => {
-                currentStackedPrice = parseFloat(stackedPriceInput.value) || 0;
-                stackedCount = 0;
-                stackedCountEl.textContent = stackedCount;
-                stackedTotalEl.textContent = formatCLP(currentStackedPrice);
-            });
-
-            applyStackedBtn.addEventListener('click', () => {
-                if (currentStackedPrice === 0) currentStackedPrice = parseFloat(stackedPriceInput.value) || 0;
-                const percent = parseFloat(stackedPercentInput.value) || 0;
-                if (percent === 0) return;
-                currentStackedPrice -= (currentStackedPrice * (percent / 100));
-                stackedCount++;
-                stackedCountEl.textContent = stackedCount;
-                stackedTotalEl.textContent = formatCLP(currentStackedPrice);
-            });
-
-            // ====== CALCULADORA DE RÓTULOS (DÍAS MANUAL) ======
+            // ====== FECHAS (DÍAS) ======
             const todayDateEl = document.getElementById('todayDate');
-            const daysToCalculate = [3, 5, 10, 15, 30];
+            const daysToCalculate = [3, 5, 7, 8, 10, 14, 30];
             const today = new Date();
             if (todayDateEl) todayDateEl.textContent = formatDate(today);
 
@@ -358,27 +348,23 @@
                 customDateResultEl.textContent = formatDate(futureDate);
             });
 
-            // ====== CALCULADORA DE RÓTULOS (HORAS MANUAL) ======
+            // ====== FECHAS (HORAS) ======
             const nowTimeEl = document.getElementById('nowTime');
-            const hoursToAddInput = document.getElementById('hoursToAdd');
-            const calculateExpiryBtn = document.getElementById('calculateExpiry');
-            const expiryTimeEl = document.getElementById('expiryTime');
+            const hoursToCalculate = [10, 12];
 
-            function updateExpiryDisplay() {
-                const hours = parseInt(hoursToAddInput.value, 10) || 0;
-                const d = new Date();
-                d.setHours(d.getHours() + hours);
-                if (expiryTimeEl) expiryTimeEl.textContent = `${formatDate(d)} ${formatTime(d)}`;
-            }
-
-            if (hoursToAddInput) hoursToAddInput.addEventListener('input', updateExpiryDisplay);
-            if (calculateExpiryBtn) calculateExpiryBtn.addEventListener('click', updateExpiryDisplay);
-            updateExpiryDisplay();
-            
-            setInterval(() => {
+            function updateHoursList() {
                 const n = new Date();
                 if (nowTimeEl) nowTimeEl.textContent = formatTime(n);
-            }, 1000);
+                hoursToCalculate.forEach(h => {
+                    const d = new Date();
+                    d.setHours(d.getHours() + h);
+                    const el = document.getElementById(`hour-${h}`);
+                    if (el) el.textContent = `${formatDate(d)} ${formatTime(d)}`;
+                });
+            }
+
+            updateHoursList();
+            setInterval(updateHoursList, 1000);
 
 
             // ========================================================
@@ -414,17 +400,17 @@
                     "Quesos": {
                         'Mezcla de Dos Quesos': { cerrado: 7, prep: { valor: 7, unidad: 'dias' }, prod: { valor: 24, unidad: 'horas' } },
                         'Queso en Tiras': { cerrado: 14, prep: { valor: 7, unidad: 'dias' }, prod: { valor: 24, unidad: 'horas' } },
-                        'Queso Mozzarella': { cerrado: 14, prep: { valor: 7, unidad: 'dias' }, prod: { valor: 24, unidad: 'horas' } }
+                        'Queso Mozzarella': { cerrado: 14, prep: 'no_aplica', prod: { valor: 24, unidad: 'horas' } }
                     },
                     "Salsas": {
                         'Cup de Ajo': { cerrado: 'uso_por_fecha', prep: 'no_aplica', prod: { valor: 10, unidad: 'horas' } },
-                        'Salsa de Ajo (Bidón)': { cerrado: 'uso_por_fecha', prep: { valor: 21, unidad: 'dias' }, prod: { valor: 10, unidad: 'horas' } },
-                        'Salsa Ajo Parmesano': { cerrado: 'uso_por_fecha', prep: { valor: 21, unidad: 'dias' }, prod: { valor: 10, unidad: 'horas' } },
-                        'Cup de Barbecue': { cerrado: 'uso_por_fecha', prep: 'uso_por_fecha', prod: 'uso_por_fecha' },
+                        'Salsa de Ajo (Bidón)': { cerrado: 'uso_por_fecha', prep: 'no_aplica', prod: { valor: 10, unidad: 'horas' } },
+                        'Salsa Ajo Parmesano': { cerrado: 'uso_por_fecha', prep: 'no_aplica', prod: { valor: 10, unidad: 'horas' } },
+                        'Cup de Barbecue': { cerrado: 'uso_por_fecha', prep: 'no_aplica', prod: 'uso_por_fecha' },
                         'Salsa Barbecue (Bolsa)': { cerrado: 'uso_por_fecha', prep: { valor: 4, unidad: 'dias' }, prod: { valor: 48, unidad: 'horas' } },
                         'Salsa Espinaca Alfredo': { cerrado: 21, prep: { valor: 5, unidad: 'dias' }, prod: { valor: 24, unidad: 'horas' } },
-                        'Salsa de Pizza': { cerrado: 'uso_por_fecha', prep: { valor: 2, unidad: 'dias' }, prod: { valor: 10, unidad: 'horas' } },
-                        'Pesto': { cerrado: 6, prep: { valor: 6, unidad: 'dias' }, prod: { valor: 24, unidad: 'horas' } }
+                        'Salsa de Pizza': { cerrado: 'uso_por_fecha', prep: 'no_aplica', prod: { valor: 10, unidad: 'horas' } },
+                        'Pesto': { cerrado: 6, prep: 'no_aplica', prod: { valor: 24, unidad: 'horas' } }
                     },
                     "Vegetales": {
                         'Aceitunas': { cerrado: 'uso_por_fecha', prep: { valor: 7, unidad: 'dias' }, prod: { valor: 48, unidad: 'horas' } },
@@ -438,6 +424,11 @@
                         'Tomate Normal': { cerrado: 8, prep: { valor: 2, unidad: 'dias' }, prod: { valor: 24, unidad: 'horas' } }
                     }
                 };
+
+                // Excepciones: productos cuya vida útil de Prep/Prod NUNCA se recorta por la FV
+                // de la caja. Duran lo que dicen sus reglas propias, sin importar la fecha de
+                // vencimiento de fábrica seleccionada.
+                const noFvCapProducts = new Set(['Azúcar Glaseada', 'Crocante']);
 
                 // Crear un mapa plano para búsquedas rápidas
                 const flatRules = {};
@@ -453,6 +444,14 @@
                 const toHHMM = d => `${pad2(d.getHours())}:${pad2(d.getMinutes())}`;
                 const addDays = (d, days) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + days, d.getHours(), d.getMinutes(), 0, 0);
                 const addHours = (d, hours) => new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours() + hours, d.getMinutes(), 0, 0);
+
+                // Redondea hacia abajo al bloque de media hora anterior (ej: 6:28 -> 6:00, 6:35 -> 6:30)
+                const floorToHalfHour = d => {
+                    const nd = new Date(d);
+                    const flooredMins = nd.getMinutes() < 30 ? 0 : 30;
+                    nd.setMinutes(flooredMins, 0, 0);
+                    return nd;
+                };
 
                 // Algoritmo para buscar el último camión (Martes o Jueves disponible hacia atrás)
                 function getLatestTruckDate(baseDate) {
@@ -471,41 +470,96 @@
                 const ruleSummaryEl = document.getElementById('ra-rule-summary');
                 const notesEl = document.getElementById('ra-notes');
                 const itemNameEl = document.getElementById('ra-item-name');
-                
+
                 const frDateEl = document.getElementById('ra-fr-date');
                 const fvDateEl = document.getElementById('ra-fv-date');
                 const fvTimeEl = document.getElementById('ra-fv-time');
-                
+
                 const prepDateEl = document.getElementById('ra-prep-date');
                 const prepTimeEl = document.getElementById('ra-prep-time');
                 const prepExpDateEl = document.getElementById('ra-prep-exp-date');
                 const prepExpTimeEl = document.getElementById('ra-prep-exp-time');
-                
+
                 const prodDateEl = document.getElementById('ra-prod-date');
                 const prodTimeEl = document.getElementById('ra-prod-time');
                 const prodExpDateEl = document.getElementById('ra-prod-exp-date');
                 const prodExpTimeEl = document.getElementById('ra-prod-exp-time');
 
-                // Inicializar calendario selector con la fecha de hoy
+                // Inicializar el selector de FV con un mínimo de 20 días desde hoy.
+                // Esto evita que, por defecto, la FV quede en "hoy" y dispare la alerta de
+                // "recortado por FV" apenas se selecciona un producto (la mayoría de las
+                // reglas de prep/prod son de menos de 20 días).
                 const todayISO = new Date().toISOString().split('T')[0];
-                fvInputEl.value = todayISO;
+                const defaultFvDate = new Date();
+                defaultFvDate.setDate(defaultFvDate.getDate() + 20);
+                const defaultFvISO = defaultFvDate.toISOString().split('T')[0];
+                fvInputEl.value = defaultFvISO;
+                fvInputEl.min = todayISO;
+
+                // ====== MEMORIA DE PRODUCTOS USADOS (localStorage) ======
+                const STORAGE_KEY = 'ra_usage_counts';
+                const LAST_KEY = 'ra_last_product';
+
+                function getUsageCounts() {
+                    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
+                    catch (e) { return {}; }
+                }
+                function registerUsage(name) {
+                    try {
+                        const counts = getUsageCounts();
+                        counts[name] = (counts[name] || 0) + 1;
+                        localStorage.setItem(STORAGE_KEY, JSON.stringify(counts));
+                        localStorage.setItem(LAST_KEY, name);
+                    } catch (e) { /* localStorage no disponible, se ignora */ }
+                }
 
                 // Cargar productos agrupados ópticamente por categoría
-                Object.keys(productCategories).forEach(cat => {
-                    const group = document.createElement('optgroup');
-                    group.label = cat;
-                    Object.keys(productCategories[cat]).forEach(name => {
-                        const opt = document.createElement('option');
-                        opt.value = name;
-                        opt.textContent = name;
-                        group.appendChild(opt);
+                function buildProductOptions() {
+                    productEl.innerHTML = '<option value="">Seleccione un producto…</option>';
+
+                    // Optgroup "Más usados" (top 5, solo si hay historial)
+                    const counts = getUsageCounts();
+                    const topUsed = Object.keys(counts)
+                        .filter(name => flatRules[name])
+                        .sort((a, b) => counts[b] - counts[a])
+                        .slice(0, 5);
+
+                    if (topUsed.length > 0) {
+                        const usedGroup = document.createElement('optgroup');
+                        usedGroup.label = '⭐ Más usados';
+                        topUsed.forEach(name => {
+                            const opt = document.createElement('option');
+                            opt.value = name;
+                            opt.textContent = name;
+                            usedGroup.appendChild(opt);
+                        });
+                        productEl.appendChild(usedGroup);
+                    }
+
+                    Object.keys(productCategories).forEach(cat => {
+                        const group = document.createElement('optgroup');
+                        group.label = cat;
+                        Object.keys(productCategories[cat]).forEach(name => {
+                            const opt = document.createElement('option');
+                            opt.value = name;
+                            opt.textContent = name;
+                            group.appendChild(opt);
+                        });
+                        productEl.appendChild(group);
                     });
-                    productEl.appendChild(group);
-                });
+                }
+                buildProductOptions();
+
+                // Preseleccionar el último producto usado, si existe
+                let lastProduct = '';
+                try { lastProduct = localStorage.getItem(LAST_KEY) || ''; } catch (e) { /* ignorar */ }
+                if (lastProduct && flatRules[lastProduct]) {
+                    productEl.value = lastProduct;
+                }
 
                 function updateRuleSummary(rule) {
                     if (!rule) { ruleSummaryEl.textContent = ''; ruleSummaryEl.classList.add('hidden'); return; }
-                    
+
                     const cerradoText = rule.cerrado === 'uso_por_fecha' ? 'Uso por Fecha' : `${rule.cerrado}d`;
                     let prepText = (rule.prep === 'no_aplica') ? 'N/A' : (rule.prep === 'uso_por_fecha' ? 'Uso por Fecha' : `${rule.prep.valor}d`);
                     let prodText = (rule.prod === 'no_aplica') ? 'N/A' : (rule.prod === 'uso_por_fecha' ? 'Uso por Fecha' : (rule.prod.unidad === 'horas' ? `${rule.prod.valor}h` : `${rule.prod.valor}d`));
@@ -525,6 +579,7 @@
                         prepDateEl.textContent = '—'; prepTimeEl.textContent = '—'; prepExpDateEl.textContent = '—'; prepExpTimeEl.textContent = '—';
                         prodDateEl.textContent = '—'; prodTimeEl.textContent = '—'; prodExpDateEl.textContent = '—'; prodExpTimeEl.textContent = '—';
                         notesEl.textContent = ''; notesEl.classList.add('hidden');
+                        [prepExpDateEl, prepExpTimeEl, prodExpDateEl, prodExpTimeEl].forEach(el => el.closest('td').classList.remove('capped-cell'));
                         updateRuleSummary(null);
                         return;
                     }
@@ -532,17 +587,21 @@
                     updateRuleSummary(rule);
                     itemNameEl.textContent = key;
 
-                    // El origen del tiempo es "ahora"
+                    // El origen real del tiempo es "ahora"...
                     const baseStart = new Date();
-                    const nowStrDate = toDDMMYY(baseStart);
-                    const nowStrTime = toHHMM(baseStart);
+                    // ...pero la hora de inicio que se imprime en el rótulo (Inic) siempre se
+                    // redondea hacia abajo al bloque de media hora más cercano, y esa es también
+                    // la base para calcular los vencimientos de Prep/Prod.
+                    const roundedStart = floorToHalfHour(baseStart);
+                    const nowStrDate = toDDMMYY(roundedStart);
+                    const nowStrTime = toHHMM(roundedStart);
 
                     // 1) Calcular FR (Último Martes o Jueves disponible)
                     const truckDate = getLatestTruckDate(baseStart);
                     frDateEl.textContent = toDDMMYY(truckDate);
 
                     // 2) Procesar FV elegida manualmente por el usuario en el calendario
-                    let selectedFvValue = fvInputEl.value || todayISO;
+                    let selectedFvValue = fvInputEl.value || defaultFvISO;
                     // Generamos el techo absoluto a las 23:59 del día de vencimiento de fábrica
                     const fvClamp = new Date(selectedFvValue + 'T23:59:00');
                     fvDateEl.textContent = toDDMMYY(fvClamp);
@@ -564,8 +623,8 @@
                         if (rule.prep === 'uso_por_fecha') {
                             prepExp = new Date(fvClamp);
                         } else {
-                            prepExp = addDays(baseStart, rule.prep.valor);
-                            if (prepExp > fvClamp) { prepExp = new Date(fvClamp); prepCapped = true; }
+                            prepExp = addDays(roundedStart, rule.prep.valor);
+                            if (prepExp > fvClamp && !noFvCapProducts.has(key)) { prepExp = new Date(fvClamp); prepCapped = true; }
                         }
                         prepExpDateEl.textContent = toDDMMYY(prepExp);
                         prepExpTimeEl.textContent = toHHMM(prepExp);
@@ -584,21 +643,27 @@
                             prodExp = new Date(fvClamp);
                         } else {
                             if (rule.prod.unidad === 'horas') {
-                                prodExp = addHours(baseStart, rule.prod.valor);
+                                prodExp = addHours(roundedStart, rule.prod.valor);
                             } else {
-                                prodExp = addDays(baseStart, rule.prod.valor);
+                                prodExp = addDays(roundedStart, rule.prod.valor);
                             }
-                            if (prodExp > fvClamp) { prodExp = new Date(fvClamp); prodCapped = true; }
+                            if (prodExp > fvClamp && !noFvCapProducts.has(key)) { prodExp = new Date(fvClamp); prodCapped = true; }
                         }
                         prodExpDateEl.textContent = toDDMMYY(prodExp);
                         prodExpTimeEl.textContent = toHHMM(prodExp);
                     }
 
+                    // Resaltar en rojo la celda de vencimiento específica que fue recortada por FV
+                    prepExpDateEl.closest('td').classList.toggle('capped-cell', prepCapped);
+                    prepExpTimeEl.closest('td').classList.toggle('capped-cell', prepCapped);
+                    prodExpDateEl.closest('td').classList.toggle('capped-cell', prodCapped);
+                    prodExpTimeEl.closest('td').classList.toggle('capped-cell', prodCapped);
+
                     // Renderizar notas de alerta si hubo capado por FV
                     const alertNotes = [];
                     if (prepCapped) alertNotes.push('Prep recortado por FV de Caja.');
                     if (prodCapped) alertNotes.push('Prod recortado por FV de Caja.');
-                    
+
                     if (alertNotes.length > 0) {
                         notesEl.textContent = `⚠️ Alerta: ${alertNotes.join(' ')}`;
                         notesEl.classList.remove('hidden');
@@ -609,9 +674,20 @@
                 }
 
                 // Listeners operativos
-                productEl.addEventListener('change', recompute);
+                productEl.addEventListener('change', () => {
+                    const selected = productEl.value;
+                    if (selected) {
+                        registerUsage(selected);
+                        buildProductOptions(); // refresca el optgroup "Más usados" con el nuevo conteo
+                        productEl.value = selected; // mantener la selección tras reconstruir el <select>
+                    }
+                    recompute();
+                });
                 fvInputEl.addEventListener('change', recompute);
-                
+
+                // Si quedó preseleccionado el último producto usado, calcular de inmediato
+                if (productEl.value) recompute();
+
                 // Recalcular el origen del tiempo cada minuto en caso de que la app se quede abierta
                 setInterval(() => { if(productEl.value) recompute(); }, 60000);
             })();
