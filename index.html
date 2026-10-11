@@ -99,7 +99,8 @@
             #ra-item-name { max-width: 90px; white-space: normal; line-height: 1.1; font-size: .65rem; }
         }
 
-        #ra-fv-input { background-color: #F9FAFB; color: #111827; font-weight: 800; cursor: default; }
+        #ra-fv-input { background-color: #F9FAFB; color: #111827; font-weight: 800; cursor: pointer; text-overflow: ellipsis; }
+        #ra-fv-input.fv-dual { font-size: .8rem; }
         /* Campo FV bloqueado y texto "Uso por fecha" dentro de la celda */
         .input-field:disabled { background-color: #F3F4F6; color: #9CA3AF; cursor: not-allowed; }
         #ra-single .ra-table td span.ra-upf { display: inline-block; white-space: normal; font-size: .68rem; line-height: 1.05; }
@@ -199,12 +200,40 @@
             font-size: .6rem; font-weight: 800; letter-spacing: .04em; text-transform: none; }
         .tag-tomorrow.hidden { display: none; }
 
+        /* Tarjetas / fila fr-fv táctiles: una pulsación alterna "Según caja" <-> fechas calculadas en todas */
+        #ra-single .ra-table tbody tr:nth-child(1) { cursor: pointer; }
+        .ra-card { cursor: pointer; transition: border-color .2s ease, box-shadow .2s ease, transform .15s ease; }
+        .ra-card:hover { border-color: #006341; box-shadow: 0 6px 16px -10px rgba(0,99,65,.5); }
+        .ra-card:active { transform: scale(.99); }
+        .ra-eye { flex: none; color: #9CA3AF; transition: color .2s ease; }
+        .ra-eye.on { color: #006341; }
+        .ra-eye .icon { width: 1.1rem; height: 1.1rem; }
+
+        /* ===== Fecha de rotulado ===== */
+        .ra-datebar { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; margin-bottom: .6rem; }
+        .ra-datebtn { position: relative; display: inline-flex; align-items: center; gap: .55rem; padding: .4rem .85rem; border-radius: .7rem;
+            background: #fff; border: 1px solid #D1D5DB; color: #1F2937; font-size: .88rem; font-weight: 800; cursor: pointer; transition: all .2s ease; }
+        .ra-datebtn:hover { border-color: #006341; color: #006341; }
+        .ra-datebtn:active { transform: scale(.97); }
+        .ra-datebtn .icon { width: 1.15rem; height: 1.15rem; color: #006341; }
+        .ra-datebtn small { display: block; margin-bottom: .1rem; font-size: .56rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #6B7280; line-height: 1; }
+        .ra-datebtn:focus-within { border-color: #006341; box-shadow: 0 0 0 3px rgba(0,99,65,.15); }
+        .ra-datebtn-col { display: flex; flex-direction: column; }
+        .ra-dateinput { min-width: 9.5rem; padding: 0; border: 0; outline: 0; background: transparent; color: inherit; font: inherit; font-size: 1rem; font-weight: 800; cursor: pointer; }
+        .ra-datebtn.is-other { background: #FFF7E6; border-color: #F59E0B; color: #92400E; }
+        .ra-datebtn.is-other .icon { color: #B45309; }
+        .ra-datebtn.is-other small { color: #B45309; }
+        .ra-base-reset { padding: .35rem .6rem; border: 0; border-radius: .5rem; background: transparent; color: #006341; font-size: .75rem; font-weight: 700; cursor: pointer; transition: all .2s ease; }
+        .ra-base-reset:hover { background: #E1F1E9; }
+        .ra-base-reset:active { transform: scale(.96); }
+        .ra-base-reset.hidden { display: none; }
+
         /* ===== IMPRESIÓN: blanco y negro, alto contraste, sin cortes ===== */
         @page { margin: 3mm; }
         @media print {
             html, body { background: #fff !important; }
             * { animation: none !important; transition: none !important; }
-            .header, .sticky, #ra-type-chips, #ra-single > .grid, #ra-notes, #view-rotulo-auto .card-title { display: none !important; }
+            .header, .sticky, #ra-type-chips, #ra-datebar, #ra-single > .grid, #ra-notes, #view-rotulo-auto .card-title { display: none !important; }
             main, #view-rotulo-auto { padding: 0 !important; }
             #view-rotulo-auto .card { box-shadow: none !important; padding: 0 !important; border-radius: 0 !important; overflow: visible !important; }
             #ra-single .overflow-auto {
@@ -258,6 +287,16 @@
             <div class="card overflow-x-auto">
                 
 
+                <div id="ra-datebar" class="ra-datebar">
+                    <label id="ra-base-btn" class="ra-datebtn" for="ra-base-date">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        <span class="ra-datebtn-col">
+                            <small>Fecha de rotulado · <span id="ra-base-label">hoy</span></small>
+                            <input type="date" id="ra-base-date" class="ra-dateinput" aria-label="Elegir la fecha de rotulado">
+                        </span>
+                    </label>
+                    <button type="button" id="ra-base-reset" class="ra-base-reset hidden">Volver a hoy</button>
+                </div>
                 <div id="ra-type-chips" class="flex flex-wrap gap-2 mb-4"></div>
 
                 <div id="ra-single">
@@ -272,6 +311,7 @@
                     <div>
                         <label class="text-sm font-semibold text-gray-600">Fecha Vencimiento Caja (FV)</label>
                         <input type="text" id="ra-fv-input" class="input-field" readonly tabindex="-1" placeholder="—">
+                        <div id="ra-calc-hint" class="text-[11px] text-gray-500 mt-1"></div>
                     </div>
                     <div class="flex flex-col justify-end gap-2 text-sm pb-2">
                         <span id="ra-rule-summary" class="font-medium text-emerald-800 bg-emerald-50 p-2 rounded border border-emerald-200 w-full hidden"></span>
@@ -548,10 +588,14 @@
                         'Azúcar Glaseada': { cerrado: U, prep: d(120), prod: h(48) },
                         'Canela': { cerrado: U, prep: d(30), prod: h(48) },
                         'Crocante': { cerrado: U, prep: d(60), prod: h(48) },
-                        'Dustinator': { cerrado: 90, prep: d(14), prod: h(48) },
-                        'Orégano / Sazonador': { cerrado: U, prep: U, prod: U },
-                        'Galleta / Brownie / Masa Delgada': { cerrado: 14, prep: d(14), prod: h(24) },
+                        // cerradoFrio (opcional): vida útil cerrado en cámara fría; se muestra junto al valor ambiente
+                        'Dustinator': { cerrado: 90, cerradoFrio: 30, prep: d(14), prod: h(48) },
+                        'Orégano': { cerrado: U, prep: U, prod: U },
+                        'Sazonador': { cerrado: U, prep: NA, prod: U },
+                        'Galleta / Brownie': { cerrado: 14, prep: NA, prod: h(24) },
+                        'Masa Delgada': { cerrado: 14, prep: d(14), prod: h(24) },
                         'Masa Tradicional': { cerrado: 7, prep: d(7), prod: NA },
+                        'Nutella': { cerrado: U, prep: d(60), prod: h(48) },
                         'Chocolate Trencito': { cerrado: U, prep: U, prod: d(10) },
                         'Brillo': { cerrado: U, prep: d(14), prod: d(14) },
                         'Croissant': { cerrado: 7, prep: d(7), prod: d(7) }
@@ -567,21 +611,24 @@
                     },
                     "Quesos": {
                         'Mezcla de Dos Quesos': { cerrado: 7, prep: d(7), prod: h(24) },
-                        'Queso en Tiras': { cerrado: 14, prep: d(7), prod: h(24) },
-                        'Queso Mozzarella': { cerrado: 14, prep: NA, prod: h(24) }
+                        'Queso en Tiras / Queso Mozzarella': { cerrado: 14, prep: d(7), prod: h(24) }
                     },
                     "Salsas": {
-                        'Cup de Ajo / Salsa de Ajo (Bidón) / Salsa Ajo Parmesano / Salsa de Pizza': { cerrado: U, prep: NA, prod: h(10) },
-                        'Cup de Barbecue': { cerrado: U, prep: NA, prod: U },
+                        'Cup de Ajo': { cerrado: U, prep: NA, prod: h(10) },
+                        'Salsa de Ajo (Bidón) / Salsa Ajo Parmesano': { cerrado: U, prep: d(21), prod: h(10) },
+                        'Salsa de Pizza (Salsero)': { cerrado: U, prep: NA, prod: h(10) },
+                        'Salsa de Pizza (Cup)': { cerrado: U, prep: d(2), prod: h(10) },
+                        'Cup de Barbecue / Sachet de Ketchup': { cerrado: U, prep: NA, prod: U },
                         'Salsa Barbecue (Bolsa)': { cerrado: U, prep: d(4), prod: h(48) },
                         'Salsa Espinaca Alfredo': { cerrado: 21, prep: d(5), prod: h(24) },
-                        'Pesto': { cerrado: 6, prep: NA, prod: h(24) }
+                        'Pesto': { cerrado: 6, prep: d(6), prod: h(24) }
                     },
                     "Vegetales": {
                         'Aceitunas': { cerrado: U, prep: d(7), prod: h(48) },
                         'Cebolla': { cerrado: 10, prep: d(2), prod: h(24) },
                         'Champiñón': { cerrado: 6, prep: d(2), prod: h(24) },
                         'Choclo': { cerrado: 4, prep: d(2), prod: h(48) },
+                        'Papa': { cerrado: 7, prep: d(5), prod: h(24) },
                         'Peperoncini': { cerrado: U, prep: d(15), prod: h(12) },
                         'Pimiento Verde / Tomate Normal': { cerrado: 8, prep: d(2), prod: h(24) },
                         'Piña': { cerrado: U, prep: d(15), prod: h(48) },
@@ -630,6 +677,15 @@
                 // Elementos de la interfaz
                 const productEl = document.getElementById('ra-product');
                 const fvInputEl = document.getElementById('ra-fv-input');
+                let showCalc = false; // false: fr y FV de la caja dicen "Según caja"; true: se muestran las calculadas (afecta a todas las tarjetas)
+                let baseDay = null; // null = hoy; 'YYYY-MM-DD' = rotular con otra fecha (por ejemplo, días anteriores)
+                // Base de todos los cálculos: el día elegido con la hora actual
+                function getBase() {
+                    const now = new Date();
+                    if (!baseDay) return now;
+                    const [y, m, dd] = baseDay.split('-').map(Number);
+                    return new Date(y, m - 1, dd, now.getHours(), now.getMinutes(), 0, 0);
+                }
                 const ruleSummaryEl = document.getElementById('ra-rule-summary');
                 const notesEl = document.getElementById('ra-notes');
                 const itemNameEl = document.getElementById('ra-item-name');
@@ -709,14 +765,21 @@
                 
                 function factoryISO(rule) {
                     if (typeof rule.cerrado !== 'number') return '';
-                    const f = addDays(new Date(), rule.cerrado);
+                    const f = addDays(getBase(), rule.cerrado);
                     return `${f.getFullYear()}-${pad2(f.getMonth()+1)}-${pad2(f.getDate())}`;
+                }
+
+                function factoryText(rule) {
+                    if (typeof rule.cerrado !== 'number') return 'Uso por fecha';
+                    const now = getBase();
+                    const amb = toDDMMYY(addDays(now, rule.cerrado));
+                    return rule.cerradoFrio ? `Amb. ${amb} · Frío ${toDDMMYY(addDays(now, rule.cerradoFrio))}` : amb;
                 }
 
                 // Sin FV: los vencimientos "uso por fecha" piden ingresarla y los demás no se recortan
                 function calcProduct(key, fvISO) {
                     const rule = flatRules[key];
-                    const baseStart = new Date();
+                    const baseStart = getBase();
                     const start = floorToHalfHour(baseStart);
                     const fvClamp = fvISO ? new Date(fvISO + 'T23:59:00') : null;
                     const proc = (r, calc) => {
@@ -730,8 +793,8 @@
                         return { date: toDDMMYY(start), time: toHHMM(start), need: !exp, expDate: exp ? toDDMMYY(exp) : '', expTime: exp ? toHHMM(exp) : '', capped };
                     };
                     return {
-                        fr: toDDMMYY(getLatestTruckDate(baseStart)),
-                        factory: typeof rule.cerrado === 'number' ? toDDMMYY(addDays(baseStart, rule.cerrado)) : 'Uso por fecha',
+                        fr: toDDMMYY(baseStart),
+                        factory: factoryText(rule),
                         prep: proc(rule.prep, r => addDays(start, r.valor)),
                         prod: proc(rule.prod, r => r.unidad === 'horas' ? addHours(start, r.valor) : addDays(start, r.valor))
                     };
@@ -748,13 +811,21 @@
                     return `<tr class="border-t border-gray-200">${head}<td class="${td}">${p.date}</td><td class="${td}">${p.time}</td>${exp}</tr>`;
                 }
 
+                const EYE = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+                const EYE_OFF = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';
+
                 function cardHTML(key) {
                     const c = calcProduct(key, factoryISO(flatRules[key]));
-                    return `<div class="border border-gray-200 rounded-xl p-3 bg-white">
-                        <div class="font-extrabold text-gray-800 text-sm leading-tight mb-2">${key}</div>
-                        <div class="flex items-center justify-between gap-2 mb-2 text-xs text-gray-600">
-                            <span>fr: <b class="text-gray-900">${c.fr}</b></span>
-                            <span>FV de la caja: <b class="text-gray-900">${c.factory}</b></span>
+                    const SEG = 'Según caja';
+                    const tone = showCalc ? 'text-gray-900' : 'text-gray-400';
+                    return `<div class="ra-card border border-gray-200 rounded-xl p-3 bg-white" role="button" tabindex="0" title="${showCalc ? 'Toca para ocultar' : 'Toca para ver'} las fechas calculadas">
+                        <div class="flex items-start justify-between gap-2 mb-2">
+                            <div class="font-extrabold text-gray-800 text-sm leading-tight">${key}</div>
+                            <span class="ra-eye${showCalc ? ' on' : ''}">${showCalc ? EYE_OFF : EYE}</span>
+                        </div>
+                        <div class="flex items-start justify-between gap-3 mb-2 text-xs text-gray-600">
+                            <span>fr: <b class="${tone}">${showCalc ? c.fr : SEG}</b></span>
+                            <span class="text-right">FV de la caja: <b class="${tone}">${showCalc ? c.factory : SEG}</b></span>
                         </div>
                         <table class="w-full text-xs border-collapse">
                             <thead><tr class="bg-emerald-50 text-[10px] uppercase text-gray-600"><th class="px-2 py-1 text-left">Proceso</th><th>Fecha</th><th>Hora</th><th>F.Ven</th><th>H.Ven</th></tr></thead>
@@ -766,6 +837,51 @@
                 function renderList() {
                     listEl.innerHTML = Object.keys(productCategories[currentType]).map(k => cardHTML(k)).join('');
                 }
+
+                const calcHintEl = document.getElementById('ra-calc-hint');
+                function updateCalcHint() {
+                    if (calcHintEl) calcHintEl.textContent = showCalc ? 'Toca para ocultar las fechas calculadas' : 'Toca para ver las fechas calculadas';
+                }
+                function toggleCalc() {
+                    showCalc = !showCalc;
+                    updateCalcHint();
+                    recompute();                    // vista individual
+                    if (currentType) renderList();  // todas las tarjetas cambian a la vez
+                }
+                listEl.addEventListener('click', e => { if (e.target.closest('.ra-card')) toggleCalc(); });
+                listEl.addEventListener('keydown', e => {
+                    if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('ra-card')) { e.preventDefault(); toggleCalc(); }
+                });
+                fvInputEl.addEventListener('click', toggleCalc);
+                document.querySelector('#ra-single .ra-table tbody tr').addEventListener('click', toggleCalc);
+                updateCalcHint();
+
+                // ====== FECHA DE ROTULADO (permite rotular en días anteriores) ======
+                const baseInput = document.getElementById('ra-base-date');
+                const baseBtn = document.getElementById('ra-base-btn');
+                const baseLabel = document.getElementById('ra-base-label');
+                const baseReset = document.getElementById('ra-base-reset');
+                const isoOf = dt => `${dt.getFullYear()}-${pad2(dt.getMonth()+1)}-${pad2(dt.getDate())}`;
+                baseInput.value = isoOf(new Date());
+
+                function updateBaseUI() {
+                    if (!baseDay && document.activeElement !== baseInput) baseInput.value = isoOf(new Date()); // sigue "hoy" si la página queda abierta
+                    baseLabel.textContent = baseDay ? 'otro día' : 'hoy';
+                    baseBtn.classList.toggle('is-other', !!baseDay);
+                    baseReset.classList.toggle('hidden', !baseDay);
+                }
+                // Campo vacío o igual a hoy = hoy. No se reescribe el campo mientras la persona elige o escribe.
+                function applyBaseDay() {
+                    const v = baseInput.value;
+                    baseDay = (!v || v === isoOf(new Date())) ? null : v;
+                    updateBaseUI();
+                    if (productEl.value) recompute();   // vista individual
+                    if (currentType) renderList();      // todas las tarjetas
+                }
+                ['input', 'change'].forEach(ev => baseInput.addEventListener(ev, applyBaseDay));
+                baseInput.addEventListener('click', () => { try { if (baseInput.showPicker) baseInput.showPicker(); } catch (e) { /* el navegador abre el selector solo */ } });
+                baseReset.addEventListener('click', () => { baseInput.value = isoOf(new Date()); applyBaseDay(); });
+                updateBaseUI();
 
                 function applyMode() {
                     const single = !currentType;
@@ -806,7 +922,7 @@
                 function updateRuleSummary(rule) {
                     if (!rule) { ruleSummaryEl.textContent = ''; ruleSummaryEl.classList.add('hidden'); return; }
 
-                    const cerradoText = rule.cerrado === 'uso_por_fecha' ? 'Uso por Fecha' : `${rule.cerrado}d`;
+                    const cerradoText = rule.cerrado === 'uso_por_fecha' ? 'Uso por Fecha' : (rule.cerradoFrio ? `${rule.cerrado}d amb. / ${rule.cerradoFrio}d frío` : `${rule.cerrado}d`);
                     const prepText = (rule.prep === 'no_aplica') ? 'N/A' : (rule.prep === 'uso_por_fecha' ? 'Uso por Fecha' : `${rule.prep.valor}d`);
                     const prodText = (rule.prod === 'no_aplica') ? 'N/A' : (rule.prod === 'uso_por_fecha' ? 'Uso por Fecha' : (rule.prod.unidad === 'horas' ? `${rule.prod.valor}h` : `${rule.prod.valor}d`));
 
@@ -826,6 +942,7 @@
                         notesEl.textContent = ''; notesEl.classList.add('hidden');
                         [prepExpDateEl, prepExpTimeEl, prodExpDateEl, prodExpTimeEl].forEach(el => el.closest('td').classList.remove('capped-cell'));
                         fvInputEl.value = '';
+                        [frDateEl, fvDateEl].forEach(el => el.classList.remove('ra-upf')); fvInputEl.classList.remove('fv-dual');
                         updateRuleSummary(null);
                         [prepExpDateEl, prodExpDateEl].forEach(el => el.classList.remove('ra-upf'));
                         return;
@@ -835,22 +952,33 @@
                     [prepExpDateEl, prodExpDateEl].forEach(el => el.classList.remove('ra-upf'));
                     itemNameEl.textContent = key;
 
-                    const baseStart = new Date();
+                    const baseStart = getBase();
                     const roundedStart = floorToHalfHour(baseStart);
                     const nowStrDate = toDDMMYY(roundedStart);
                     const nowStrTime = toHHMM(roundedStart);
 
                     // 1) FR (último martes o jueves)
-                    const truckDate = getLatestTruckDate(baseStart);
-                    frDateEl.textContent = toDDMMYY(truckDate);
-
-                    // FV de la caja = fecha por fábrica = HOY + días de vida útil cerrado.
-                    // No se elige: si es "uso por fecha" solo se mantiene el fr.
+                    
+                    // FV de la caja = fecha por fábrica = HOY + días de vida útil cerrado (Dustinator: ambiente y cámara fría).
+                    // Por defecto "Según caja" (el operario copia la fecha de la caja); al tocar se muestran las calculadas.
                     const fvISO = factoryISO(rule);
                     const fvClamp = fvISO ? new Date(fvISO + 'T23:59:00') : null;
-                    fvInputEl.value = fvClamp ? toDDMMYY(fvClamp) : 'Uso por fecha';
-                    fvDateEl.textContent = fvClamp ? toDDMMYY(fvClamp) : '—';
-                    fvTimeEl.textContent = fvClamp ? '23:59' : '—';
+                    const dual = !!(fvClamp && rule.cerradoFrio);
+                    if (showCalc) {
+                        frDateEl.textContent = toDDMMYY(baseStart);
+                        fvInputEl.value = fvClamp ? factoryText(rule) : 'Uso por fecha';
+                        if (dual) fvDateEl.innerHTML = `Amb. ${toDDMMYY(fvClamp)}<br>Frío ${toDDMMYY(addDays(baseStart, rule.cerradoFrio))}`;
+                        else fvDateEl.textContent = fvClamp ? toDDMMYY(fvClamp) : '—';
+                        fvTimeEl.textContent = fvClamp ? '23:59' : '—';
+                    } else {
+                        frDateEl.textContent = 'Según caja';
+                        fvInputEl.value = 'Según caja';
+                        fvDateEl.textContent = 'Según caja';
+                        fvTimeEl.textContent = '—';
+                    }
+                    frDateEl.classList.toggle('ra-upf', !showCalc);
+                    fvDateEl.classList.toggle('ra-upf', !showCalc || dual);
+                    fvInputEl.classList.toggle('fv-dual', showCalc && dual);
 
                     let prepCapped = false;
                     let prodCapped = false;
@@ -927,6 +1055,7 @@
                 if (productEl.value) recompute();
 
                 setInterval(() => {
+                    updateBaseUI();
                     if (productEl.value) recompute();
                     if (currentType) renderList();
                 }, 60000);
