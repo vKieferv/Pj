@@ -1,0 +1,4 @@
+# Archivos de metas: tienen datos confidenciales, nunca se suben al repositorio
+*.xlsx
+*.xlsm
+*.xls

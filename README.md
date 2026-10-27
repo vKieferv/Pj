@@ -5,6 +5,7 @@ Página web de una sola pantalla con herramientas de apoyo para el turno:
 - **Rótulo automático:** calcula fechas y horas de vencimiento (caja, preparado y producto) según el producto y la fecha de rotulado.
 - **Descuentos:** precio final y ahorro para 10 %, 20 %, 25 %, 30 %, 40 % y 50 %.
 - **Fechas:** fechas a +N días y horas a +N horas desde ahora.
+- **Mural:** carga el Excel de diarización del mes (se lee solo en el navegador) y calcula metas, cumplimiento y diferencias para anotar en la pizarra.
 
 Publicada con GitHub Pages en **https://vkieferv.github.io/Pj/**.
 

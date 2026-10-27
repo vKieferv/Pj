@@ -317,6 +317,71 @@
             .stepper button:hover { background: #006341; color: #fff; }
         }
 
+        /* ===================== MURAL ===================== */
+        /* Con 4 pestañas, en celulares angostos se achica el texto y se ocultan los iconos */
+        @media (max-width: 420px) {
+            .nav-link { font-size: .8rem !important; gap: .3rem; padding: .75rem .15rem !important; }
+            .nav-link .nav-icon { width: 1rem; height: 1rem; }
+        }
+        @media (max-width: 370px) { .nav-link .nav-icon { display: none; } }
+
+        #view-mural { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+        #view-mural.hidden { display: none; }
+        @media (min-width: 768px) { #view-mural { grid-template-columns: 2fr 3fr; align-items: start; } #mu-setup { grid-column: 1 / -1; } }
+        .mu-box { background: #fff; border: 1px solid var(--line); border-radius: .9rem; padding: .9rem; }
+        .mu-head { display: flex; align-items: center; justify-content: space-between; gap: .5rem; margin-bottom: .7rem; }
+        .mu-head h2 { font-size: .95rem; font-weight: 800; color: var(--ink); }
+
+        /* Metas del mes */
+        .mu-store { display: flex; flex-wrap: wrap; align-items: center; gap: .3rem .9rem; }
+        .mu-store-name { font-size: 1.05rem; font-weight: 800; color: var(--ink); }
+        .mu-store-meta { font-size: .8rem; color: var(--muted); }
+        .mu-store-meta b { color: var(--ink); }
+        .mu-file-btn { display: inline-flex; align-items: center; gap: .4rem; min-height: 2.5rem; padding: 0 .95rem; border-radius: .6rem; cursor: pointer;
+            background: var(--pj); color: #fff; font-size: .82rem; font-weight: 800; border: 0; white-space: nowrap; transition: background-color .2s ease, transform .15s ease; }
+        .mu-file-btn.is-ghost { background: var(--pj-50); color: var(--pj); }
+        .mu-file-btn:active { transform: scale(.96); }
+        .mu-file-btn .icon { width: 1.05rem; height: 1.05rem; }
+        .mu-file-btn input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+        .mu-msg { margin-top: .6rem; padding: .55rem .75rem; border-radius: .6rem; font-size: .82rem; font-weight: 600; }
+        .mu-msg.hidden { display: none; }
+        .mu-msg.is-info { background: var(--pj-50); color: #064E3B; }
+        .mu-msg.is-warn { background: #FFF7E6; color: #92400E; border: 1px solid #FCD34D; }
+        .mu-msg.is-error { background: #FDEEEE; color: #991B1B; border: 1px solid #FCA5A5; }
+        .mu-spinner { display: inline-block; width: .9rem; height: .9rem; margin-right: .4rem; vertical-align: -2px; border: 2px solid currentColor; border-right-color: transparent;
+            border-radius: 50%; animation: muSpin .8s linear infinite; }
+        @keyframes muSpin { to { transform: rotate(360deg); } }
+        #mu-store-select { margin-top: .6rem; }
+        .mu-privacy { margin-top: .55rem; font-size: .7rem; color: var(--muted); }
+
+        /* Datos del día */
+        .mu-fields { display: grid; grid-template-columns: 1fr 1fr; gap: .65rem; }
+        .mu-fields .mu-wide { grid-column: 1 / -1; }
+        .mu-field .input-field { margin-top: .3rem; min-height: 2.8rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+        .mu-money { position: relative; }
+        .mu-money span { position: absolute; left: .8rem; top: 50%; transform: translateY(-50%); margin-top: .15rem; font-weight: 800; color: var(--pj); pointer-events: none; }
+        .mu-money .input-field { padding-left: 1.7rem; }
+        .mu-sub { margin: .9rem 0 .5rem; padding-top: .7rem; border-top: 1px solid var(--line); }
+        .mu-hint { margin-top: .25rem; font-size: .68rem; color: var(--muted); }
+        .mu-hint:empty { display: none; }
+
+        /* Pizarra: mismo orden que la pizarra física, números grandes para copiar a mano */
+        .mu-board { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
+        .mu-board .mu-wide { grid-column: 1 / -1; }
+        .mu-cell { padding: .6rem .7rem; border-radius: .7rem; background: #F7F9F8; border: 1px solid var(--line); min-width: 0; }
+        .mu-cell small { display: block; font-size: .6rem; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); }
+        /* El tamaño se ajusta al ancho para que "$73.580.197" quepa en una línea en el celular */
+        .mu-cell b { display: block; margin-top: .15rem; font-size: clamp(1rem, 4.6vw, 1.35rem); font-weight: 800; line-height: 1.15; color: var(--ink);
+            font-variant-numeric: tabular-nums; white-space: nowrap; letter-spacing: -.01em; }
+        .mu-cell.is-top { background: var(--pj-50); border-color: var(--pj-100); }
+        .mu-cell.is-good { background: #ECFDF5; border-color: #A7F3D0; }
+        .mu-cell.is-good b { color: #047857; }
+        .mu-cell.is-bad { background: #FDEEEE; border-color: #FCA5A5; }
+        .mu-cell.is-bad b { color: #B91C1C; }
+        .mu-nps { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; }
+        .mu-nps .mu-cell b { font-size: clamp(1rem, 4.4vw, 1.2rem); }
+        .mu-board-date { font-size: .75rem; font-weight: 700; color: var(--muted); }
+
         /* ===== IMPRESIÓN: blanco y negro, alto contraste, sin cortes ===== */
         @page { margin: 3mm; }
         @media print {
@@ -369,6 +434,9 @@
             </button>
             <button id="nav-link-fechas" data-view="view-fechas" class="nav-link flex-1 font-bold" role="tab" aria-selected="false">
                 <svg class="icon nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Fechas</span>
+            </button>
+            <button id="nav-link-mural" data-view="view-mural" class="nav-link flex-1 font-bold" role="tab" aria-selected="false">
+                <svg class="icon nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="13" rx="2"/><line x1="8" y1="21" x2="12" y2="16"/><line x1="16" y1="21" x2="12" y2="16"/><polyline points="7 12 10 9 13 11 17 7"/></svg><span>Mural</span>
             </button>
         </nav>
     </div>
@@ -561,6 +629,80 @@
                 </div>
             </div>
         </div>
+        <div id="view-mural" class="view-content hidden max-w-4xl mx-auto">
+            <section id="mu-setup" class="mu-box" aria-labelledby="mu-setup-title">
+                <div class="mu-head">
+                    <h2 id="mu-setup-title">Metas del mes</h2>
+                    <label id="mu-file-btn" class="mu-file-btn">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        <span id="mu-file-text">Cargar Excel de metas</span>
+                        <input type="file" id="mu-file" accept=".xlsx,.xlsm,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel">
+                    </label>
+                </div>
+                <div id="mu-store" class="mu-store hidden">
+                    <span id="mu-store-name" class="mu-store-name"></span>
+                    <span class="mu-store-meta"><span id="mu-store-month"></span> · Meta mensual <b id="mu-store-total"></b></span>
+                </div>
+                <select id="mu-store-select" class="input-field hidden" aria-label="Elegir tienda"></select>
+                <p id="mu-msg" class="mu-msg is-info">Carga el Excel de diarización del mes una sola vez; las metas de cada día quedan guardadas en este dispositivo.</p>
+                <p class="mu-privacy">El archivo se lee solo en este navegador: no se sube a ningún servidor. Se guardan únicamente las metas diarias de tu tienda.</p>
+            </section>
+
+            <section class="mu-box" aria-labelledby="mu-input-title">
+                <div class="mu-head"><h2 id="mu-input-title">Datos del reporte</h2></div>
+                <div class="mu-fields">
+                    <div class="mu-field mu-wide">
+                        <label for="mu-venta-acum" class="ra-label">Venta acumulada</label>
+                        <div class="mu-money"><span>$</span><input type="text" id="mu-venta-acum" class="input-field" inputmode="numeric" autocomplete="off" placeholder="0"></div>
+                        <div id="mu-venta-hint" class="mu-hint"></div>
+                    </div>
+                    <div class="mu-field mu-wide">
+                        <label for="mu-venta-ayer" class="ra-label">Venta ayer</label>
+                        <div class="mu-money"><span>$</span><input type="text" id="mu-venta-ayer" class="input-field" inputmode="numeric" autocomplete="off" placeholder="0"></div>
+                    </div>
+                </div>
+                <div class="mu-sub"><span class="ra-label">Calidad</span></div>
+                <div class="mu-fields">
+                    <div class="mu-field mu-wide">
+                        <label for="mu-nps" class="ra-label">NPS acumulado</label>
+                        <input type="text" id="mu-nps" class="input-field" inputmode="decimal" autocomplete="off" placeholder="49,23">
+                    </div>
+                    <div class="mu-field">
+                        <label for="mu-nps-dom" class="ra-label">NPS domicilio</label>
+                        <input type="text" id="mu-nps-dom" class="input-field" inputmode="decimal" autocomplete="off" placeholder="20,69">
+                    </div>
+                    <div class="mu-field">
+                        <label for="mu-nps-ret" class="ra-label">NPS retiro</label>
+                        <input type="text" id="mu-nps-ret" class="input-field" inputmode="decimal" autocomplete="off" placeholder="72,22">
+                    </div>
+                    <div class="mu-field mu-wide">
+                        <label for="mu-otd" class="ra-label">OTD acumulado</label>
+                        <input type="text" id="mu-otd" class="input-field" inputmode="numeric" autocomplete="off" placeholder="22:17">
+                    </div>
+                </div>
+            </section>
+
+            <section class="mu-box" aria-labelledby="mu-board-title">
+                <div class="mu-head"><h2 id="mu-board-title">Para la pizarra</h2><span id="mu-board-date" class="mu-board-date"></span></div>
+                <div class="mu-board">
+                    <div class="mu-cell is-top"><small>Meta mensual</small><b id="mu-o-mensual">—</b></div>
+                    <div class="mu-cell is-top"><small>Meta diaria (hoy)</small><b id="mu-o-diaria">—</b></div>
+                    <div class="mu-cell"><small>Meta acumulada</small><b id="mu-o-meta-acum">—</b></div>
+                    <div class="mu-cell"><small>Meta ayer</small><b id="mu-o-meta-ayer">—</b></div>
+                    <div class="mu-cell"><small>Venta acumulada</small><b id="mu-o-venta-acum">—</b></div>
+                    <div class="mu-cell"><small>Venta ayer</small><b id="mu-o-venta-ayer">—</b></div>
+                    <div id="mu-c-pct" class="mu-cell"><small>% cumplimiento</small><b id="mu-o-pct">—</b></div>
+                    <div id="mu-c-dif" class="mu-cell"><small>Diferencia ayer</small><b id="mu-o-dif">—</b></div>
+                    <div class="mu-nps">
+                        <div class="mu-cell"><small>NPS acum.</small><b id="mu-o-nps">—</b></div>
+                        <div class="mu-cell"><small>Domicilio</small><b id="mu-o-nps-dom">—</b></div>
+                        <div class="mu-cell"><small>Retiro</small><b id="mu-o-nps-ret">—</b></div>
+                    </div>
+                    <div class="mu-cell mu-wide"><small>OTD acumulado</small><b id="mu-o-otd">—</b></div>
+                </div>
+            </section>
+        </div>
+
         <button type="button" id="ra-fab" class="ra-fab hidden" aria-label="Volver a los tipos de producto"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg> Tipos</button>
     </main>
 
@@ -1242,6 +1384,289 @@
                 }, 60000);
             })();
         });
+    </script>
+
+    <script>
+    // ====================== MURAL ======================
+    // Lee el Excel de diarización del mes (una hoja por tienda: B5 = tienda, C5 = "Diarización",
+    // E5 = "Forecast", E6 = meta mensual, filas 7+ = un día por fila con la meta en E y la venta neta en F),
+    // guarda solo las metas de la tienda elegida y arma los números para copiar a la pizarra.
+    (() => {
+        const XLSX_URL = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
+        const KEY_METAS = 'mural_metas';    // { tienda, mes, anio, mensual, dias: [{ d, meta, venta }] }
+        const KEY_TIENDA = 'mural_tienda';  // nombre de la última tienda elegida
+        const KEY_DATOS = 'mural_datos';    // { 'YYYY-MM-DD': { ventaAcum, ventaAyer, nps, npsDom, npsRet, otd } }
+        const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+
+        const $ = id => document.getElementById(id);
+        const store = {
+            get(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } },
+            set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* sin memoria: sigue funcionando en esta sesión */ } }
+        };
+        const miles = n => Math.round(Math.abs(n)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        const clp = n => (n < 0 ? '−$' : '$') + miles(n);
+        const signedClp = n => (n > 0 ? '+' : '') + clp(n);
+        const pad2 = n => String(n).padStart(2, '0');
+        const isoOf = d => `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
+        const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+        const digitsOf = s => Number(String(s).replace(/\D/g, '')) || 0;
+
+        // ---------- Lectura del Excel (en un worker para no congelar la pantalla) ----------
+        // Función autocontenida: se ejecuta dentro del worker o, si no hay workers, en la página.
+        function extractStores(XLSX, data) {
+            const MES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+            // sheetRows: solo se leen las primeras filas de cada hoja; el archivo trae hojas de cientos de miles de filas
+            const wb = XLSX.read(data, { type: 'array', sheetRows: 45, cellFormula: false, cellHTML: false, cellText: false, cellStyles: false });
+            const out = [];
+            wb.SheetNames.forEach(name => {
+                if (/total/i.test(name)) return;
+                const ws = wb.Sheets[name];
+                const v = a => (ws[a] ? ws[a].v : undefined);
+                const norm = x => String(x == null ? '' : x).trim().toLowerCase();
+                if (!norm(v('C5')).startsWith('diarizaci') || norm(v('E5')) !== 'forecast' || v('B7') !== 1) return;
+                const m = norm(v('B1')).match(new RegExp('(' + MES.join('|') + ')\\D*(\\d{4})'));
+                const dias = [];
+                for (let r = 7; r <= 40; r++) {
+                    const d = v('B' + r), meta = v('E' + r);
+                    if (typeof d !== 'number' || d < 1 || d > 31 || typeof meta !== 'number') break;
+                    dias.push({ d, meta: Math.round(meta * 100) / 100, // con decimales: se redondea recién al mostrar, igual que Excel
+                         venta: typeof v('F' + r) === 'number' ? Math.round(v('F' + r)) : 0 });
+                }
+                if (!dias.length) return;
+                const total = typeof v('E6') === 'number' ? Math.round(v('E6')) : dias.reduce((s, x) => s + x.meta, 0);
+                out.push({ tienda: name.trim(), mes: m ? MES.indexOf(m[1]) : null, anio: m ? Number(m[2]) : null, mensual: total, dias });
+            });
+            return out;
+        }
+
+        function parseInWorker(buf) {
+            const src = `importScripts('${XLSX_URL}');
+                const extractStores = ${extractStores.toString()};
+                onmessage = e => { try { postMessage({ ok: true, stores: extractStores(XLSX, new Uint8Array(e.data)) }); }
+                                   catch (err) { postMessage({ ok: false, error: String(err && err.message || err) }); } };`;
+            return new Promise((resolve, reject) => {
+                const url = URL.createObjectURL(new Blob([src], { type: 'text/javascript' }));
+                const w = new Worker(url);
+                w.onmessage = e => { w.terminate(); URL.revokeObjectURL(url); e.data.ok ? resolve(e.data.stores) : reject(new Error(e.data.error)); };
+                w.onerror = e => { w.terminate(); URL.revokeObjectURL(url); reject(new Error(e.message || 'worker')); };
+                w.postMessage(buf, [buf]);
+            });
+        }
+
+        function loadXlsxLib() {
+            if (window.XLSX) return Promise.resolve(window.XLSX);
+            return new Promise((resolve, reject) => {
+                const s = document.createElement('script');
+                s.src = XLSX_URL; s.onload = () => resolve(window.XLSX); s.onerror = () => reject(new Error('No se pudo descargar el lector de Excel'));
+                document.head.appendChild(s);
+            });
+        }
+
+        async function readWorkbook(file) {
+            const buf = await file.arrayBuffer();
+            try { return await parseInWorker(buf.slice(0)); }
+            catch (e) { const X = await loadXlsxLib(); return extractStores(X, new Uint8Array(buf)); } // respaldo sin worker
+        }
+
+        // ---------- Estado e interfaz ----------
+        const fileEl = $('mu-file'), fileText = $('mu-file-text'), fileBtn = $('mu-file-btn');
+        const msgEl = $('mu-msg'), selectEl = $('mu-store-select');
+        const inputs = {
+            ventaAcum: $('mu-venta-acum'), ventaAyer: $('mu-venta-ayer'),
+            nps: $('mu-nps'), npsDom: $('mu-nps-dom'), npsRet: $('mu-nps-ret'), otd: $('mu-otd')
+        };
+        let metas = store.get(KEY_METAS);
+        let parsedStores = [];
+
+        function showMsg(text, kind = 'info', html = false) {
+            msgEl.className = `mu-msg is-${kind}`;
+            msgEl[html ? 'innerHTML' : 'textContent'] = text;
+        }
+        const hideMsg = () => msgEl.classList.add('hidden');
+
+        function monthLabel(m) { return m && m.mes != null ? `${cap(MESES[m.mes])} ${m.anio}` : 'mes sin identificar'; }
+        function isCurrentMonth(m, now) { return m && m.mes === now.getMonth() && m.anio === now.getFullYear(); }
+
+        function renderSetup() {
+            const has = !!metas;
+            $('mu-store').classList.toggle('hidden', !has);
+            fileText.textContent = has ? 'Cambiar Excel' : 'Cargar Excel de metas';
+            fileBtn.classList.toggle('is-ghost', has);
+            if (!has) return;
+            $('mu-store-name').textContent = metas.tienda;
+            $('mu-store-month').textContent = monthLabel(metas);
+            $('mu-store-total').textContent = clp(metas.mensual);
+            const now = new Date();
+            if (!isCurrentMonth(metas, now)) {
+                showMsg(`Las metas guardadas son de ${monthLabel(metas)}. Carga el Excel de ${cap(MESES[now.getMonth()])} para ver las de este mes.`, 'warn');
+            } else { hideMsg(); }
+        }
+
+        function fillStoreSelect(list) {
+            selectEl.innerHTML = '<option value="">Elige tu tienda…</option>' +
+                list.map((s, i) => `<option value="${i}">${s.tienda.replace(/</g, '&lt;')}</option>`).join('');
+            selectEl.classList.remove('hidden');
+        }
+
+        // keepSelect: deja visible el selector (el Excel trae varias tiendas) para poder cambiarla
+        function chooseStore(s, keepSelect = parsedStores.length > 1) {
+            metas = s;
+            store.set(KEY_METAS, s);
+            store.set(KEY_TIENDA, s.tienda);
+            selectEl.classList.toggle('hidden', !keepSelect);
+            renderSetup();
+            if (isCurrentMonth(s, new Date())) showMsg(`Listo: metas de ${monthLabel(s)} guardadas para ${s.tienda}. No hay que volver a cargarlas este mes.`, 'info');
+            prefillFromExcel(false);
+            renderBoard();
+        }
+
+        fileEl.addEventListener('change', async () => {
+            const file = fileEl.files && fileEl.files[0];
+            fileEl.value = ''; // permite volver a elegir el mismo archivo
+            if (!file) return;
+            selectEl.classList.add('hidden');
+            showMsg('<span class="mu-spinner" aria-hidden="true"></span>Leyendo el Excel… puede tardar unos segundos.', 'info', true);
+            fileBtn.style.pointerEvents = 'none';
+            try {
+                const list = await readWorkbook(file);
+                if (!list.length) {
+                    showMsg('No encontré hojas de tienda en este archivo. Debe ser el Excel de diarización del mes (hojas con las columnas "Diarización" y "Forecast").', 'error');
+                    return;
+                }
+                const last = store.get(KEY_TIENDA);
+                const again = list.find(s => s.tienda === last);
+                parsedStores = list;
+                if (list.length === 1) { chooseStore(list[0]); return; }
+                fillStoreSelect(list);
+                if (again) { selectEl.value = String(list.indexOf(again)); chooseStore(again, true); return; }
+                showMsg(`Encontré ${list.length} tiendas (${monthLabel(list[0])}). Elige la tuya; la próxima vez se elegirá sola.`, 'info');
+                selectEl.focus();
+            } catch (e) {
+                showMsg('No se pudo leer el archivo. Revisa que sea el Excel de metas y que tengas internet la primera vez (se descarga el lector).', 'error');
+            } finally {
+                fileBtn.style.pointerEvents = '';
+            }
+        });
+
+        selectEl.addEventListener('change', () => {
+            const s = parsedStores[Number(selectEl.value)];
+            if (selectEl.value !== '' && s) {
+                // Al cambiar de tienda, las ventas precargadas de la anterior ya no sirven
+                if ($('mu-venta-hint').textContent) { inputs.ventaAcum.value = ''; inputs.ventaAyer.value = ''; }
+                chooseStore(s, true);
+            }
+        });
+
+        // ---------- Datos del día (se guardan por fecha) ----------
+        const todayISO = () => isoOf(new Date());
+        function loadDay() { return (store.get(KEY_DATOS) || {})[todayISO()] || {}; }
+        function saveDay() {
+            const all = store.get(KEY_DATOS) || {};
+            const day = {};
+            Object.keys(inputs).forEach(k => { if (inputs[k].value.trim()) day[k] = inputs[k].value.trim(); });
+            all[todayISO()] = day;
+            Object.keys(all).sort().slice(0, -14).forEach(k => delete all[k]); // guardar solo las últimas 2 semanas
+            store.set(KEY_DATOS, all);
+        }
+
+        function formatMoneyInput(el) {
+            const d = el.value.replace(/\D/g, '').replace(/^0+(?=\d)/, '').slice(0, 12);
+            const f = d ? miles(Number(d)) : '';
+            if (el.value !== f) { el.value = f; try { el.setSelectionRange(f.length, f.length); } catch (e) { /* sin cursor */ } }
+        }
+        function formatNpsInput(el) {
+            let v = el.value.replace(/\./g, ',').replace(/[^\d,\-]/g, '');
+            const i = v.indexOf(',');
+            if (i >= 0) v = v.slice(0, i + 1) + v.slice(i + 1).replace(/,/g, '').slice(0, 2);
+            if (el.value !== v) el.value = v;
+        }
+        // OTD: se escriben solo números y se pone ":" antes de los dos últimos (2217 → 22:17)
+        function formatOtdInput(el) {
+            const d = el.value.replace(/\D/g, '').slice(0, 4);
+            const v = d.length > 2 ? `${d.slice(0, -2)}:${d.slice(-2)}` : d;
+            if (el.value !== v) { el.value = v; try { el.setSelectionRange(v.length, v.length); } catch (e) { /* sin cursor */ } }
+        }
+
+        [inputs.ventaAcum, inputs.ventaAyer].forEach(el => el.addEventListener('input', () => { formatMoneyInput(el); $('mu-venta-hint').textContent = ''; saveDay(); renderBoard(); }));
+        [inputs.nps, inputs.npsDom, inputs.npsRet].forEach(el => el.addEventListener('input', () => { formatNpsInput(el); saveDay(); renderBoard(); }));
+        inputs.otd.addEventListener('input', () => { formatOtdInput(inputs.otd); saveDay(); renderBoard(); });
+
+        // Si el Excel ya trae la venta de ayer, se precargan las ventas (solo si el campo está vacío)
+        function prefillFromExcel(force) { // force: reemplaza aunque ya haya ventas escritas
+            const hint = $('mu-venta-hint');
+            const now = new Date();
+            if (!metas || !isCurrentMonth(metas, now) || now.getDate() === 1) return;
+            const ayer = metas.dias.find(x => x.d === now.getDate() - 1);
+            if (!ayer || !ayer.venta) return;
+            if (!force && (inputs.ventaAcum.value || inputs.ventaAyer.value)) return;
+            const acum = metas.dias.filter(x => x.d < now.getDate()).reduce((s, x) => s + x.venta, 0);
+            inputs.ventaAcum.value = miles(acum);
+            inputs.ventaAyer.value = miles(ayer.venta);
+            hint.textContent = 'Precargado desde el Excel; corrígelo si tu reporte dice otra cosa.';
+            saveDay();
+        }
+
+        // ---------- Cálculos para la pizarra ----------
+        function setCell(id, text) { $(id).textContent = text; }
+        function tone(cellId, n) {
+            const c = $(cellId);
+            c.classList.toggle('is-good', n != null && n >= 0);
+            c.classList.toggle('is-bad', n != null && n < 0);
+        }
+
+        function renderBoard() {
+            const now = new Date(), hoy = now.getDate();
+            const WD = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+            $('mu-board-date').textContent = `${cap(WD[now.getDay()])} ${hoy} de ${MESES[now.getMonth()]}`;
+
+            const ok = metas && isCurrentMonth(metas, now);
+            const metaDe = d => { const x = ok && metas.dias.find(y => y.d === d); return x ? x.meta : null; };
+            const metaHoy = metaDe(hoy);
+            const metaAyer = hoy > 1 ? metaDe(hoy - 1) : null; // el día 1, "ayer" es del mes anterior
+            // Igual que la planilla del mural: la meta acumulada suma desde el día 1 hasta hoy inclusive
+            const metaAcum = ok ? metas.dias.filter(x => x.d <= hoy).reduce((s, x) => s + x.meta, 0) : null;
+
+            const ventaAcum = inputs.ventaAcum.value ? digitsOf(inputs.ventaAcum.value) : null;
+            const ventaAyer = inputs.ventaAyer.value ? digitsOf(inputs.ventaAyer.value) : null;
+
+            setCell('mu-o-mensual', ok ? clp(metas.mensual) : '—');
+            setCell('mu-o-diaria', metaHoy != null ? clp(metaHoy) : '—');
+            setCell('mu-o-meta-acum', metaAcum != null ? clp(metaAcum) : '—');
+            setCell('mu-o-meta-ayer', metaAyer != null ? clp(metaAyer) : '—');
+            setCell('mu-o-venta-acum', ventaAcum != null ? clp(ventaAcum) : '—');
+            setCell('mu-o-venta-ayer', ventaAyer != null ? clp(ventaAyer) : '—');
+
+            const pct = (ventaAcum != null && metaAcum) ? (ventaAcum - metaAcum) / metaAcum : null;
+            setCell('mu-o-pct', pct != null ? `${pct > 0 ? '+' : pct < 0 ? '−' : ''}${Math.abs(Math.round(pct * 100))}%` : '—');
+            tone('mu-c-pct', pct);
+
+            const dif = (ventaAyer != null && metaAyer != null) ? ventaAyer - metaAyer : null;
+            setCell('mu-o-dif', dif != null ? signedClp(dif) : '—');
+            tone('mu-c-dif', dif);
+
+            setCell('mu-o-nps', inputs.nps.value || '—');
+            setCell('mu-o-nps-dom', inputs.npsDom.value || '—');
+            setCell('mu-o-nps-ret', inputs.npsRet.value || '—');
+            setCell('mu-o-otd', inputs.otd.value || '—');
+        }
+
+        // ---------- Inicio ----------
+        let currentDay = todayISO();
+        function loadInputsForToday() {
+            const day = loadDay();
+            Object.keys(inputs).forEach(k => { inputs[k].value = day[k] || ''; });
+            $('mu-venta-hint').textContent = '';
+            prefillFromExcel(false);
+        }
+        renderSetup();
+        loadInputsForToday();
+        renderBoard();
+
+        // Si la página queda abierta, al cambiar de día se limpian los datos y se recalculan las metas
+        setInterval(() => {
+            if (todayISO() !== currentDay) { currentDay = todayISO(); renderSetup(); loadInputsForToday(); renderBoard(); }
+        }, 60000);
+    })();
     </script>
 </body>
 </html>
