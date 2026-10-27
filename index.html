@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#006341">
     <title>Rótulo Automático | Herramientas Papa John's</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -10,18 +11,17 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { font-family: 'Inter', sans-serif; }
-        .header { background-color: #006D56; color: white; padding: 1.1rem 0; }
-        .btn-primary { background-color: #006D56; color: white; transition: background-color 0.2s; }
-        .btn-primary:hover { background-color: #005A47; }
+        .header { background-color: #006341; color: white; padding: 1.1rem 0; }
+        .btn-primary { background-color: #006341; color: white; transition: background-color 0.2s; }
+        .btn-primary:hover { background-color: #004F34; }
         .card { background-color: white; border-radius: 0.9rem; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 1.5rem; height: 100%; }
         .card-title { display: flex; align-items: center; gap: 0.5rem; font-size: 1.05rem; font-weight: 800; color: #1F2937; margin-bottom: 1.1rem; padding-bottom: 0.75rem; border-bottom: 2px solid #F3F4F6; }
         .input-field { width: 100%; padding: 0.7rem 0.85rem; border: 1px solid #D1D5DB; border-radius: 0.5rem; margin-top: 0.4rem; box-sizing: border-box; font-size: 0.95rem; }
-        .input-field:focus { outline: none; border-color: #006D56; box-shadow: 0 0 0 3px rgba(0,109,86,0.15); }
+        .input-field:focus { outline: none; border-color: #006341; box-shadow: 0 0 0 3px rgba(0,99,65,.15); }
         .info-pill { text-align: center; background-color: #ECFDF5; color: #065F46; padding: 0.65rem; border-radius: 0.5rem; margin-bottom: 1rem; border: 1px solid #A7F3D0; }
 
         .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
         .stat-chip { background-color: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 0.6rem; padding: 0.6rem 0.4rem; text-align: center; transition: border-color 0.2s, background-color 0.2s; }
-        .stat-chip:hover { border-color: #A7F3D0; background-color: #F0FDF9; }
         .stat-chip .stat-label { font-size: 0.68rem; font-weight: 700; color: #6B7280; text-transform: uppercase; letter-spacing: 0.03em; }
         .stat-chip .stat-value { font-size: 1rem; font-weight: 800; color: #111827; margin-top: 0.15rem; }
 
@@ -114,23 +114,13 @@
         #view-rotulo-auto .card { background: transparent; border: 0; box-shadow: none; padding: 0; overflow: visible; }
         #ra-single > .grid { margin-bottom: 1rem; }
         .stat-chip { background: #F3F6F5; border: 1px solid transparent; transition: all .2s ease; }
-        .stat-chip:hover { background: #E8F4EE; border-color: #BFE3D1; }
         .input-field { transition: border-color .2s ease, box-shadow .2s ease; }
 
         /* Pestañas */
         .nav-link { padding: .6rem .4rem !important; transition: color .25s ease, border-color .25s ease, background-color .25s ease, transform .15s ease; }
         .nav-link .nav-icon { width: 1.3rem; height: 1.3rem; }
-        .nav-link:hover { background: #F2F7F5; }
         .nav-link:active, .ra-chip:active, .btn-primary:active { transform: scale(.96); }
         .btn-primary { transition: all .2s ease; }
-
-        /* Pills de tipo (una fila desplazable para ahorrar alto) */
-        #ra-type-chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-bottom: .75rem; padding: 2px 1px 6px; }
-        #ra-type-chips::-webkit-scrollbar { display: none; }
-        .ra-chip { flex: none; font-size: .75rem; font-weight: 700; border-radius: 9999px; padding: .4rem .9rem; cursor: pointer;
-            background: #fff; color: #4B5563; border: 1px solid #D1D5DB; transition: all .2s ease; }
-        .ra-chip:hover { border-color: #006341; color: #006341; }
-        .ra-chip.is-active { background: #006341; border-color: #006341; color: #fff; box-shadow: 0 6px 12px -6px rgba(0,99,65,.65); }
 
         /* Alerta de recorte por FV con icono CSS */
         #ra-notes::before { content: '!'; display: inline-flex; align-items: center; justify-content: center; width: 1.1rem; height: 1.1rem;
@@ -165,7 +155,6 @@
         .disc-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: .7rem; }
         @media (min-width: 520px) { .disc-grid { grid-template-columns: repeat(3, 1fr); } }
         .disc-card { background: #F7FAF8; border: 1px solid #D5E2DB; border-radius: .8rem; padding: .75rem .8rem; transition: all .2s ease; }
-        .disc-card:hover { background: #fff; border-color: #006341; transform: translateY(-2px); }
         .disc-pct { display: inline-block; font-size: .78rem; font-weight: 800; color: #006341; background: #E1F1E9; border-radius: 9999px; padding: .1rem .55rem; }
         .disc-label { margin-top: .55rem; font-size: .6rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #6B7280; }
         .disc-final { font-size: 1.4rem; font-weight: 800; line-height: 1.15; color: #111827; font-variant-numeric: tabular-nums; }
@@ -183,7 +172,6 @@
         .stepper:focus-within { border-color: #006341; box-shadow: 0 0 0 3px rgba(0,99,65,.15); }
         .stepper button { width: 2.4rem; height: 2.6rem; display: flex; align-items: center; justify-content: center; border: 0; cursor: pointer;
             background: #F3F6F5; color: #006341; transition: all .2s ease; }
-        .stepper button:hover { background: #006341; color: #fff; }
         .stepper button:active { transform: scale(.92); }
         .stepper-input { width: 4rem; text-align: center; border: 0; outline: 0; padding: 0 .2rem; font-size: 1.05rem; font-weight: 800; color: #111827;
             -moz-appearance: textfield; appearance: textfield; }
@@ -203,37 +191,140 @@
         /* Tarjetas / fila fr-fv táctiles: una pulsación alterna "Según caja" <-> fechas calculadas en todas */
         #ra-single .ra-table tbody tr:nth-child(1) { cursor: pointer; }
         .ra-card { cursor: pointer; transition: border-color .2s ease, box-shadow .2s ease, transform .15s ease; }
-        .ra-card:hover { border-color: #006341; box-shadow: 0 6px 16px -10px rgba(0,99,65,.5); }
         .ra-card:active { transform: scale(.99); }
         .ra-eye { flex: none; color: #9CA3AF; transition: color .2s ease; }
         .ra-eye.on { color: #006341; }
         .ra-eye .icon { width: 1.1rem; height: 1.1rem; }
 
-        /* ===== Fecha de rotulado ===== */
-        .ra-datebar { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; margin-bottom: .6rem; }
-        .ra-datebtn { position: relative; display: inline-flex; align-items: center; gap: .55rem; padding: .4rem .85rem; border-radius: .7rem;
-            background: #fff; border: 1px solid #D1D5DB; color: #1F2937; font-size: .88rem; font-weight: 800; cursor: pointer; transition: all .2s ease; }
-        .ra-datebtn:hover { border-color: #006341; color: #006341; }
-        .ra-datebtn:active { transform: scale(.97); }
-        .ra-datebtn .icon { width: 1.15rem; height: 1.15rem; color: #006341; }
-        .ra-datebtn small { display: block; margin-bottom: .1rem; font-size: .56rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #6B7280; line-height: 1; }
-        .ra-datebtn:focus-within { border-color: #006341; box-shadow: 0 0 0 3px rgba(0,99,65,.15); }
-        .ra-datebtn-col { display: flex; flex-direction: column; }
-        .ra-dateinput { min-width: 9.5rem; padding: 0; border: 0; outline: 0; background: transparent; color: inherit; font: inherit; font-size: 1rem; font-weight: 800; cursor: pointer; }
-        .ra-datebtn.is-other { background: #FFF7E6; border-color: #F59E0B; color: #92400E; }
-        .ra-datebtn.is-other .icon { color: #B45309; }
-        .ra-datebtn.is-other small { color: #B45309; }
-        .ra-base-reset { padding: .35rem .6rem; border: 0; border-radius: .5rem; background: transparent; color: #006341; font-size: .75rem; font-weight: 700; cursor: pointer; transition: all .2s ease; }
-        .ra-base-reset:hover { background: #E1F1E9; }
-        .ra-base-reset:active { transform: scale(.96); }
-        .ra-base-reset.hidden { display: none; }
+
+        /* ===================== UX v2 ===================== */
+        :root { --pj: #006341; --pj-700: #004F34; --pj-50: #EEF6F2; --pj-100: #DCEDE4; --pj-200: #BFE3D1;
+                --red: #D10000; --ink: #111827; --muted: #6B7280; --line: #E3E8E5; }
+        body { color: var(--ink); -webkit-tap-highlight-color: transparent; }
+        .header { padding: .6rem 0; }
+        :is(button, select, input, [role="button"]):focus-visible { outline: 3px solid rgba(0,99,65,.45); outline-offset: 2px; }
+        .ra-label { display: block; font-size: .64rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+
+        /* Pestañas: icono y texto en una fila (sin salto de línea en el celular) */
+        .nav-link { flex-direction: row !important; justify-content: center; gap: .45rem; padding: .75rem .4rem !important; font-size: .9rem !important;
+            color: var(--muted); border-bottom: 3px solid transparent; }
+        .nav-link .nav-icon { width: 1.2rem; height: 1.2rem; }
+        .nav-link.is-active { color: var(--pj); border-bottom-color: var(--pj); }
+
+        /* Controles del rótulo */
+        .ra-controls { display: flex; flex-direction: column; gap: .7rem; margin-bottom: 1rem; }
+        .ra-datebar { display: flex; align-items: center; flex-wrap: wrap; gap: .35rem .6rem; }
+        .ra-datebar .ra-label { width: 100%; }
+        .ra-seg { display: inline-flex; align-items: stretch; gap: 3px; padding: 3px; background: #fff; border: 1px solid var(--line); border-radius: .8rem; }
+        .ra-seg-btn { display: inline-flex; align-items: center; gap: .35rem; min-height: 2.5rem; padding: 0 .9rem; border: 0; border-radius: .6rem;
+            background: transparent; color: #374151; font-size: .85rem; font-weight: 800; cursor: pointer;
+            transition: background-color .2s ease, color .2s ease, box-shadow .2s ease, transform .15s ease; }
+        .ra-seg-btn:active { transform: scale(.96); }
+        .ra-seg-btn.is-active { background: var(--pj); color: #fff; }
+        .ra-seg-date { padding: 0 .6rem; }
+        .ra-seg-date .icon { width: 1.05rem; height: 1.05rem; color: var(--pj); }
+        .ra-seg-date.is-other { background: #FFF7E6; color: #92400E; box-shadow: inset 0 0 0 1.5px #F59E0B; }
+        .ra-seg-date.is-other .icon { color: #B45309; }
+        .ra-dateinput { min-width: 8.4rem; padding: 0; border: 0; outline: 0; background: transparent; color: inherit; font: inherit; font-weight: 800; cursor: pointer; }
+        .ra-base-label:empty { display: none; }
+        .ra-base-label { font-size: .76rem; font-weight: 700; color: #92400E; background: #FFF7E6; border: 1px solid #FCD34D; border-radius: .45rem; padding: .2rem .55rem; }
+
+        .ra-chips { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .4rem; }
+        @media (min-width: 640px) { .ra-chips { display: flex; flex-wrap: wrap; } }
+        .ra-chip { min-height: 2.5rem; padding: 0 .9rem; border-radius: 9999px; background: #fff; color: #4B5563; border: 1px solid #D1D5DB;
+            font-size: .8rem; font-weight: 700; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            transition: background-color .2s ease, border-color .2s ease, color .2s ease, transform .15s ease; }
+        .ra-chip.is-active { background: var(--pj); border-color: var(--pj); color: #fff; }
+
+        .ra-switch { display: flex; align-items: center; gap: .7rem; width: 100%; padding: .55rem .75rem; text-align: left; cursor: pointer;
+            background: #fff; border: 1px solid var(--line); border-radius: .8rem; transition: background-color .2s ease, border-color .2s ease; }
+        .ra-switch.is-on { background: var(--pj-50); border-color: var(--pj-200); }
+        .ra-switch-track { position: relative; flex: none; width: 2.6rem; height: 1.5rem; border-radius: 9999px; background: #CBD2CF; transition: background-color .2s ease; }
+        .ra-switch-thumb { position: absolute; top: 3px; left: 3px; width: 1.125rem; height: 1.125rem; border-radius: 50%; background: #fff;
+            box-shadow: 0 1px 3px rgba(0,0,0,.3); transition: transform .2s ease; }
+        .ra-switch.is-on .ra-switch-track { background: var(--pj); }
+        .ra-switch.is-on .ra-switch-thumb { transform: translateX(1.1rem); }
+        .ra-switch-text { display: flex; flex-direction: column; font-size: .86rem; line-height: 1.2; color: var(--ink); }
+        .ra-switch-text #ra-calc-hint { margin-top: .12rem; font-size: .72rem; font-weight: 500; color: var(--muted); }
+
+        /* Vista individual */
+        .ra-form { display: grid; grid-template-columns: 1fr; gap: .75rem; }
+        @media (min-width: 768px) { .ra-form { grid-template-columns: 3fr 2fr; } }
+        #ra-product { min-height: 3rem; background: #fff; font-weight: 700; color: var(--ink); }
+        .ra-fv-wrap { position: relative; }
+        #ra-fv-input { min-height: 3rem; padding-right: 2.7rem; background: var(--pj-50); border: 1px dashed #9CCBB4; color: var(--ink); font-weight: 800; cursor: pointer; }
+        #ra-fv-input:focus { box-shadow: none; border-color: var(--pj); }
+        .ra-fv-eye { position: absolute; right: .8rem; top: calc(50% + .2rem); transform: translateY(-50%); color: var(--pj); pointer-events: none; display: flex; }
+        .ra-fv-eye .icon { width: 1.15rem; height: 1.15rem; }
+        .ra-rules { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .65rem; }
+        .ra-rules.hidden { display: none; }
+        .ra-rule { display: inline-flex; align-items: baseline; gap: .35rem; padding: .22rem .65rem; border-radius: 9999px;
+            background: var(--pj-50); border: 1px solid var(--pj-100); color: #064E3B; font-size: .8rem; font-weight: 800; }
+        .ra-rule b { font-size: .6rem; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); }
+        .ra-empty { display: flex; align-items: center; gap: .5rem; margin: .8rem 0 0; padding: .65rem .8rem; border-radius: .7rem;
+            background: #fff; border: 1px dashed #C4CEC9; color: #4B5563; font-size: .86rem; font-weight: 600; }
+        .ra-empty.hidden { display: none; }
+        #ra-single .overflow-auto { margin-top: 1rem; transition: opacity .25s ease, filter .25s ease; }
+        #ra-single.is-empty .overflow-auto { opacity: .45; filter: grayscale(.5); }
+        #ra-notes:not(.hidden) { display: flex; align-items: center; }
+
+        /* Vista por tipo */
+        .ra-list-head { display: flex; align-items: baseline; justify-content: space-between; gap: .5rem; margin: 0 0 .6rem; font-size: .78rem; color: var(--muted); }
+        .ra-list-head b { font-size: 1rem; color: var(--ink); }
+        .ra-list-head.hidden { display: none; }
+        .ra-list { display: grid; grid-template-columns: 1fr; gap: .75rem; padding-bottom: 4.5rem; }
+        .ra-list.hidden { display: none; }
+        @media (min-width: 768px) { .ra-list { grid-template-columns: 1fr 1fr; padding-bottom: 1rem; } }
+        .ra-card-meta { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .2rem .9rem;
+            margin-bottom: .5rem; padding: .35rem .55rem; border-radius: .5rem; background: #F7F9F8; }
+        .ra-card-meta > span { display: inline-flex; align-items: baseline; gap: .35rem; }
+        .ra-card-meta small { font-size: .58rem; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); }
+        .ra-card-meta b { font-size: .82rem; }
+        .ra-card td.ra-k { padding: .375rem .5rem; font-weight: 800; color: #1F2937; }
+        .ra-card td.ra-k-prep { background: #EAF6F0; box-shadow: inset 3px 0 0 var(--pj); }
+        .ra-card td.ra-k-prod { background: #FDEEEE; box-shadow: inset 3px 0 0 var(--red); }
+
+        /* Botón flotante para volver a los tipos en listas largas */
+        .ra-fab { position: fixed; right: 1rem; bottom: calc(1rem + env(safe-area-inset-bottom)); z-index: 20; display: inline-flex; align-items: center; gap: .35rem;
+            padding: .65rem 1rem; border: 0; border-radius: 9999px; background: var(--pj); color: #fff; font-size: .82rem; font-weight: 800; cursor: pointer;
+            box-shadow: 0 10px 22px -8px rgba(0,99,65,.7); transition: opacity .2s ease, transform .2s ease; }
+        .ra-fab.hidden { display: inline-flex; opacity: 0; pointer-events: none; transform: translateY(10px); }
+
+        /* Descuentos */
+        .disc-caption { margin: 0 0 .5rem; font-size: .64rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+        .disc-card { background: #fff; border-color: var(--line); }
+        .disc-final { margin-top: .45rem; }
+        .disc-grid.is-empty .disc-final, .disc-grid.is-empty .disc-save, .disc-grid.is-empty .disc-save span { color: #A3ACA8; }
+
+        /* Fechas */
+        #view-fechas .stat-chip { background: #fff; border: 1px solid var(--line); }
+        .stat-value .wd { color: var(--pj); }
+        .custom-result { flex-direction: column; gap: .05rem; padding: .3rem .6rem; transition: background-color .2s ease, color .2s ease; }
+        .custom-result.is-empty { background: #fff; border-style: dashed; border-color: #C4CEC9; color: #9CA3AF; font-size: .88rem; }
+        .custom-note { font-size: .68rem; font-weight: 700; color: #047857; }
+        .custom-result.is-empty .custom-note { color: #9CA3AF; font-weight: 600; }
+
+        @media (hover: hover) {
+            .nav-link:hover { background: #F2F7F5; }
+            .ra-chip:hover:not(.is-active) { border-color: var(--pj); color: var(--pj); }
+            .ra-seg-btn:hover:not(.is-active) { background: var(--pj-50); }
+            .ra-switch:hover { border-color: var(--pj-200); }
+            .stat-chip:hover { border-color: #A7F3D0; background-color: #F0FDF9; }
+            .stat-chip:hover { background: #E8F4EE; border-color: #BFE3D1; }
+            .nav-link:hover { background: #F2F7F5; }
+            .disc-card:hover { background: #fff; border-color: #006341; transform: translateY(-2px); }
+            .ra-card:hover { border-color: #006341; box-shadow: 0 6px 16px -10px rgba(0,99,65,.5); }
+            .stepper button:hover { background: #006341; color: #fff; }
+        }
 
         /* ===== IMPRESIÓN: blanco y negro, alto contraste, sin cortes ===== */
         @page { margin: 3mm; }
         @media print {
             html, body { background: #fff !important; }
             * { animation: none !important; transition: none !important; }
-            .header, .sticky, #ra-type-chips, #ra-datebar, #ra-single > .grid, #ra-notes, #view-rotulo-auto .card-title { display: none !important; }
+            .header, .sticky, #ra-controls, .ra-form, #ra-rule-summary, #ra-empty, #ra-fab, #ra-list-head, #ra-notes, #view-rotulo-auto .card-title { display: none !important; }
+            #ra-single.is-empty .overflow-auto { opacity: 1 !important; filter: none !important; }
+            #ra-single .overflow-auto { margin-top: 0 !important; }
             main, #view-rotulo-auto { padding: 0 !important; }
             #view-rotulo-auto .card { box-shadow: none !important; padding: 0 !important; border-radius: 0 !important; overflow: visible !important; }
             #ra-single .overflow-auto {
@@ -251,6 +342,7 @@
             #ra-single .ra-table tbody tr:nth-child(2) > td { font-weight: 800; border-top: 2px solid #000 !important; border-bottom: 2px solid #000 !important; }
             #ra-single .ra-table td span, #ra-item-name { color: #000 !important; font-weight: 800; }
             #ra-single .ra-table td.capped-cell { border: 2px solid #000 !important; }
+            #ra-single .ra-table #ra-prep-row > td:nth-child(1), #ra-single .ra-table #ra-prod-row > td:nth-child(1) { border-left: 0 !important; }
             #ra-single .ra-table td.capped-cell span { color: #000 !important; text-decoration: underline; }
             #ra-list > div { border: 1px solid #000 !important; border-radius: 0 !important; break-inside: avoid; page-break-inside: avoid; }
             #ra-list, #ra-list * { color: #000 !important; background: #fff !important; }
@@ -264,18 +356,18 @@
 <body class="bg-gray-100">
 
     <header class="header shadow-md">
-        <h1 class="text-lg md:text-2xl font-bold text-center flex items-center justify-center gap-2"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6.5c5-3.2 13-3.2 18 0L12 21z"/><circle cx="9.5" cy="9.5" r="1"/><circle cx="14.5" cy="9.5" r="1"/><circle cx="12" cy="14" r="1"/></svg> Herramientas de Ayuda</h1>
+        <h1 class="text-base md:text-xl font-bold text-center flex items-center justify-center gap-2"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6.5c5-3.2 13-3.2 18 0L12 21z"/><circle cx="9.5" cy="9.5" r="1"/><circle cx="14.5" cy="9.5" r="1"/><circle cx="12" cy="14" r="1"/></svg> Herramientas de Ayuda</h1>
     </header>
 
     <div class="bg-white shadow-md sticky top-0 z-10">
-        <nav class="flex justify-center max-w-3xl mx-auto">
-            <button id="nav-link-rotulo-auto" data-view="view-rotulo-auto" class="nav-link flex-1 font-bold" style="color: #006D56; border-bottom: 4px solid #006D56;">
-                <svg class="icon nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.59 13.41 13.42 20.58a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><circle cx="7" cy="7" r="1.2"/></svg><span>Rótulo Automático</span>
+        <nav class="flex justify-center max-w-3xl mx-auto" role="tablist" aria-label="Herramientas">
+            <button id="nav-link-rotulo-auto" data-view="view-rotulo-auto" class="nav-link is-active flex-1 font-bold" role="tab" aria-selected="true">
+                <svg class="icon nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.59 13.41 13.42 20.58a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><circle cx="7" cy="7" r="1.2"/></svg><span class="sm:hidden">Rótulo</span><span class="hidden sm:inline">Rótulo Automático</span>
             </button>
-            <button id="nav-link-descuentos" data-view="view-descuentos" class="nav-link flex-1 font-bold" style="color: #6B7280; border-bottom: 4px solid transparent;">
+            <button id="nav-link-descuentos" data-view="view-descuentos" class="nav-link flex-1 font-bold" role="tab" aria-selected="false">
                 <svg class="icon nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg><span>Descuentos</span>
             </button>
-            <button id="nav-link-fechas" data-view="view-fechas" class="nav-link flex-1 font-bold" style="color: #6B7280; border-bottom: 4px solid transparent;">
+            <button id="nav-link-fechas" data-view="view-fechas" class="nav-link flex-1 font-bold" role="tab" aria-selected="false">
                 <svg class="icon nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Fechas</span>
             </button>
         </nav>
@@ -287,36 +379,46 @@
             <div class="card overflow-x-auto">
                 
 
-                <div id="ra-datebar" class="ra-datebar">
-                    <label id="ra-base-btn" class="ra-datebtn" for="ra-base-date">
-                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                        <span class="ra-datebtn-col">
-                            <small>Fecha de rotulado · <span id="ra-base-label">hoy</span></small>
-                            <input type="date" id="ra-base-date" class="ra-dateinput" aria-label="Elegir la fecha de rotulado">
-                        </span>
-                    </label>
-                    <button type="button" id="ra-base-reset" class="ra-base-reset hidden">Volver a hoy</button>
+                <div id="ra-controls" class="ra-controls">
+                    <div id="ra-datebar" class="ra-datebar">
+                        <span class="ra-label">Fecha de rotulado</span>
+                        <div class="ra-seg" role="group" aria-label="Fecha de rotulado">
+                            <button type="button" id="ra-base-reset" class="ra-seg-btn is-active" aria-pressed="true">Hoy</button>
+                            <button type="button" id="ra-base-yesterday" class="ra-seg-btn" aria-pressed="false">Ayer</button>
+                            <label id="ra-base-btn" class="ra-seg-btn ra-seg-date" for="ra-base-date">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                                <input type="date" id="ra-base-date" class="ra-dateinput" aria-label="Elegir otra fecha de rotulado">
+                            </label>
+                        </div>
+                        <span id="ra-base-label" class="ra-base-label" role="status"></span>
+                    </div>
+
+                    <div id="ra-type-chips" class="ra-chips" role="group" aria-label="Tipo de producto"></div>
+
+                    <button type="button" id="ra-calc-switch" class="ra-switch" role="switch" aria-checked="false">
+                        <span class="ra-switch-track" aria-hidden="true"><span class="ra-switch-thumb"></span></span>
+                        <span class="ra-switch-text"><b>Mostrar fr y FV calculados</b><span id="ra-calc-hint"></span></span>
+                    </button>
                 </div>
-                <div id="ra-type-chips" class="flex flex-wrap gap-2 mb-4"></div>
 
-                <div id="ra-single">
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div id="ra-single" class="is-empty">
+                <div class="ra-form">
                     <div>
-                        <label class="text-sm font-semibold text-gray-600">Producto</label>
+                        <label for="ra-product" class="ra-label">Producto</label>
                         <select id="ra-product" class="input-field">
                             <option value="">Seleccione un producto…</option>
                         </select>
                     </div>
                     <div>
-                        <label class="text-sm font-semibold text-gray-600">Fecha Vencimiento Caja (FV)</label>
-                        <input type="text" id="ra-fv-input" class="input-field" readonly tabindex="-1" placeholder="—">
-                        <div id="ra-calc-hint" class="text-[11px] text-gray-500 mt-1"></div>
-                    </div>
-                    <div class="flex flex-col justify-end gap-2 text-sm pb-2">
-                        <span id="ra-rule-summary" class="font-medium text-emerald-800 bg-emerald-50 p-2 rounded border border-emerald-200 w-full hidden"></span>
+                        <label for="ra-fv-input" class="ra-label">FV de la caja</label>
+                        <div class="ra-fv-wrap">
+                            <input type="text" id="ra-fv-input" class="input-field" readonly tabindex="-1" placeholder="—" aria-label="FV de la caja (toca para mostrar u ocultar el cálculo)">
+                            <span id="ra-fv-eye" class="ra-fv-eye" aria-hidden="true"></span>
+                        </div>
                     </div>
                 </div>
+                <div id="ra-rule-summary" class="ra-rules hidden"></div>
+                <p id="ra-empty" class="ra-empty">Elige un producto para ver su rótulo.</p>
 
                 <div class="overflow-auto border border-gray-300 rounded-lg">
                     <table class="w-full border-collapse text-sm ra-table">
@@ -364,56 +466,52 @@
                 </div>
                 </div>
 
-                <div id="ra-list" class="hidden space-y-3"></div>
+                <div id="ra-list-head" class="ra-list-head hidden"></div>
+                <div id="ra-list" class="ra-list hidden"></div>
             </div>
         </div>
 
         <div id="view-descuentos" class="view-content hidden">
             <div class="card max-w-xl mx-auto">
                 
-                <label for="basePrice" class="font-semibold text-gray-700">Precio Base (CLP):</label>
-                <div class="price-field mb-5">
+                <label for="basePrice" class="ra-label">Precio base (CLP)</label>
+                <div class="price-field mb-4">
                     <span class="price-prefix">$</span>
-                    <input type="number" id="basePrice" placeholder="Ej: 10000" inputmode="numeric" min="0" class="input-field price-input">
+                    <input type="text" id="basePrice" placeholder="Ej: 12.990" inputmode="numeric" autocomplete="off" enterkeyhint="done" class="input-field price-input" aria-describedby="disc-caption">
                     <button type="button" id="clearPrice" class="price-clear" aria-label="Limpiar precio"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
                 </div>
 
-                <div id="discountList" class="disc-grid">
+                <p id="disc-caption" class="disc-caption">Precio final con descuento</p>
+                <div id="discountList" class="disc-grid is-empty">
                     <div class="disc-card">
                         <span class="disc-pct">−10%</span>
-                        <div class="disc-label">Precio final</div>
-                        <div class="disc-final" id="discount-10">$0</div>
-                        <div class="disc-save">Ahorras <span id="saving-10">$0</span></div>
+                        <div class="disc-final" id="discount-10">—</div>
+                        <div class="disc-save">Ahorras <span id="saving-10">—</span></div>
                     </div>
                     <div class="disc-card">
                         <span class="disc-pct">−20%</span>
-                        <div class="disc-label">Precio final</div>
-                        <div class="disc-final" id="discount-20">$0</div>
-                        <div class="disc-save">Ahorras <span id="saving-20">$0</span></div>
+                        <div class="disc-final" id="discount-20">—</div>
+                        <div class="disc-save">Ahorras <span id="saving-20">—</span></div>
                     </div>
                     <div class="disc-card">
                         <span class="disc-pct">−25%</span>
-                        <div class="disc-label">Precio final</div>
-                        <div class="disc-final" id="discount-25">$0</div>
-                        <div class="disc-save">Ahorras <span id="saving-25">$0</span></div>
+                        <div class="disc-final" id="discount-25">—</div>
+                        <div class="disc-save">Ahorras <span id="saving-25">—</span></div>
                     </div>
                     <div class="disc-card">
                         <span class="disc-pct">−30%</span>
-                        <div class="disc-label">Precio final</div>
-                        <div class="disc-final" id="discount-30">$0</div>
-                        <div class="disc-save">Ahorras <span id="saving-30">$0</span></div>
+                        <div class="disc-final" id="discount-30">—</div>
+                        <div class="disc-save">Ahorras <span id="saving-30">—</span></div>
                     </div>
                     <div class="disc-card">
                         <span class="disc-pct">−40%</span>
-                        <div class="disc-label">Precio final</div>
-                        <div class="disc-final" id="discount-40">$0</div>
-                        <div class="disc-save">Ahorras <span id="saving-40">$0</span></div>
+                        <div class="disc-final" id="discount-40">—</div>
+                        <div class="disc-save">Ahorras <span id="saving-40">—</span></div>
                     </div>
                     <div class="disc-card">
                         <span class="disc-pct">−50%</span>
-                        <div class="disc-label">Precio final</div>
-                        <div class="disc-final" id="discount-50">$0</div>
-                        <div class="disc-save">Ahorras <span id="saving-50">$0</span></div>
+                        <div class="disc-final" id="discount-50">—</div>
+                        <div class="disc-save">Ahorras <span id="saving-50">—</span></div>
                     </div>
                 </div>
             </div>
@@ -421,11 +519,7 @@
 
         <div id="view-fechas" class="view-content hidden grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             <div class="card">
-                <div class="card-title"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Días</div>
-                <div class="info-pill">
-                    <span class="font-semibold">Hoy es:</span>
-                    <span id="todayDate" class="font-bold text-lg">--/--/----</span>
-                </div>
+                <div class="card-title"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Días <span class="now-chip">Hoy <b id="todayDate">--/--/----</b></span></div>
 
                 <div id="dateList" class="stat-grid">
                     <div class="stat-chip"><div class="stat-label">+ 3 días</div><div class="stat-value" id="date-3">--/--/----</div></div>
@@ -445,7 +539,7 @@
                             <input type="number" id="customDays" placeholder="0" inputmode="numeric" class="stepper-input">
                             <button type="button" id="customPlus" aria-label="Sumar un día"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
                         </div>
-                        <div class="custom-result" id="customDateResult">--/--/----</div>
+                        <div class="custom-result is-empty"><div id="customDateResult">Escribe los días</div><div id="customDateNote" class="custom-note">o usa − / +</div></div>
                     </div>
                 </div>
             </div>
@@ -467,6 +561,7 @@
                 </div>
             </div>
         </div>
+        <button type="button" id="ra-fab" class="ra-fab hidden" aria-label="Volver a los tipos de producto"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg> Tipos</button>
     </main>
 
     <script>
@@ -475,22 +570,23 @@
             // ====== NAVEGACIÓN DE PESTAÑAS ======
             const navLinks = document.querySelectorAll('.nav-link');
             const views = document.querySelectorAll('.view-content');
-            const activeColor = '#006D56';
-            const inactiveColor = '#6B7280';
 
             navLinks.forEach(link => {
                 link.addEventListener('click', () => {
                     views.forEach(view => view.classList.add('hidden'));
                     const viewToShow = document.getElementById(link.dataset.view);
                     if (viewToShow) viewToShow.classList.remove('hidden');
-                    navLinks.forEach(n => { n.style.color = inactiveColor; n.style.borderBottom = '4px solid transparent'; });
-                    link.style.color = activeColor;
-                    link.style.borderBottom = '4px solid #006D56';
+                    navLinks.forEach(n => { n.classList.remove('is-active'); n.setAttribute('aria-selected', 'false'); });
+                    link.classList.add('is-active');
+                    link.setAttribute('aria-selected', 'true');
+                    window.scrollTo({ top: 0 });
+                    document.dispatchEvent(new CustomEvent('pj:view', { detail: link.dataset.view }));
                 });
             });
 
             // ====== HELPERS DE FORMATO ======
-            const formatCLP = (val) => '$' + Math.round(val).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'); // $12.500
+            const fmtMiles = (n) => Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+            const formatCLP = (val) => '$' + fmtMiles(val); // $12.500
             const formatDate = (d) => `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`;
             const WD = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
             const formatDateWD = (d) => `${WD[d.getDay()]}, ${formatDate(d)}`;
@@ -500,14 +596,24 @@
             const basePriceInput = document.getElementById('basePrice');
             const discountPercentages = [10, 20, 25, 30, 40, 50];
 
+            const discGridEl = document.getElementById('discountList');
+
+            // El precio se escribe con puntos de miles mientras se tipea (12.990); el cálculo usa solo los dígitos
             basePriceInput.addEventListener('input', () => {
-                const price = parseFloat(basePriceInput.value) || 0;
+                const digits = basePriceInput.value.replace(/\D/g, '').replace(/^0+(?=\d)/, '').slice(0, 9);
+                const formatted = digits ? fmtMiles(Number(digits)) : '';
+                if (basePriceInput.value !== formatted) {
+                    basePriceInput.value = formatted;
+                    try { basePriceInput.setSelectionRange(formatted.length, formatted.length); } catch (e) { /* sin cursor */ }
+                }
+                const price = Number(digits) || 0;
+                discGridEl.classList.toggle('is-empty', !price);
                 discountPercentages.forEach(p => {
                     const el = document.getElementById(`discount-${p}`);
                     const final = Math.round(price - (price * (p / 100)));
-                    if (el) el.textContent = formatCLP(final);
+                    if (el) el.textContent = price ? formatCLP(final) : '—';
                     const sv = document.getElementById(`saving-${p}`);
-                    if (sv) sv.textContent = formatCLP(price - final);
+                    if (sv) sv.textContent = price ? formatCLP(price - final) : '—';
                 });
             });
 
@@ -519,30 +625,50 @@
                 basePriceInput.dispatchEvent(new Event('input'));
                 basePriceInput.focus();
             });
+            // Al abrir Descuentos con el campo vacío, queda listo para escribir
+            document.addEventListener('pj:view', e => {
+                if (e.detail === 'view-descuentos' && !basePriceInput.value) basePriceInput.focus({ preventScroll: true });
+            });
 
             // ====== FECHAS (DÍAS) ======
             const todayDateEl = document.getElementById('todayDate');
             const daysToCalculate = [3, 5, 7, 8, 10, 14, 30];
-            const today = new Date();
-            if (todayDateEl) todayDateEl.textContent = formatDateWD(today);
-
-            daysToCalculate.forEach(days => {
-                const futureDate = new Date(today);
-                futureDate.setDate(today.getDate() + days);
-                const el = document.getElementById(`date-${days}`);
-                if (el) el.textContent = formatDateWD(futureDate);
-            });
+            let today = new Date();
+            const wdHTML = (d) => `<span class="wd">${WD[d.getDay()]}</span> ${formatDate(d)}`;
 
             const customDaysInput = document.getElementById('customDays');
             const customDateResultEl = document.getElementById('customDateResult');
+            const customDateNoteEl = document.getElementById('customDateNote');
+            const customBoxEl = customDateResultEl.closest('.custom-result');
 
-            customDaysInput.addEventListener('input', () => {
-                // En tiempo real; acepta 0 y negativos (restar días); solo muestra el marcador si el campo está vacío o es inválido
-                const days = parseInt(customDaysInput.value, 10);
+            // En tiempo real; acepta 0 y negativos (restar días)
+            function renderCustom() {
+                const raw = customDaysInput.value.trim();
+                const days = parseInt(raw, 10);
                 const futureDate = new Date(today);
                 futureDate.setDate(today.getDate() + days);
-                customDateResultEl.textContent = (isNaN(days) || isNaN(futureDate.getTime())) ? '--/--/----' : formatDateWD(futureDate);
-            });
+                const empty = raw === '' || isNaN(days) || isNaN(futureDate.getTime());
+                customBoxEl.classList.toggle('is-empty', empty);
+                if (empty) { customDateResultEl.textContent = 'Escribe los días'; customDateNoteEl.textContent = 'o usa − / +'; return; }
+                customDateResultEl.innerHTML = wdHTML(futureDate);
+                const n = Math.abs(days), pl = n === 1 ? '' : 's';
+                customDateNoteEl.textContent = days === 0 ? 'hoy' : (days > 0 ? `en ${n} día${pl}` : `hace ${n} día${pl}`);
+            }
+            customDaysInput.addEventListener('input', renderCustom);
+
+            // También se llama pasada la medianoche si la página queda abierta
+            function updateDaysList() {
+                today = new Date();
+                if (todayDateEl) todayDateEl.textContent = formatDateWD(today);
+                daysToCalculate.forEach(days => {
+                    const futureDate = new Date(today);
+                    futureDate.setDate(today.getDate() + days);
+                    const el = document.getElementById(`date-${days}`);
+                    if (el) el.innerHTML = wdHTML(futureDate);
+                });
+                renderCustom();
+            }
+            updateDaysList();
 
             const stepCustom = (delta) => {
                 customDaysInput.value = (parseInt(customDaysInput.value, 10) || 0) + delta;
@@ -557,6 +683,7 @@
 
             function updateHoursList() {
                 const n = new Date();
+                if (n.toDateString() !== today.toDateString()) updateDaysList();
                 if (nowTimeEl) nowTimeEl.textContent = formatTime(n);
                 hoursToCalculate.forEach(hr => {
                     const dt = new Date();
@@ -601,7 +728,8 @@
                         'Croissant': { cerrado: 7, prep: d(7), prod: d(7) }
                     },
                     "Cárnicos": {
-                        'Alitas / Chicken Poppers / Pollo Asado': { cerrado: 7, prep: d(7), prod: h(24) },
+                        'Alitas / Chicken Poppers': { cerrado: 7, prep: d(7), prod: h(24) },
+                        'Pollo Asado': { cerrado: 8, prep: d(8), prod: h(24) },
                         'Carne / Salchicha Italiana': { cerrado: 12, prep: d(7), prod: h(24) },
                         'Jamón PF': { cerrado: U, prep: d(3), prod: h(48) },
                         'Lomito Canadiense': { cerrado: 12, prep: d(7), prod: h(48) },
@@ -688,6 +816,7 @@
                 }
                 const ruleSummaryEl = document.getElementById('ra-rule-summary');
                 const notesEl = document.getElementById('ra-notes');
+                const emptyEl = document.getElementById('ra-empty');
                 const itemNameEl = document.getElementById('ra-item-name');
 
                 
@@ -709,6 +838,7 @@
                 // ====== MEMORIA DE PRODUCTOS USADOS (localStorage) ======
                 const STORAGE_KEY = 'ra_usage_counts';
                 const LAST_KEY = 'ra_last_product';
+                const TYPE_KEY = 'ra_last_type';
 
                 function getUsageCounts() {
                     try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
@@ -762,6 +892,7 @@
                 const chipsEl = document.getElementById('ra-type-chips');
                 const singleEl = document.getElementById('ra-single');
                 const listEl = document.getElementById('ra-list');
+                const listHeadEl = document.getElementById('ra-list-head');
                 
                 function factoryISO(rule) {
                     if (typeof rule.cerrado !== 'number') return '';
@@ -784,13 +915,14 @@
                     const fvClamp = fvISO ? new Date(fvISO + 'T23:59:00') : null;
                     const proc = (r, calc) => {
                         if (r === NA) return null;
+                        const hr = r !== U && r.unidad === 'horas'; // solo los procesos en horas llevan hora
                         let exp, capped = false;
                         if (r === U) { exp = fvClamp ? new Date(fvClamp) : null; }
                         else {
                             exp = calc(r);
                             if (fvClamp && exp > fvClamp && !noFvCapProducts.has(key)) { exp = new Date(fvClamp); capped = true; }
                         }
-                        return { date: toDDMMYY(start), time: toHHMM(start), need: !exp, expDate: exp ? toDDMMYY(exp) : '', expTime: exp ? toHHMM(exp) : '', capped };
+                        return { date: toDDMMYY(start), time: hr ? toHHMM(start) : '—', need: !exp, expDate: exp ? toDDMMYY(exp) : '', expTime: (exp && hr) ? toHHMM(exp) : '—', capped };
                     };
                     return {
                         fr: toDDMMYY(baseStart),
@@ -802,7 +934,7 @@
 
                 function rowHTML(label, p) {
                     const td = 'px-1 py-1.5 text-center font-bold';
-                    const head = `<td class="px-2 py-1.5 font-bold text-gray-700 bg-gray-50">${label}</td>`;
+                    const head = `<td class="ra-k ra-k-${label.toLowerCase()}">${label}</td>`;
                     if (!p) return `<tr class="border-t border-gray-200">${head}<td colspan="4" class="${td} text-gray-400">N/A</td></tr>`;
                     const cap = p.capped ? ' bg-red-100 text-red-700' : '';
                     const exp = p.need
@@ -823,9 +955,9 @@
                             <div class="font-extrabold text-gray-800 text-sm leading-tight">${key}</div>
                             <span class="ra-eye${showCalc ? ' on' : ''}">${showCalc ? EYE_OFF : EYE}</span>
                         </div>
-                        <div class="flex items-start justify-between gap-3 mb-2 text-xs text-gray-600">
-                            <span>fr: <b class="${tone}">${showCalc ? c.fr : SEG}</b></span>
-                            <span class="text-right">FV de la caja: <b class="${tone}">${showCalc ? c.factory : SEG}</b></span>
+                        <div class="ra-card-meta">
+                            <span><small>fr</small><b class="${tone}">${showCalc ? c.fr : SEG}</b></span>
+                            <span><small>FV de la caja</small><b class="${tone}">${showCalc ? c.factory : SEG}</b></span>
                         </div>
                         <table class="w-full text-xs border-collapse">
                             <thead><tr class="bg-emerald-50 text-[10px] uppercase text-gray-600"><th class="px-2 py-1 text-left">Proceso</th><th>Fecha</th><th>Hora</th><th>F.Ven</th><th>H.Ven</th></tr></thead>
@@ -835,12 +967,19 @@
                 }
 
                 function renderList() {
-                    listEl.innerHTML = Object.keys(productCategories[currentType]).map(k => cardHTML(k)).join('');
+                    const keys = Object.keys(productCategories[currentType]);
+                    listEl.innerHTML = keys.map(k => cardHTML(k)).join('');
+                    listHeadEl.innerHTML = `<b>${currentType}</b><span>${keys.length} producto${keys.length === 1 ? '' : 's'} · toca una tarjeta para ${showCalc ? 'ocultar' : 'ver'} fr/FV</span>`;
                 }
 
                 const calcHintEl = document.getElementById('ra-calc-hint');
+                const calcSwitchEl = document.getElementById('ra-calc-switch');
+                const fvEyeEl = document.getElementById('ra-fv-eye');
                 function updateCalcHint() {
-                    if (calcHintEl) calcHintEl.textContent = showCalc ? 'Toca para ocultar las fechas calculadas' : 'Toca para ver las fechas calculadas';
+                    if (calcHintEl) calcHintEl.textContent = showCalc ? 'Encendido: fr y FV calculados en todo' : 'Apagado: fr y FV dicen «Según caja»';
+                    calcSwitchEl.classList.toggle('is-on', showCalc);
+                    calcSwitchEl.setAttribute('aria-checked', String(showCalc));
+                    fvEyeEl.innerHTML = showCalc ? EYE_OFF : EYE;
                 }
                 function toggleCalc() {
                     showCalc = !showCalc;
@@ -853,6 +992,7 @@
                     if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('ra-card')) { e.preventDefault(); toggleCalc(); }
                 });
                 fvInputEl.addEventListener('click', toggleCalc);
+                calcSwitchEl.addEventListener('click', toggleCalc);
                 document.querySelector('#ra-single .ra-table tbody tr').addEventListener('click', toggleCalc);
                 updateCalcHint();
 
@@ -861,14 +1001,21 @@
                 const baseBtn = document.getElementById('ra-base-btn');
                 const baseLabel = document.getElementById('ra-base-label');
                 const baseReset = document.getElementById('ra-base-reset');
+                const baseYesterday = document.getElementById('ra-base-yesterday');
+                const dateBarEl = document.getElementById('ra-datebar');
                 const isoOf = dt => `${dt.getFullYear()}-${pad2(dt.getMonth()+1)}-${pad2(dt.getDate())}`;
                 baseInput.value = isoOf(new Date());
 
                 function updateBaseUI() {
                     if (!baseDay && document.activeElement !== baseInput) baseInput.value = isoOf(new Date()); // sigue "hoy" si la página queda abierta
-                    baseLabel.textContent = baseDay ? 'otro día' : 'hoy';
-                    baseBtn.classList.toggle('is-other', !!baseDay);
-                    baseReset.classList.toggle('hidden', !baseDay);
+                    const isAyer = baseDay === isoOf(addDays(new Date(), -1));
+                    baseReset.classList.toggle('is-active', !baseDay);
+                    baseYesterday.classList.toggle('is-active', isAyer);
+                    baseBtn.classList.toggle('is-other', !!baseDay && !isAyer);
+                    dateBarEl.classList.toggle('is-other', !!baseDay);
+                    [baseReset, baseYesterday].forEach(b => b.setAttribute('aria-pressed', String(b.classList.contains('is-active'))));
+                    // Aviso visible cuando no se rotula con la fecha de hoy
+                    baseLabel.textContent = baseDay ? `Rotulando con ${formatDateWD(getBase())}${isAyer ? ' (ayer)' : ''}, no con hoy` : '';
                 }
                 // Campo vacío o igual a hoy = hoy. No se reescribe el campo mientras la persona elige o escribe.
                 function applyBaseDay() {
@@ -881,13 +1028,32 @@
                 ['input', 'change'].forEach(ev => baseInput.addEventListener(ev, applyBaseDay));
                 baseInput.addEventListener('click', () => { try { if (baseInput.showPicker) baseInput.showPicker(); } catch (e) { /* el navegador abre el selector solo */ } });
                 baseReset.addEventListener('click', () => { baseInput.value = isoOf(new Date()); applyBaseDay(); });
+                baseYesterday.addEventListener('click', () => { baseInput.value = isoOf(addDays(new Date(), -1)); applyBaseDay(); });
                 updateBaseUI();
+
+                // ====== BOTÓN FLOTANTE "TIPOS" (listas largas) ======
+                const fabEl = document.getElementById('ra-fab');
+                const controlsEl = document.getElementById('ra-controls');
+                const rotuloViewEl = document.getElementById('view-rotulo-auto');
+                function updateFab() {
+                    const show = !!currentType && !rotuloViewEl.classList.contains('hidden') && controlsEl.getBoundingClientRect().bottom < 60;
+                    fabEl.classList.toggle('hidden', !show);
+                }
+                window.addEventListener('scroll', updateFab, { passive: true });
+                document.addEventListener('pj:view', updateFab);
+                fabEl.addEventListener('click', () => {
+                    const nav = document.querySelector('.sticky');
+                    const y = controlsEl.getBoundingClientRect().top + window.scrollY - (nav ? nav.offsetHeight : 0) - 8;
+                    window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+                });
 
                 function applyMode() {
                     const single = !currentType;
                     singleEl.classList.toggle('hidden', !single);
                     listEl.classList.toggle('hidden', single);
+                    listHeadEl.classList.toggle('hidden', single);
                     if (!single) renderList();
+                    updateFab();
                 }
 
                 function renderChips() {
@@ -901,6 +1067,7 @@
                             b.className = 'ra-chip';
                             b.addEventListener('click', () => {
                                 currentType = type;
+                                try { localStorage.setItem(TYPE_KEY, type); } catch (e) { /* sin memoria */ }
                                 renderChips();
                                 [singleEl, listEl].forEach(el => el.classList.add('ra-anim'));
                                 applyMode();
@@ -909,9 +1076,18 @@
                             chipsEl.appendChild(b);
                         });
                     }
-                    [...chipsEl.children].forEach(b => b.classList.toggle('is-active', b.dataset.type === currentType));
+                    [...chipsEl.children].forEach(b => {
+                        const on = b.dataset.type === currentType;
+                        b.classList.toggle('is-active', on);
+                        b.setAttribute('aria-pressed', String(on));
+                    });
                 }
                 renderChips();
+
+                // Recordar el último tipo usado en este dispositivo
+                let savedType = '';
+                try { savedType = localStorage.getItem(TYPE_KEY) || ''; } catch (e) { /* ignorar */ }
+                if (savedType && productCategories[savedType]) { currentType = savedType; renderChips(); applyMode(); }
 
                 let lastProduct = '';
                 try { lastProduct = localStorage.getItem(LAST_KEY) || ''; } catch (e) { /* ignorar */ }
@@ -920,13 +1096,14 @@
                 }
 
                 function updateRuleSummary(rule) {
-                    if (!rule) { ruleSummaryEl.textContent = ''; ruleSummaryEl.classList.add('hidden'); return; }
+                    if (!rule) { ruleSummaryEl.innerHTML = ''; ruleSummaryEl.classList.add('hidden'); return; }
 
-                    const cerradoText = rule.cerrado === 'uso_por_fecha' ? 'Uso por Fecha' : (rule.cerradoFrio ? `${rule.cerrado}d amb. / ${rule.cerradoFrio}d frío` : `${rule.cerrado}d`);
-                    const prepText = (rule.prep === 'no_aplica') ? 'N/A' : (rule.prep === 'uso_por_fecha' ? 'Uso por Fecha' : `${rule.prep.valor}d`);
-                    const prodText = (rule.prod === 'no_aplica') ? 'N/A' : (rule.prod === 'uso_por_fecha' ? 'Uso por Fecha' : (rule.prod.unidad === 'horas' ? `${rule.prod.valor}h` : `${rule.prod.valor}d`));
+                    const cerradoText = rule.cerrado === 'uso_por_fecha' ? 'Uso por fecha' : (rule.cerradoFrio ? `${rule.cerrado} d amb. / ${rule.cerradoFrio} d frío` : `${rule.cerrado} d`);
+                    const prepText = (rule.prep === 'no_aplica') ? 'No aplica' : (rule.prep === 'uso_por_fecha' ? 'Uso por fecha' : `${rule.prep.valor} d`);
+                    const prodText = (rule.prod === 'no_aplica') ? 'No aplica' : (rule.prod === 'uso_por_fecha' ? 'Uso por fecha' : (rule.prod.unidad === 'horas' ? `${rule.prod.valor} h` : `${rule.prod.valor} d`));
 
-                    ruleSummaryEl.textContent = `Fábrica: ${cerradoText} | Prep: ${prepText} | Prod: ${prodText}`;
+                    ruleSummaryEl.innerHTML = [['Caja', cerradoText], ['Prep', prepText], ['Prod', prodText]]
+                        .map(([k, v]) => `<span class="ra-rule"><b>${k}</b>${v}</span>`).join('');
                     ruleSummaryEl.classList.remove('hidden');
                 }
 
@@ -945,10 +1122,12 @@
                         [frDateEl, fvDateEl].forEach(el => el.classList.remove('ra-upf')); fvInputEl.classList.remove('fv-dual');
                         updateRuleSummary(null);
                         [prepExpDateEl, prodExpDateEl].forEach(el => el.classList.remove('ra-upf'));
+                        singleEl.classList.add('is-empty'); emptyEl.classList.remove('hidden');
                         return;
                     }
 
                     updateRuleSummary(rule);
+                    singleEl.classList.remove('is-empty'); emptyEl.classList.add('hidden');
                     [prepExpDateEl, prodExpDateEl].forEach(el => el.classList.remove('ra-upf'));
                     itemNameEl.textContent = key;
 
@@ -989,7 +1168,8 @@
                         prepExpDateEl.textContent = '—'; prepExpTimeEl.textContent = '—';
                     } else {
                         prepDateEl.textContent = nowStrDate;
-                        prepTimeEl.textContent = nowStrTime;
+                        const prepHr = rule.prep !== 'uso_por_fecha' && rule.prep.unidad === 'horas'; // solo los procesos en horas llevan hora
+                        prepTimeEl.textContent = prepHr ? nowStrTime : '—';
 
                         let prepExp;
                         if (rule.prep === 'uso_por_fecha') {
@@ -1000,7 +1180,7 @@
                         }
                         prepExpDateEl.textContent = prepExp ? toDDMMYY(prepExp) : 'Uso por fecha';
                         prepExpDateEl.classList.toggle('ra-upf', !prepExp);
-                        prepExpTimeEl.textContent = prepExp ? toHHMM(prepExp) : '—';
+                        prepExpTimeEl.textContent = (prepExp && prepHr) ? toHHMM(prepExp) : '—';
                     }
 
                     // 4) PROD
@@ -1009,7 +1189,8 @@
                         prodExpDateEl.textContent = '—'; prodExpTimeEl.textContent = '—';
                     } else {
                         prodDateEl.textContent = nowStrDate;
-                        prodTimeEl.textContent = nowStrTime;
+                        const prodHr = rule.prod !== 'uso_por_fecha' && rule.prod.unidad === 'horas';
+                        prodTimeEl.textContent = prodHr ? nowStrTime : '—';
 
                         let prodExp;
                         if (rule.prod === 'uso_por_fecha') {
@@ -1020,7 +1201,7 @@
                         }
                         prodExpDateEl.textContent = prodExp ? toDDMMYY(prodExp) : 'Uso por fecha';
                         prodExpDateEl.classList.toggle('ra-upf', !prodExp);
-                        prodExpTimeEl.textContent = prodExp ? toHHMM(prodExp) : '—';
+                        prodExpTimeEl.textContent = (prodExp && prodHr) ? toHHMM(prodExp) : '—';
                     }
 
                     // Resaltar celdas recortadas por FV
@@ -1052,7 +1233,7 @@
                     recompute();
                 });
                 
-                if (productEl.value) recompute();
+                recompute();
 
                 setInterval(() => {
                     updateBaseUI();
