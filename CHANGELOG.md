@@ -43,5 +43,5 @@ Rediseño de la interfaz ("UX v2"), pensado sobre todo para el uso en celular.
 
 Versión inicial publicada: rótulo automático, calculadora de descuentos y calculadora de fechas/horas.
 
-[2.0.0]: https://github.com/vkieferv/pj/compare/7293431...v2.0.0
+[2.0.0]: https://github.com/vkieferv/pj/compare/7293431...56d61c3
 [1.0.0]: https://github.com/vkieferv/pj/tree/7293431
